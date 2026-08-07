@@ -5,22 +5,19 @@ import {
   type Message,
   type TextBasedChannel,
 } from 'discord.js'
-import type {
-  ButtonDef,
-  ChatInput,
-  Press,
-  ShowOptions,
-  Table,
-} from '../games/define.ts'
+import type { ButtonDef, ShowOptions } from '../games/define.ts'
 import type { Session } from '../games/running.ts'
-import type { GameBrief, PlayerView, Scene } from '../scenes/scene.ts'
+import type { Surface } from '../games/surface.ts'
+import type { Scene } from '../scenes/scene.ts'
 import { editScene, sendScene } from './reply.ts'
 
 /**
- * تنفيذ `Table` فوق قناة ديسكورد.
+ * ديسكورد بوصفه **سطحًا** لا طاولة كاملة.
  *
- * هذا الملف هو **كل** ما يربط الألعاب بديسكورد. استبداله بملف مكافئ يجعل
- * الألعاب الثمانية والعشرين تعمل على أي سطح آخر — وهذا هو مسار تطبيق الجوال.
+ * كان هذا الملف ينفّذ `Table` بأكملها، فكانت اللعبة مربوطة بسطح واحد بحكم
+ * البناء. صار ينفّذ `Surface` وحده — العرض والهمس — وتتولّى `fanout` في
+ * `src/games/surface.ts` جمعه مع أسطح الجوال في طاولة واحدة. هذا هو التغيير
+ * الذي جعل اللعب عبر السطحين معًا ممكنًا، ولم يتغيّر شيء فيما يراه لاعب ديسكورد.
  */
 
 const STYLE: Record<NonNullable<ButtonDef['style']>, ButtonStyle> = {
@@ -49,15 +46,16 @@ function rows(buttons: ButtonDef[]): ActionRowBuilder<ButtonBuilder>[] {
   return out
 }
 
-export function makeTable(args: {
-  brief: GameBrief
-  players: PlayerView[]
-  host: PlayerView
+export type DiscordSurface = Surface & {
+  /** يزيل الأزرار من آخر مشهد بلا إعادة رندر — تُستعمل عند إغلاق اللوبي. */
+  clearButtons(): Promise<void>
+}
+
+export function makeDiscordSurface(args: {
   channel: TextBasedChannel
   session: Session
-}): Table {
-  const { brief, channel, session } = args
-  let players = [...args.players]
+}): DiscordSurface {
+  const { channel, session } = args
   let last: Message | null = null
 
   async function send(scene: Scene, opts: ShowOptions | undefined, edit: boolean): Promise<void> {
@@ -76,38 +74,18 @@ export function makeTable(args: {
     session.liveMessageId = message.id
   }
 
-  /** ينتظر أول قيمة تصل من مستمع، أو null عند انتهاء المهلة. */
-  function waitFor<T>(
-    ms: number,
-    pool: Set<{ test?: (v: T) => boolean; deliver: (v: T) => void }>,
-    test?: (v: T) => boolean,
-  ): Promise<T | null> {
-    return new Promise((resolve) => {
-      const listener = {
-        ...(test ? { test } : {}),
-        deliver: (value: T) => {
-          clearTimeout(timer)
-          pool.delete(listener)
-          resolve(value)
-        },
-      }
-      const timer = setTimeout(() => {
-        pool.delete(listener)
-        resolve(null)
-      }, ms)
-      pool.add(listener)
-    })
-  }
-
   return {
-    brief,
-    get players() {
-      return players
-    },
-    host: args.host,
+    id: `discord:${session.channelId}`,
 
-    show: (scene, opts) => send(scene, opts, false),
-    update: (scene, opts) => send(scene, opts, true),
+    /**
+     * القناة لا «تملك» لاعبًا بعينه: كل من في القناة يراها.
+     * لذلك `owns` دائمًا false، و`fallback` true — الهمس يصل لمن لا وصلة له
+     * عبر الخاص، وهو نفس سلوك اليوم بالضبط.
+     */
+    owns: () => false,
+    fallback: true,
+
+    present: (scene, opts, replace) => send(scene, opts, replace),
 
     async say(text) {
       if (channel.isSendable()) await channel.send(text).catch(() => {})
@@ -121,53 +99,19 @@ export function makeTable(args: {
       return dm !== null
     },
 
-    waitChat: (ms, test) => waitFor<ChatInput>(ms, session.chatListeners, test),
-    waitPress: (ms, test) => waitFor<Press>(ms, session.pressListeners, test),
+    /**
+     * الجيتواي لا يعرف الأسطح: رسائل القناة وضغطاتها تصل بالـ `channelId` عبر
+     * `deliverChat`/`deliverPress`، وهما يصبّان في مجمّع الجلسة نفسه الذي يقرأ
+     * منه `fanout`. فلا شيء يُربط هنا، والدمج يحدث تلقائيًا.
+     */
+    attach: () => {},
+    detach: () => {},
 
-    /** يجمع كل من أجاب خلال المدة — أول إجابة صحيحة لكل لاعب هي المعتمدة. */
-    collectChat(ms, test) {
-      return new Promise<ChatInput[]>((resolve) => {
-        const seen = new Map<string, ChatInput>()
-        const listener = {
-          test: (input: ChatInput) => (test ? test(input) : true),
-          deliver: (input: ChatInput) => {
-            if (!seen.has(input.userId)) seen.set(input.userId, input)
-          },
-        }
-        session.chatListeners.add(listener)
-        setTimeout(() => {
-          session.chatListeners.delete(listener)
-          resolve([...seen.values()])
-        }, ms)
-      })
-    },
+    /** لا حالة لكل لاعب في القناة، فإخراج لاعب لا يغيّر شيئًا في السطح. */
+    drop: () => {},
 
-    /** يجمع كل الضغطات خلال المدة، ضغطة واحدة لكل لاعب — للتصويت. */
-    collectPresses(ms, test) {
-      return new Promise<Press[]>((resolve) => {
-        const seen = new Map<string, Press>()
-        const listener = {
-          test: (p: Press) => (test ? test(p) : true),
-          deliver: (p: Press) => {
-            seen.set(p.userId, p) // آخر تصويت للاعب هو المعتمد
-          },
-        }
-        session.pressListeners.add(listener)
-        setTimeout(() => {
-          session.pressListeners.delete(listener)
-          resolve([...seen.values()])
-        }, ms)
-      })
-    },
-
-    sleep: (ms) => new Promise((r) => setTimeout(r, ms)),
-
-    drop(userId) {
-      players = players.filter((p) => p.id !== userId)
-    },
-
-    get aborted() {
-      return session.aborted
+    async clearButtons() {
+      if (last) await last.edit({ components: [] }).catch(() => {})
     },
   }
 }

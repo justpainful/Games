@@ -4,11 +4,32 @@ import { registerAllCommands } from './discord/registry.ts'
 import { abortAll } from './games/running.ts'
 import { startRenderer, stopRenderer } from './images/browser.ts'
 
+/**
+ * الـ API داخل عملية البوت — **شرط جسر ديسكورد**.
+ *
+ * سجلّ الجلسات في `games/running.ts` في الذاكرة، فلا يعبر حدود العمليات. حين
+ * يعمل الخادم هنا يرى لاعب الجوال لعبة القناة فورًا وينضم إليها. تشغيله
+ * منفصلًا بـ `npm run api` يبقى صالحًا لكل شيء عدا هذا الجسر.
+ *
+ * الاستيراد كسول عمدًا: `src/api/env.ts` يفشل بلا أسرار الـ API، ولا يجوز أن
+ * يمنع البوت من العمل عند من لا يشغّل التطبيق أصلًا.
+ */
+async function startApiIfAsked(): Promise<void> {
+  if (process.env['API_IN_PROCESS'] !== '1') return
+  try {
+    const { startApiServer } = await import('./api/server.ts')
+    await startApiServer()
+  } catch (err) {
+    console.error('تعذّر تشغيل الـ API داخل عملية البوت — البوت يكمل بدونه:', err)
+  }
+}
+
 async function main(): Promise<void> {
   // المتصفح يُشغّل قبل الاتصال: أول لعبة يجب ألا تنتظر إحماء الصفحات
   await startRenderer()
   console.log('محرك الصور جاهز')
 
+  await startApiIfAsked()
   await registerAllCommands()
   await connect()
 }

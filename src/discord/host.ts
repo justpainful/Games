@@ -1,32 +1,35 @@
-import {
-  ActionRowBuilder,
-  ButtonBuilder,
-  ButtonStyle,
-  type GuildMember,
-  type Message,
-  type TextBasedChannel,
-} from 'discord.js'
-import type { GameDef, Press } from '../games/define.ts'
+import type { GuildMember, TextBasedChannel } from 'discord.js'
+import type { ButtonDef, GameDef, Press } from '../games/define.ts'
 import { activeIn, close, open, type Session } from '../games/running.ts'
+import {
+  announce,
+  fanout,
+  makeJoinPoint,
+  type LobbyControl,
+  type MultiTable,
+  type Surface,
+} from '../games/surface.ts'
 import { isGameEnabled, type GuildConfig } from '../guilds/config.ts'
-import { awardMany, recordPlayed } from '../players/points.ts'
-import { prisma } from '../db/prisma.ts'
+import { openMatch, settleMatch } from '../players/settle.ts'
 import type { LobbyScene, PlayerView } from '../scenes/scene.ts'
 import { settings } from '../settings.ts'
 import { playerView } from './players.ts'
-import { editScene, sendScene } from './reply.ts'
-import { makeTable } from './table.ts'
+import { makeDiscordSurface, type DiscordSurface } from './table.ts'
 
 /**
  * يدير دورة حياة اللعبة كاملة: اللوبي، ثم اللعب، ثم النقاط.
- * كل الألعاب الثمانية والعشرين تمرّ من هنا، فالتعديل هنا يطال الجميع.
+ * كل الألعاب السبع والعشرين تمرّ من هنا، فالتعديل هنا يطال الجميع.
+ *
+ * الجديد: القناة صارت **سطحًا** بين أسطح لا الطاولة كلها. الجلسة تنشر
+ * `session.join` فيستطيع لاعب من التطبيق أن ينضم لنفس اللعبة — في اللوبي فيصير
+ * لاعبًا، أو أثناء اللعب فيرى المشاهد. ما يراه لاعب ديسكورد لم يتغيّر حرفًا.
  */
 
-const LOBBY_BUTTONS = [
-  { id: 'lobby:join', label: 'دخول', style: 'join' as const },
-  { id: 'lobby:leave', label: 'خروج', style: 'plain' as const },
-  { id: 'lobby:start', label: 'بدء اللعبة', style: 'start' as const },
-  { id: 'lobby:cancel', label: 'إلغاء', style: 'stop' as const },
+const LOBBY_BUTTONS: ButtonDef[] = [
+  { id: 'lobby:join', label: 'دخول', style: 'join' },
+  { id: 'lobby:leave', label: 'خروج', style: 'plain' },
+  { id: 'lobby:start', label: 'بدء اللعبة', style: 'start' },
+  { id: 'lobby:cancel', label: 'إلغاء', style: 'stop' },
 ]
 
 export async function startGame(args: {
@@ -53,6 +56,8 @@ export async function startGame(args: {
     }
     return
   }
+  // قناة لا نستطيع النشر فيها تعني لوبي أعمى ينتهي بالمهلة — نخرج مبكرًا
+  if (!channel.isSendable()) return
 
   let aborted = false
   const session: Session = {
@@ -70,42 +75,93 @@ export async function startGame(args: {
     chatListeners: new Set(),
     pressListeners: new Set(),
     liveMessageId: null,
+    join: null,
   }
   open(session)
 
+  const discord = makeDiscordSurface({ channel, session })
+  /** أسطح التطبيق المنضمة لهذه اللعبة */
+  const sockets = new Set<Surface>()
+  /**
+   * القائد يُسجَّل **قبل** نشر جسر الانضمام وبلا انتظار جلب أفتاره: لاعب جوال
+   * ينضم في تلك اللحظة كان سيصير أول من في الخريطة، أي قائد اللعبة.
+   * `Map` تحفظ ترتيب الإدراج، فتحديث بطاقته لاحقًا لا يزحزح موقعه.
+   */
+  const joined = new Map<string, PlayerView>([
+    [starter.id, { id: starter.id, name: starter.displayName, avatar: null }],
+  ])
+
+  let phase: 'lobby' | 'playing' = 'lobby'
+  let table: MultiTable | null = null
+  const control: LobbyControl = {
+    refresh: () => {},
+    start: () => false,
+    cancel: () => false,
+  }
+
+  /**
+   * جسر ديسكورد ← الجوال.
+   *
+   * `src/api/ws.ts` يجد هذه الجلسة بـ `guildId` + `channelId`، يتحقّق من عضوية
+   * اللاعب في السيرفر، ثم ينادي `admit` بسطح وصلته. لا يعرف هذا الملف شيئًا عن
+   * WebSocket، ولا يعرف ذاك الملف شيئًا عن ديسكورد.
+   *
+   * لا `hostLeaveCancels` ولا `emptyStops` هنا: اللوبي معروض في قناة ديسكورد،
+   * فانقطاع وصلة القائد لا يعني أن أحدًا لم يعد يشاهد.
+   */
+  session.join = makeJoinPoint({
+    origin: 'discord',
+    session,
+    hostId: starter.id,
+    limits: game.players,
+    joined,
+    sockets,
+    phase: () => phase,
+    table: () => table,
+    control,
+  })
+
   try {
-    const players = await runLobby(session, game, channel, starter)
-    if (!players) return
+    joined.set(starter.id, await playerView(starter))
 
+    const players = await runLobby({ session, game, starter, discord, joined, sockets, control })
+    if (!players) {
+      announce([...sockets], { type: 'cancelled', reason: 'أُلغي اللوبي' })
+      return
+    }
+
+    phase = 'playing'
     const host = players[0]!
-    const table = makeTable({ brief: brief(game), players, host, channel, session })
+    table = fanout([discord, ...sockets], { brief: brief(game), players, host, session })
+    announce(table.surfaces(), { type: 'started', players })
 
-    const match = await prisma.matchRecord
-      .create({ data: { guildId, gameKey: game.key, players: players.length } })
-      .catch(() => null)
-
+    const matchId = await openMatch(guildId, game.key, players.length)
     const result = await game.play(table)
 
-    if (result.scores) await awardMany(guildId, game.wallet, result.scores)
-    await recordPlayed(
+    // نفس محاسبة الغرف في `src/api/rooms.ts` حرفيًا — محفظة واحدة أيًّا كان السطح
+    await settleMatch({
       guildId,
-      players.map((p) => p.id),
-      result.winnerId,
-    )
-    if (match) {
-      await prisma.matchRecord
-        .update({
-          where: { id: match.id },
-          data: { endedAt: new Date(), winnerId: result.winnerId ?? null },
-        })
-        .catch(() => {})
-    }
+      wallet: game.wallet,
+      players: players.map((p) => p.id),
+      result,
+      matchId,
+    })
+
+    announce(table.surfaces(), {
+      type: 'ended',
+      winnerId: result.winnerId ?? null,
+      scores: Object.fromEntries(result.scores ?? new Map<string, number>()),
+    })
   } catch (err) {
     console.error(`اللعبة ${game.key} تعطّلت:`, err)
+    announce([...sockets], { type: 'cancelled', reason: 'صار خطأ وأُلغيت اللعبة' })
     if (channel.isSendable()) {
       await channel.send('صار خطأ وأُلغيت اللعبة. جرّبوا مرة ثانية.').catch(() => {})
     }
   } finally {
+    session.join = null
+    for (const surface of [...sockets]) surface.detach()
+    sockets.clear()
     close(channelId)
   }
 }
@@ -117,15 +173,20 @@ function brief(game: GameDef) {
 /**
  * اللوبي: ينضم اللاعبون بالأزرار، والقائد يبدأ.
  * يُعاد رندر الصورة عند كل تغيّر حقيقي فقط — لا على المؤقت.
+ *
+ * المشهد يُبثّ الآن لقناة ديسكورد **ولكل سطح جوال منضم**، فيرى الجميع نفس
+ * قائمة اللاعبين بينما تتغيّر.
  */
-async function runLobby(
-  session: Session,
-  game: GameDef,
-  channel: TextBasedChannel,
-  starter: GuildMember,
-): Promise<PlayerView[] | null> {
-  const joined = new Map<string, PlayerView>()
-  joined.set(starter.id, await playerView(starter))
+async function runLobby(args: {
+  session: Session
+  game: GameDef
+  starter: GuildMember
+  discord: DiscordSurface
+  joined: Map<string, PlayerView>
+  sockets: Set<Surface>
+  control: LobbyControl
+}): Promise<PlayerView[] | null> {
+  const { session, game, starter, discord, joined, sockets, control } = args
 
   const scene = (): LobbyScene => ({
     kind: 'lobby',
@@ -140,13 +201,30 @@ async function runLobby(
   const text = () =>
     `**${game.name}** — اضغط دخول للانضمام. يبدأ التسجيل حتى <t:${Math.floor(deadline / 1000)}:R>`
 
-  let message: Message | null = await sendScene(channel, scene(), text())
-  if (!message) return null
-  await message.edit({ components: buttonRows() }).catch(() => {})
-  session.liveMessageId = message.id
+  let closed = false
+  let first = true
+  // الرندرات تُسلسل: ضغطتان متتاليتان لا تتسابقان على تحرير نفس الرسالة
+  let queue: Promise<void> = Promise.resolve()
+
+  function render(): Promise<void> {
+    queue = queue.then(async () => {
+      if (closed) return
+      const replace = !first
+      first = false
+      const opts = { text: text(), buttons: LOBBY_BUTTONS }
+      await Promise.all(
+        [discord, ...sockets].map((surface) =>
+          surface.present(scene(), opts, replace).catch(() => {}),
+        ),
+      )
+    })
+    return queue
+  }
+
+  await render()
 
   const outcome = await new Promise<'start' | 'cancel' | 'timeout'>((resolve) => {
-    const timer = setTimeout(() => finishWith('timeout'), deadline - Date.now())
+    const timer = setTimeout(() => finishWith('timeout'), Math.max(0, deadline - Date.now()))
 
     const listener = {
       deliver: (press: Press) => {
@@ -161,6 +239,18 @@ async function runLobby(
       resolve(value)
     }
 
+    control.refresh = () => void render()
+    control.start = (userId) => {
+      if (userId !== starter.id || joined.size < game.players.min) return false
+      finishWith('start')
+      return true
+    }
+    control.cancel = (userId) => {
+      if (userId !== starter.id) return false
+      finishWith('cancel')
+      return true
+    }
+
     async function handle(press: Press): Promise<void> {
       const isHost = press.userId === starter.id
       let changed = false
@@ -168,9 +258,9 @@ async function runLobby(
       switch (press.id) {
         case 'lobby:join':
           if (!joined.has(press.userId) && joined.size < game.players.max) {
-            const member = await channel.client.users.fetch(press.userId).catch(() => null)
+            const member = await discordUser(press.userId)
             if (member) {
-              joined.set(press.userId, await playerView(member))
+              joined.set(press.userId, member)
               changed = true
             }
           }
@@ -180,53 +270,37 @@ async function runLobby(
           if (!isHost && joined.delete(press.userId)) changed = true
           break
         case 'lobby:start':
-          if (isHost && joined.size >= game.players.min) return finishWith('start')
+          if (control.start(press.userId)) return
           break
         case 'lobby:cancel':
-          if (isHost) return finishWith('cancel')
+          if (control.cancel(press.userId)) return
           break
       }
 
-      if (changed && message) {
-        const updated = await editScene(message, scene(), text())
-        if (updated) {
-          message = updated
-          await message.edit({ components: buttonRows() }).catch(() => {})
-          session.liveMessageId = message.id
-        }
-      }
+      if (changed) await render()
     }
   })
 
-  await message.edit({ components: [] }).catch(() => {})
+  closed = true
+  await queue.catch(() => {})
+  control.refresh = () => {}
+  control.start = () => false
+  control.cancel = () => false
+  await discord.clearButtons()
 
   if (outcome === 'cancel') {
-    if (channel.isSendable()) await channel.send('أُلغيت اللعبة.')
+    await discord.say('أُلغيت اللعبة.')
     return null
   }
   if (joined.size < game.players.min) {
-    if (channel.isSendable()) {
-      await channel.send(`ما اكتمل العدد — تحتاج ${game.players.min} لاعبين على الأقل.`)
-    }
+    await discord.say(`ما اكتمل العدد — تحتاج ${game.players.min} لاعبين على الأقل.`)
     return null
   }
 
   return [...joined.values()]
-}
 
-const LOBBY_STYLES = {
-  join: ButtonStyle.Primary,
-  plain: ButtonStyle.Secondary,
-  start: ButtonStyle.Success,
-  stop: ButtonStyle.Danger,
-} as const
-
-function buttonRows(): ActionRowBuilder<ButtonBuilder>[] {
-  const row = new ActionRowBuilder<ButtonBuilder>()
-  for (const b of LOBBY_BUTTONS) {
-    row.addComponents(
-      new ButtonBuilder().setCustomId(b.id).setLabel(b.label).setStyle(LOBBY_STYLES[b.style]),
-    )
+  async function discordUser(userId: string): Promise<PlayerView | null> {
+    const user = await starter.client.users.fetch(userId).catch(() => null)
+    return user ? await playerView(user) : null
   }
-  return [row]
 }

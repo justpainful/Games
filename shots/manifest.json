@@ -1,0 +1,59 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "2A6DC5A9-CE8C-4BC5-959D-F98D5F4BD9AA",
+        "deviceName" : "iPhone 17 Pro",
+        "exportedFileName" : "E32397BA-5F50-4342-B106-2032E9D07A95.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "04-حسابي_0_D8008136-2BD1-4FCA-8B3C-CE65F6261AEE.png",
+        "timestamp" : 1786118768.453
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "2A6DC5A9-CE8C-4BC5-959D-F98D5F4BD9AA",
+        "deviceName" : "iPhone 17 Pro",
+        "exportedFileName" : "DB5BD1C5-748D-4880-81FC-BFB7169995B8.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "03-الصدارة_0_29FDB264-13EB-4713-9271-B010DC742538.png",
+        "timestamp" : 1786118763.358
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "2A6DC5A9-CE8C-4BC5-959D-F98D5F4BD9AA",
+        "deviceName" : "iPhone 17 Pro",
+        "exportedFileName" : "3696CC02-BA89-4B34-A01D-8FBCDF2B5A7B.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "02-منفرد_0_27F886D2-F705-4C09-A9E9-541FFC9EDBE5.png",
+        "timestamp" : 1786118757.935
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "2A6DC5A9-CE8C-4BC5-959D-F98D5F4BD9AA",
+        "deviceName" : "iPhone 17 Pro",
+        "exportedFileName" : "2F3F32D7-A4F0-4B78-8B10-217123F14F81.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "01-catalog_0_5FBC42B6-8FF0-4312-950E-D53E6E9388C9.png",
+        "timestamp" : 1786118748.453
+      }
+    ],
+    "testIdentifier" : "ScreenshotTests/testCaptureAllTabs()",
+    "testIdentifierURL" : "test://com.apple.xcode/Games/GamesUITests/ScreenshotTests/testCaptureAllTabs"
+  },
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "2A6DC5A9-CE8C-4BC5-959D-F98D5F4BD9AA",
+        "deviceName" : "iPhone 17 Pro",
+        "exportedFileName" : "57733198-0506-48B6-B0B4-81DF1F075D9C.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "clip-check_0_8C084ECE-94DA-4775-9469-2449AEE6F19F.png",
+        "timestamp" : 1786118796.626
+      }
+    ],
+    "testIdentifier" : "ScreenshotTests/testContentIsNotClipped()",
+    "testIdentifierURL" : "test://com.apple.xcode/Games/GamesUITests/ScreenshotTests/testContentIsNotClipped"
+  }
+]

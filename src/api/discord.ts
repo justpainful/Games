@@ -228,6 +228,14 @@ export function memberProfile(guildId: string, userId: string): Promise<Profile 
   })
 }
 
+/**
+ * يزرع بطاقة عضو في الكاش بدل جلبها.
+ * يستعمله `scripts/ws-play.ts` ليعرض أسماء حقيقية بلا توكن بوت ولا شبكة.
+ */
+export function rememberProfile(guildId: string, userId: string, profile: Profile): void {
+  memberCache.set(`${guildId}:${userId}`, profile)
+}
+
 /** هل هذا المستخدم عضو في السيرفر؟ يُستعمل حين لا يوجد رمز OAuth محفوظ. */
 export async function isMember(guildId: string, userId: string): Promise<boolean> {
   return (await memberProfile(guildId, userId)) !== null

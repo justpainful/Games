@@ -14,6 +14,7 @@
     "check:words": "tsx scripts/check-words.ts",
     "smoke": "tsx scripts/smoke.ts",
     "dryrun": "tsx scripts/dryrun.ts",
+    "ws:play": "tsx scripts/ws-play.ts",
     "publish:commands": "tsx scripts/publish-commands.ts",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
@@ -22,7 +23,8 @@
     "db:studio": "prisma studio",
     "setup": "playwright install chromium",
     "gen:swift": "tsx scripts/gen-swift-tokens.ts",
-    "gen:navicons": "tsx scripts/gen-nav-icons.ts"
+    "gen:navicons": "tsx scripts/gen-nav-icons.ts",
+    "dash:check": "tsx scripts/dash-check.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.2.1",

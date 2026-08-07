@@ -1,14 +1,18 @@
-import type { ButtonDef, ChatInput, Press, ShowOptions, Table } from '../games/define.ts'
-import type { Session } from '../games/running.ts'
-import type { GameBrief, PlayerView, Scene } from '../scenes/scene.ts'
+import type { ButtonDef, ShowOptions } from '../games/define.ts'
+import type { InputHub, LifecycleEvent, Surface } from '../games/surface.ts'
+import type { PlayerView, Scene } from '../scenes/scene.ts'
+import type { RoomBrief } from './rooms.ts'
 
 /**
- * تنفيذ `Table` فوق وصلة WebSocket.
+ * وصلة WebSocket بوصفها **سطحًا** — لاعب واحد، وليست طاولة كاملة.
  *
- * التوأم الثاني لـ `src/discord/table.ts`، وهو الدليل العملي على أن الفصل
- * المفروض بـ ESLint لم يكن ترفًا: الألعاب الثمانٍ والعشرون تعمل هنا بلا تعديل
- * حرف واحد فيها. الفارق كله أن ديسكورد يحوّل المشهد إلى PNG، وهنا يُرسل المشهد
- * كما هو ويرسمه التطبيق مكوّنات أصلية — وهذا هو بيت القصيد من `Scene`.
+ * كان هذا الملف ينفّذ `Table` بأكملها، ولذلك كانت وصلة واحدة = لعبة واحدة =
+ * لاعب واحد، ولم يعمل إلا اللعب المنفرد. صار ينفّذ `Surface` وحده، وتجمعه
+ * `fanout` مع وصلات أخرى ومع قناة ديسكورد في طاولة واحدة. هذا كل الفرق بين
+ * «لعبة سوليتير» و«لعب جماعي عبر السطحين».
+ *
+ * ما يميّز هذا السطح عن سطح ديسكورد: يملك لاعبه (`owns`)، فالهمس يصل إليه
+ * وحده؛ ولا يرسم صورة بل يرسل `Scene` كما هي ويرسمها التطبيق مكوّنات أصلية.
  */
 
 export type Outgoing =
@@ -24,134 +28,125 @@ export type Outgoing =
     }
   | { type: 'say'; text: string }
   | { type: 'whisper'; text: string }
+  /** قائمة الغرف التي يمكن الانضمام إليها في سيرفر */
+  | { type: 'rooms'; guildId: string; rooms: RoomBrief[] }
+  /** نجح الانضمام أو الإنشاء — التطبيق يفتح شاشة اللوبي */
+  | { type: 'joined'; room: RoomBrief }
+  | { type: 'left'; roomId: string }
   | { type: 'started'; gameId: string; guildId: string; players: PlayerView[] }
   | { type: 'ended'; result: { winnerId: string | null; scores: Record<string, number> } }
+  | { type: 'cancelled'; reason: string }
   | { type: 'error'; message: string }
   | { type: 'pong' }
 
 export type Send = (message: Outgoing) => boolean
 
-export function makeWsTable(args: {
-  brief: GameBrief
-  players: PlayerView[]
-  host: PlayerView
-  session: Session
+export type SocketSurface = Surface & {
+  readonly player: PlayerView
+  /** رسالة شات من هذه الوصلة — تُنسب لصاحبها لا لما يدّعيه العميل */
+  receiveChat(text: string): void
+  /**
+   * ضغطة زر. تُرفض إن كانت على مشهد سابق: `sceneId` يقابل معرّف الرسالة في
+   * ديسكورد، وكلٌّ يقيس على مشهده هو لأن السطحين لا يتشاركان ترقيمًا.
+   */
+  receivePress(id: string, sceneId?: string | null): boolean
+  /** يرسل رسالة خدمية للعميل مباشرة (خارج مجرى اللعبة) */
+  emit(message: Outgoing): boolean
+}
+
+export function makeSocketSurface(args: {
+  player: PlayerView
   send: Send
-}): Table {
-  const { brief, session, send } = args
-  let players = [...args.players]
+  /** اللعبة والسيرفر يُعرفان بعد الانضمام — تُستعمل في `started` */
+  context?: () => { gameId: string; guildId: string }
+}): SocketSurface {
+  const { player, send } = args
+  let hub: InputHub | null = null
   let scenes = 0
-
-  function emit(scene: Scene, opts: ShowOptions | undefined, replace: boolean): Promise<void> {
-    scenes += 1
-    const sceneId = String(scenes)
-    // نثبّت المشهد الحيّ قبل الإرسال: ضغطة تصل على مشهد سابق تُرفض في deliverPress
-    session.liveMessageId = sceneId
-
-    send({
-      type: 'scene',
-      scene,
-      ...(opts?.text ? { text: opts.text } : {}),
-      ...(opts?.buttons ? { buttons: opts.buttons } : {}),
-      replace,
-      sceneId,
-    })
-    return Promise.resolve()
-  }
-
-  /** ينتظر أول قيمة تصل من مستمع، أو null عند انتهاء المهلة. */
-  function waitFor<T>(
-    ms: number,
-    pool: Set<{ test?: (value: T) => boolean; deliver: (value: T) => void }>,
-    test?: (value: T) => boolean,
-  ): Promise<T | null> {
-    return new Promise((resolve) => {
-      const listener = {
-        ...(test ? { test } : {}),
-        deliver: (value: T) => {
-          clearTimeout(timer)
-          pool.delete(listener)
-          resolve(value)
-        },
-      }
-      const timer = setTimeout(() => {
-        pool.delete(listener)
-        resolve(null)
-      }, ms)
-      pool.add(listener)
-    })
-  }
+  let liveSceneId: string | null = null
 
   return {
-    brief,
-    get players() {
-      return players
-    },
-    host: args.host,
+    id: `socket:${player.id}`,
+    player,
 
-    show: (scene, opts) => emit(scene, opts, false),
-    update: (scene, opts) => emit(scene, opts, true),
+    /** الوصلة قناة خاصة بصاحبها — الهمس له وحده يصل هنا. */
+    owns: (userId) => userId === player.id,
+    fallback: false,
+
+    present(scene: Scene, opts: ShowOptions | undefined, replace: boolean): Promise<void> {
+      // سطح التحق متأخرًا يستقبل `update` كأول رسالة له ولا مشهد سابق ليستبدله؛
+      // نحوّلها إلى `show` بدل أن يعرض التطبيق شاشة فارغة
+      const isFirst = scenes === 0
+      scenes += 1
+      const sceneId = String(scenes)
+      liveSceneId = sceneId
+      send({
+        type: 'scene',
+        scene,
+        ...(opts?.text ? { text: opts.text } : {}),
+        ...(opts?.buttons ? { buttons: opts.buttons } : {}),
+        replace: replace && !isFirst,
+        sceneId,
+      })
+      return Promise.resolve()
+    },
 
     say(text) {
       send({ type: 'say', text })
       return Promise.resolve()
     },
 
-    /**
-     * الوصلة واحدة لكل لاعب، فالهمس لغير صاحبها لا مكان له اليوم.
-     * إعادة `false` هي نفس ما يحدث في ديسكورد حين يقفل اللاعب الخاص، والألعاب
-     * تتعامل معها أصلًا (مافيا تعلن الدور علنًا حين يفشل الهمس).
-     */
     whisper(userId, text) {
-      if (userId !== args.host.id) return Promise.resolve(false)
+      if (userId !== player.id) return Promise.resolve(false)
       return Promise.resolve(send({ type: 'whisper', text }))
     },
 
-    waitChat: (ms, test) => waitFor<ChatInput>(ms, session.chatListeners, test),
-    waitPress: (ms, test) => waitFor<Press>(ms, session.pressListeners, test),
-
-    collectChat(ms, test) {
-      return new Promise<ChatInput[]>((resolve) => {
-        const seen = new Map<string, ChatInput>()
-        const listener = {
-          test: (input: ChatInput) => (test ? test(input) : true),
-          deliver: (input: ChatInput) => {
-            if (!seen.has(input.userId)) seen.set(input.userId, input)
-          },
-        }
-        session.chatListeners.add(listener)
-        setTimeout(() => {
-          session.chatListeners.delete(listener)
-          resolve([...seen.values()])
-        }, ms)
-      })
+    attach(next) {
+      hub = next
+    },
+    detach() {
+      hub = null
     },
 
-    collectPresses(ms, test) {
-      return new Promise<Press[]>((resolve) => {
-        const seen = new Map<string, Press>()
-        const listener = {
-          test: (press: Press) => (test ? test(press) : true),
-          deliver: (press: Press) => {
-            seen.set(press.userId, press)
-          },
-        }
-        session.pressListeners.add(listener)
-        setTimeout(() => {
-          session.pressListeners.delete(listener)
-          resolve([...seen.values()])
-        }, ms)
-      })
-    },
-
-    sleep: (ms) => new Promise((done) => setTimeout(done, ms)),
-
+    /** خروج اللاعب من الجدول — الوصلة تبقى مفتوحة وتشاهد ما تبقّى. */
     drop(userId) {
-      players = players.filter((player) => player.id !== userId)
+      if (userId !== player.id) return
+      liveSceneId = null
     },
 
-    get aborted() {
-      return session.aborted
+    lifecycle(event: LifecycleEvent) {
+      switch (event.type) {
+        case 'started': {
+          const where = args.context?.()
+          send({
+            type: 'started',
+            gameId: where?.gameId ?? '',
+            guildId: where?.guildId ?? '',
+            players: event.players,
+          })
+          return
+        }
+        case 'ended':
+          send({ type: 'ended', result: { winnerId: event.winnerId, scores: event.scores } })
+          return
+        case 'cancelled':
+          send({ type: 'cancelled', reason: event.reason })
+          return
+      }
     },
+
+    receiveChat(text) {
+      hub?.chat({ userId: player.id, text })
+    },
+
+    receivePress(id, sceneId) {
+      if (!hub) return false
+      // ضغطة على مشهد انتهى تُتجاهل، وإلا صوّت اللاعب في جولة مضت
+      if (sceneId && liveSceneId && sceneId !== liveSceneId) return false
+      hub.press({ userId: player.id, id })
+      return true
+    },
+
+    emit: (message) => send(message),
   }
 }

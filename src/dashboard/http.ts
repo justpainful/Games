@@ -95,6 +95,7 @@ export type DashRoute =
   | { kind: 'style' }
   | { kind: 'font'; name: string }
   | { kind: 'guild'; guildId: string; page: string }
+  | { kind: 'invite'; guildId: string }
   | { kind: 'unknown' }
 
 export function routeOf(pathname: string): DashRoute {
@@ -106,6 +107,9 @@ export function routeOf(pathname: string): DashRoute {
 
   const font = /^\/dash\/font\/([a-z0-9-]+)\.ttf$/.exec(pathname)
   if (font?.[1]) return { kind: 'font', name: font[1] }
+
+  const invite = /^\/dash\/invite\/(\d{5,25})\/?$/.exec(pathname)
+  if (invite?.[1]) return { kind: 'invite', guildId: invite[1] }
 
   // معرّفات ديسكورد أرقام فقط — الحصر هنا يمنع مسارات ملفّقة من الوصول للمعالج
   const guild = /^\/dash\/g\/(\d{5,25})\/([a-z]+)\/?$/.exec(pathname)

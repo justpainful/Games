@@ -1,10 +1,9 @@
-import { loadGames } from '../games/all.ts'
-import type { GameDef } from '../games/define.ts'
 import { leaderboard, pointsOf, type Wallet } from '../players/points.ts'
 import { accountOf, assertMember, visibleGuilds } from './access.ts'
 import { memberProfile } from './discord.ts'
 import { HttpError, json, requireUser, safeQuery, type Ctx, type Router } from './http.ts'
-import { isSoloable } from './solo.ts'
+import { catalog, listRooms } from './rooms.ts'
+import { isSoloable, modeOf } from './solo.ts'
 
 /**
  * مسارات القراءة.
@@ -21,13 +20,11 @@ const WALLETS: readonly (Wallet | 'total')[] = ['solo', 'team', 'roulette', 'tot
 const MAX_ROWS = 100
 const DEFAULT_ROWS = 25
 
-/** الكتالوج يُقرأ من القرص مرة واحدة — `loadGames` تفتح ثمانية وعشرين ملفًا. */
-let catalog: Promise<GameDef[]> | null = null
-
-export function games(): Promise<GameDef[]> {
-  catalog ??= loadGames()
-  return catalog
-}
+/*
+ * الكتالوج مخزَّن في `./rooms.ts` — قارئ واحد للقرص يخدم المسارات والوصلة معًا.
+ * كان هنا، فكان كل من يحتاج قائمة الألعاب يستورد ملف المسارات ومعه `access.ts`
+ * وأسرار الـ API. نقله فكّ هذا الشدّ.
+ */
 
 async function me(ctx: Ctx): Promise<void> {
   const userId = requireUser(ctx)
@@ -89,7 +86,7 @@ async function leaders(ctx: Ctx): Promise<void> {
 
 async function catalogRoute(ctx: Ctx): Promise<void> {
   requireUser(ctx)
-  const all = await games()
+  const all = await catalog()
   json(
     ctx.res,
     200,
@@ -102,10 +99,25 @@ async function catalogRoute(ctx: Ctx): Promise<void> {
       minPlayers: game.players.min,
       maxPlayers: game.players.max,
       wallet: game.wallet,
-      /** ما يمكن بدؤه من التطبيق وحده اليوم — بقيّتها تنتظر اللوبي الجماعي */
+      /** أي شاشة لعب يفتحها التطبيق — كان محسوبًا في Swift فصار يأتي من هنا */
+      mode: modeOf(game.key),
+      /** ما يستطيع لاعب واحد بدءه فورًا؛ البقية تنتظر اكتمال لوبي الغرفة */
       soloable: isSoloable(game.key),
     })),
   )
+}
+
+/**
+ * الغرف النشطة في سيرفر: لوبيات وألعاب جارية — بما فيها ما بدأ في قناة ديسكورد.
+ * هي واجهة الجسر: التطبيق يقرأ منها معرّف الغرفة ثم ينضم عبر الوصلة.
+ */
+async function roomsRoute(ctx: Ctx): Promise<void> {
+  const userId = requireUser(ctx)
+  const guildId = safeQuery(ctx.url, 'guildId', 25)
+  if (!guildId) throw new HttpError(400, 'guildId مطلوب')
+
+  await assertMember(userId, guildId)
+  json(ctx.res, 200, listRooms(guildId))
 }
 
 export function mount(router: Router): void {
@@ -113,4 +125,5 @@ export function mount(router: Router): void {
   router.get('/points/:guildId', points)
   router.get('/leaders/:guildId', leaders)
   router.get('/games', catalogRoute)
+  router.get('/rooms', roomsRoute)
 }

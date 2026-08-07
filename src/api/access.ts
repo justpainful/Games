@@ -60,6 +60,18 @@ export function forgetUser(userId: string): void {
   tokens.delete(userId)
 }
 
+/**
+ * يزرع قائمة سيرفرات المستخدم في الكاش.
+ *
+ * نظير `rememberAccount`: يوفّر رحلة لديسكورد حين نعرف الجواب أصلًا. يستعمله
+ * `scripts/ws-play.ts` ليشغّل الخادم بلا شبكة ولا قاعدة بيانات. ليس بابًا
+ * خلفيًا: لا يفتحه متغيّر بيئة ولا طلب HTTP — من يستطيع نداءه يستطيع تعديل
+ * `assertMember` نفسها لأنه داخل العملية.
+ */
+export function rememberGuilds(userId: string, guilds: GuildDTO[]): void {
+  guildsCache.set(userId, guilds)
+}
+
 async function accessTokenFor(userId: string): Promise<string | null> {
   const held = tokens.get(userId)
   if (!held) return null
