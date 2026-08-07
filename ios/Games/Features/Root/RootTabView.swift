@@ -6,9 +6,9 @@ import SwiftUI
 /// تدفع النصوص العربية إلى القصّ في الشريط، وكل قسم إضافي يقلّل احتمال وصول
 /// اللاعب للقسم الذي جاء من أجله.
 struct RootTabView: View {
-    @Environment(AppState.self) private var app
-
     var body: some View {
+        // صيغة `Tab` الحديثة: متاحة لأن الحد الأدنى iOS 26، وهي ما يكسوه
+        // النظام زجاجًا تلقائيًا في شريط التنقّل.
         TabView {
             Tab("الألعاب", systemImage: "gamecontroller.fill") {
                 CatalogView()

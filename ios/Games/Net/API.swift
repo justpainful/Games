@@ -54,7 +54,17 @@ public actor API {
     private func send<T: Decodable, B: Encodable>(
         _ path: String, method: String, body: B?
     ) async throws -> T {
-        var request = URLRequest(url: Backend.baseURL.appendingPathComponent(path))
+        // `appendingPathComponent` يرمّز `?` إلى `%3F`، فيصل المسار
+        // `/leaders/1?wallet=solo` إلى الخادم كمسار واحد بلا استعلام والفلترة
+        // تُتجاهل بصمت. البناء النصّي ثم `URL(string:)` يحفظ الاستعلام.
+        let base = Backend.baseURL.absoluteString.hasSuffix("/")
+            ? String(Backend.baseURL.absoluteString.dropLast())
+            : Backend.baseURL.absoluteString
+        let full = path.hasPrefix("/") ? base + path : base + "/" + path
+        guard let url = URL(string: full) else {
+            throw Failure.decoding("مسار غير صالح: \(path)")
+        }
+        var request = URLRequest(url: url)
         request.httpMethod = method
         request.timeoutInterval = 20
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

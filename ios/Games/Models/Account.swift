@@ -59,7 +59,27 @@ public struct LeaderRow: Codable, Hashable, Identifiable, Sendable {
     public let displayName: String
     public let avatarHash: String?
     public let points: Int
-    public var rank: Int = 0
+    public var rank: Int
+
+    /// `Decodable` المولّد **لا يستعمل** القيمة الافتراضية للحقل الغائب، فحقل
+    /// `rank = 0` كان سيجعل غيابه من رد الخادم يرمي خطأ فكّ ويُظهر شاشة خطأ
+    /// بدل اللوحة. الفك هنا يدويّ ليصير `rank` اختياريًا فعلًا.
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        id = try c.decode(String.self, forKey: .id)
+        displayName = try c.decode(String.self, forKey: .displayName)
+        avatarHash = try c.decodeIfPresent(String.self, forKey: .avatarHash)
+        points = try c.decodeIfPresent(Int.self, forKey: .points) ?? 0
+        rank = try c.decodeIfPresent(Int.self, forKey: .rank) ?? 0
+    }
+
+    public init(id: String, displayName: String, avatarHash: String?, points: Int, rank: Int = 0) {
+        self.id = id
+        self.displayName = displayName
+        self.avatarHash = avatarHash
+        self.points = points
+        self.rank = rank
+    }
 
     public func avatarURL(size: Int = 128) -> URL? {
         Account(id: id, username: displayName, displayName: displayName, avatarHash: avatarHash)

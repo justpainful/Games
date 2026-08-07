@@ -6,8 +6,10 @@ name: Games
 
 options:
   bundleIdPrefix: com.justpainful
+  # iOS 26 حد أدنى: المشروع يعتمد Liquid Glass الأصلي بلا أي بديل، وخفض هذا
+  # الرقم يعيد الحاجة إلى مواد قديمة ممنوعة في هذا المشروع.
   deploymentTarget:
-    iOS: "17.0"
+    iOS: "26.0"
   createIntermediateGroups: true
 
 targets:

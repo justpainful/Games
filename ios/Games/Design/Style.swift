@@ -128,36 +128,26 @@ public struct Pill: View {
 // الزجاج يخدم **طبقة النظام** وحدها: شريط التنقّل، العناصر الطافية، والطبقات
 // المؤقتة فوق المحتوى. المحتوى نفسه يبقى قصاصات ورقية.
 
+// لا بدائل ولا `#available`: الحد الأدنى للمشروع iOS 26، فـ `glassEffect` متاح
+// دائمًا. المواد الضبابية القديمة (عائلة Material كلها) **ممنوعة منعًا باتًا** —
+// هي تقريب قديم للزجاج، ووجود أيّ منها يعني سطحين بمظهرين مختلفين في التطبيق
+// نفسه. الـ CI يفشل البناء إن ظهرت أيّ منها في أي ملف.
+
 public extension View {
-    /// سطح زجاجي تفاعلي مع بديل لما قبل iOS 26.
+    /// سطح زجاجي — للكروم والعناصر الطافية.
     @ViewBuilder
     func glassSurface(cornerRadius: CGFloat = 20, interactive: Bool = false) -> some View {
-        if #available(iOS 26, *) {
-            if interactive {
-                glassEffect(.regular.interactive(), in: .rect(cornerRadius: cornerRadius))
-            } else {
-                glassEffect(.regular, in: .rect(cornerRadius: cornerRadius))
-            }
+        if interactive {
+            glassEffect(.regular.interactive(), in: .rect(cornerRadius: cornerRadius))
         } else {
-            background(
-                .ultraThinMaterial,
-                in: RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-            )
+            glassEffect(.regular, in: .rect(cornerRadius: cornerRadius))
         }
     }
 
-    /// سطح زجاجي مصبوغ بلون الهوية — للعناصر الطافية التي يجب أن تُرى فوق أي خلفية.
-    @ViewBuilder
+    /// سطح زجاجي مصبوغ بلون الهوية — لعنصر طافٍ يجب أن يُرى فوق أي خلفية.
     func glassTinted(_ tint: Color, cornerRadius: CGFloat = 20) -> some View {
-        if #available(iOS 26, *) {
-            glassEffect(.regular.tint(tint.opacity(0.55)).interactive(),
-                        in: .rect(cornerRadius: cornerRadius))
-        } else {
-            background(
-                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .fill(tint.opacity(0.92))
-            )
-        }
+        glassEffect(.regular.tint(tint.opacity(0.55)).interactive(),
+                    in: .rect(cornerRadius: cornerRadius))
     }
 }
 

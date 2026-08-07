@@ -12,14 +12,29 @@ on:
 
 jobs:
   build-test-shoot:
-    runs-on: macos-15
+    # macos-26 حصرًا: المشروع يعتمد Liquid Glass الأصلي، وهو غير موجود في
+    # SDK الخاص بـ Xcode 16 على الصور الأقدم.
+    runs-on: macos-26
     timeout-minutes: 40
 
     steps:
       - uses: actions/checkout@v4
 
+      - name: منع المواد القديمة
+        run: |
+          # `ultraThinMaterial` وأخواتها ممنوعة منعًا باتًا في هذا المشروع.
+          # الفحص هنا لا في المراجعة: مادة واحدة تتسلّل تكفي لجعل سطحين
+          # يبدوان مختلفين، ولن يظهر ذلك في أي خطأ ترجمة.
+          if grep -rnE "ultraThinMaterial|thinMaterial|regularMaterial|thickMaterial|ultraThickMaterial|\.blur\(radius" ios/ --include='*.swift'; then
+            echo "::error::مادة ضبابية قديمة في المشروع — استخدم glassEffect وحده"
+            exit 1
+          fi
+          echo "نظيف: لا مواد قديمة"
+
       - name: بيئة Xcode
-        run: xcodebuild -version
+        run: |
+          xcodebuild -version
+          xcrun simctl list runtimes | grep -i ios || true
 
       - name: توليد مشروع Xcode
         run: |
