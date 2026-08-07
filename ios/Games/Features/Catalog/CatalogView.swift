@@ -124,7 +124,7 @@ struct GameDetailView: View {
                     }
 
                     HStack(spacing: 8) {
-                        Pill(playersRange)
+                        Pill(playersLabel(for: game))
                         if game.soloable {
                             Pill("تُلعب وحدك", fill: Ink.cream)
                         }
@@ -180,13 +180,6 @@ struct GameDetailView: View {
         case .teams: return "فرق"
         }
     }
-
-    private var playersRange: String {
-        if game.minPlayers == game.maxPlayers {
-            return "\(game.minPlayers) لاعبين"
-        }
-        return "\("\(game.minPlayers)–\(game.maxPlayers)".bidiIsolated) لاعبًا"
-    }
 }
 
 // ————— عناصر مشتركة في الكتالوج —————
@@ -213,7 +206,7 @@ struct GameCardButton: View {
                             .foregroundStyle(Ink.ink)
                             .lineLimit(2)
                             .minimumScaleFactor(0.8)
-                        Pill(playersRange)
+                        Pill(playersLabel(for: game))
                     }
 
                     Spacer(minLength: 0)
@@ -225,13 +218,6 @@ struct GameCardButton: View {
             }
         }
         .buttonStyle(.plain)
-    }
-
-    private var playersRange: String {
-        if game.minPlayers == game.maxPlayers {
-            return "\(game.minPlayers) لاعبين"
-        }
-        return "\("\(game.minPlayers)–\(game.maxPlayers)".bidiIsolated) لاعبًا"
     }
 }
 

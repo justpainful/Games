@@ -8,7 +8,7 @@ import Observation
 @MainActor
 @Observable
 final class DuelEngine {
-    enum Kind { case rps, dice }
+    enum Kind: Equatable { case rps, dice }
     enum Stage: Equatable { case choosing, revealing, roundOver, done }
 
     let game: GameInfo
@@ -34,7 +34,9 @@ final class DuelEngine {
     private var history: [String] = []
     private var work: Task<Void, Never>?
 
-    nonisolated init(game: GameInfo, skill: Skill) {
+    // `@Observable` يحوّل الخصائص المخزّنة إلى setters معزولة بـ MainActor،
+    // فـ `nonisolated init` لا يستطيع إسنادها. الحل عزل المُهيّئ لا نزع العزل.
+    init(game: GameInfo, skill: Skill) {
         self.game = game
         self.skill = skill
         self.kind = game.id == "nard" ? .dice : .rps
@@ -217,6 +219,7 @@ final class DuelEngine {
 struct DuelGameView: View {
     @State private var engine: DuelEngine
 
+    @MainActor
     init(game: GameInfo, skill: Skill = BotSettings.skill) {
         _engine = State(initialValue: DuelEngine(game: game, skill: skill))
     }

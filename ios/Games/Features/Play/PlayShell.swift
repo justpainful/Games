@@ -22,6 +22,18 @@ enum BotSettings {
     }
 }
 
+/// نص عدد اللاعبين.
+///
+/// المدى معزول اتجاهيًا: رقمان يفصلهما محرف محايد داخل جملة عربية ينقلب
+/// ترتيبهما، فتُعرض «25–1» بدل «1–25».
+func playersLabel(for game: GameInfo) -> String {
+    if game.minPlayers == game.maxPlayers {
+        return "\(game.minPlayers) لاعبين"
+    }
+    let range = "\(game.minPlayers)–\(game.maxPlayers)"
+    return "\(range.bidiIsolated) لاعبًا"
+}
+
 /// يحوّل المسار إلى شاشة. مشترك بين «الألعاب» و«منفرد» فلا يتكرّر الجدول مرتين.
 struct PlayDestination: View {
     let route: PlayRoute

@@ -97,7 +97,7 @@ struct LobbyView: View {
                 HStack {
                     SmallHeading("اللاعبون")
                     Spacer(minLength: 8)
-                    Pill(playersRange)
+                    Pill(playersLabel(for: game))
                 }
 
                 if let account = app.account {
@@ -137,14 +137,6 @@ struct LobbyView: View {
     private var activeGuild: Guild? {
         guard let id = app.activeGuildID else { return app.guilds.first }
         return app.guilds.first { $0.id == id } ?? app.guilds.first
-    }
-
-    /// المدى معزول اتجاهيًا وإلا عُرض «25–1» بدل «1–25».
-    private var playersRange: String {
-        if game.minPlayers == game.maxPlayers {
-            return "\(game.minPlayers) لاعبين"
-        }
-        return "\("\(game.minPlayers)–\(game.maxPlayers)".bidiIsolated) لاعبًا"
     }
 
     private func avatar(url: URL?, fallback: String) -> some View {

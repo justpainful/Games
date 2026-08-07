@@ -31,7 +31,9 @@ final class BoardEngine {
 
     private var botTask: Task<Void, Never>?
 
-    nonisolated init(game: GameInfo, skill: Skill) {
+    // `@Observable` يحوّل الخصائص المخزّنة إلى setters معزولة بـ MainActor،
+    // فـ `nonisolated init` لا يستطيع إسنادها. الحل عزل المُهيّئ لا نزع العزل.
+    init(game: GameInfo, skill: Skill) {
         self.game = game
         self.skill = skill
         if game.id == "eshbek" {
@@ -212,6 +214,7 @@ final class BoardEngine {
 struct BoardGameView: View {
     @State private var engine: BoardEngine
 
+    @MainActor
     init(game: GameInfo, skill: Skill = BotSettings.skill) {
         _engine = State(initialValue: BoardEngine(game: game, skill: skill))
     }

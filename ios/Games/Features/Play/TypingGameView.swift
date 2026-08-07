@@ -40,7 +40,9 @@ final class TypingEngine {
     private var advance: Task<Void, Never>?
 
     /// `nonisolated` عمدًا: `View.init` غير معزول، وبناء المحرّك يحدث فيه.
-    nonisolated init(game: GameInfo, skill: Skill) {
+    // `@Observable` يحوّل الخصائص المخزّنة إلى setters معزولة بـ MainActor،
+    // فـ `nonisolated init` لا يستطيع إسنادها. الحل عزل المُهيّئ لا نزع العزل.
+    init(game: GameInfo, skill: Skill) {
         self.game = game
         self.skill = skill
         self.roundCount = game.id == "event" ? 10 : 7
@@ -194,6 +196,7 @@ struct TypingGameView: View {
     @State private var engine: TypingEngine
     @FocusState private var fieldFocused: Bool
 
+    @MainActor
     init(game: GameInfo, skill: Skill = BotSettings.skill) {
         _engine = State(initialValue: TypingEngine(game: game, skill: skill))
     }
@@ -360,12 +363,16 @@ struct TypingGameView: View {
             }
             .padding(16)
             .frame(maxWidth: .infinity, alignment: .leading)
-            // طبقة مؤقتة تطفو فوق المحتوى — موضع الزجاج الشرعي الوحيد هنا.
-            .glassTinted(side == .me ? Ink.redDeep : Ink.ink, cornerRadius: 18)
+            // شريط محتوى لا كروم: يبقى مسطّحًا بحدّ وظل صلبين، بلا زجاج.
+            .background(
+                RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    .fill(side == .me ? Ink.redDeep : Ink.ink)
+            )
             .overlay(
                 RoundedRectangle(cornerRadius: 18, style: .continuous)
                     .strokeBorder(Ink.ink, lineWidth: 3)
             )
+            .hardShadow(Ink.ink, lift: 5, radius: 18)
         }
     }
 
