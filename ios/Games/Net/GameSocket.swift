@@ -203,7 +203,7 @@ public struct BoardScene: Equatable, Sendable, Decodable {
     public init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: Key.self)
         game = c.brief(.game)
-        if let raw = try? c.decodeIfPresent([String?].self, forKey: .cells), let list = raw {
+        if let list = try? c.decodeIfPresent([String?].self, forKey: .cells) {
             cells = list
         } else {
             cells = []
@@ -599,9 +599,9 @@ public struct OnlineResult: Equatable, Sendable, Decodable {
     public init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: Key.self)
         winnerId = c.string(.winnerId)
-        if let raw = try? c.decodeIfPresent([String: Int].self, forKey: .scores), let map = raw {
+        if let map = try? c.decodeIfPresent([String: Int].self, forKey: .scores) {
             scores = map
-        } else if let raw = try? c.decodeIfPresent([String: Double].self, forKey: .scores), let map = raw {
+        } else if let map = try? c.decodeIfPresent([String: Double].self, forKey: .scores) {
             scores = map.mapValues { Int($0) }
         } else {
             scores = [:]
@@ -1322,38 +1322,38 @@ private struct Inbound: Decodable {
 /// فكّ متسامح: الحقل الناقص أو المخالف للنوع يعيد `nil` بدل أن يرمي.
 private extension KeyedDecodingContainer {
     func string(_ key: Key) -> String? {
-        guard let value = try? decodeIfPresent(String.self, forKey: key), let text = value else {
+        guard let text = try? decodeIfPresent(String.self, forKey: key) else {
             return nil
         }
         return text.isEmpty ? nil : text
     }
 
     func int(_ key: Key) -> Int? {
-        if let value = try? decodeIfPresent(Int.self, forKey: key), let number = value {
+        if let number = try? decodeIfPresent(Int.self, forKey: key) {
             return number
         }
-        if let value = try? decodeIfPresent(Double.self, forKey: key), let number = value {
+        if let number = try? decodeIfPresent(Double.self, forKey: key) {
             return Int(number)
         }
         return nil
     }
 
     func bool(_ key: Key) -> Bool? {
-        guard let value = try? decodeIfPresent(Bool.self, forKey: key), let flag = value else {
+        guard let flag = try? decodeIfPresent(Bool.self, forKey: key) else {
             return nil
         }
         return flag
     }
 
     func one<T: Decodable>(_ type: T.Type, _ key: Key) -> T? {
-        guard let value = try? decodeIfPresent(T.self, forKey: key), let item = value else {
+        guard let item = try? decodeIfPresent(T.self, forKey: key) else {
             return nil
         }
         return item
     }
 
     func list<T: Decodable>(_ type: T.Type, _ key: Key) -> [T] {
-        guard let value = try? decodeIfPresent([T].self, forKey: key), let items = value else {
+        guard let items = try? decodeIfPresent([T].self, forKey: key) else {
             return []
         }
         return items
