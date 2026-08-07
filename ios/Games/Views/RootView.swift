@@ -36,20 +36,17 @@ struct RootView: View {
                 }
 
                 Card {
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("«فحص الاتجاه»")
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("«آخر لعبة»")
                             .font(.displaySoft(Type.title))
                             .foregroundStyle(Ink.ink)
-
-                        // مقارنة محكومة تحسم التقنية للتطبيق كله: نفس الاسم
-                        // ".zja6" مرّتين، الفرق الوحيد هو العزل. الصحيح أن تبقى
-                        // النقطة ملاصقة لحرف z لا أن تقفز لطرف المقطع.
-                        Text("بلا عزل:  اسم .zja6 هنا")
-                            .font(.bodyAr())
-                            .foregroundStyle(Ink.red)
-                        Text("مع عزل:  اسم \(".zja6".bidiIsolated) هنا")
+                        // خلط عربي/لاتيني/أرقام — أكثر ما يكشف كسر الاتجاه.
+                        // الاسم معزول: أُثبت في CI أن ".zja6" بلا عزل تُعرض "zja6."
+                        Text("اللاعب \(".zja6".bidiIsolated) جمع 12 نقطة في 3 جولات")
                             .font(.bodyAr())
                             .foregroundStyle(Ink.ink)
+                            .lineSpacing(Type.lineSpacing)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
                 }
 
