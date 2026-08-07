@@ -95,7 +95,8 @@ struct LoginView: View {
                         .controlSize(.small)
                         .tint(Ink.ink)
                 } else {
-                    Image(systemName: "arrow.left.circle.fill")
+                    // `forward` لا `left`: الرمز يُعكس تلقائيًا مع اتجاه التخطيط
+                    Image(systemName: "arrow.forward.circle.fill")
                         .font(.system(size: 20, weight: .bold))
                         .foregroundStyle(Ink.ink)
                 }
