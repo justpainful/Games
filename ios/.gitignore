@@ -1,0 +1,5 @@
+# مولّد بـ XcodeGen من project.yml — لا يُلتزم به
+Games.xcodeproj/
+build/
+DerivedData/
+*.xcuserstate

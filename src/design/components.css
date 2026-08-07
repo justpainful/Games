@@ -1,0 +1,319 @@
+/*
+ * مكوّنات "القصاصة المقصوصة" — مشتقة من DESIGN.md §5.
+ *
+ * التوقيع: حد أسود سميك + ظل صلب بلا blur. الجديد أن لون الظل متغيّر:
+ * العناصر الصفراء تُلقي ظلًا أحمر. هذا هو موضع اندماج لوني الهوية،
+ * وهو ما يميّز التصميم عن أي بوت آخر يستخدم نفس أسلوب الملصقات.
+ *
+ * كل القيم من var() المولّدة من tokens.ts — ممنوع hex هنا.
+ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ————— الجذر ————— */
+
+.scene {
+  position: relative;
+  width: var(--scene-width);
+  min-height: var(--scene-min-height);
+  padding: var(--space-xl);
+  background: var(--color-paper);
+  font-family: var(--font-body), sans-serif;
+  color: var(--color-ink);
+  /* العربية: ممنوع أي تباعد حروف — يكسر الوصل */
+  letter-spacing: 0;
+  line-height: var(--leading-base);
+  overflow: hidden;
+}
+
+.scene__body {
+  position: relative;
+  display: flex;
+  gap: var(--space-base);
+  align-items: stretch;
+}
+
+/* ————— أشكال الخلفية ————— */
+
+/* كتل عضوية ناعمة تعطي عمقًا بلا أي نص أو شعار */
+.blob {
+  position: absolute;
+  pointer-events: none;
+}
+
+/* ————— البطاقة ————— */
+
+.card {
+  --shadow: var(--color-ink);
+  position: relative;
+  background: var(--color-surface);
+  border: var(--stroke-base) solid var(--color-ink);
+  border-radius: var(--radius-lg);
+  box-shadow: calc(var(--lift-base) * -1) var(--lift-base) 0 var(--shadow);
+  padding: var(--space-base);
+}
+
+/* البطاقة البطلة — ظلها أحمر فتُقرأ أولًا في المشهد */
+.card--hero {
+  --shadow: var(--color-red-deep);
+}
+
+.card--flat {
+  box-shadow: none;
+}
+
+/* ————— الطباعة ————— */
+
+.display {
+  font-family: var(--font-display), sans-serif;
+  font-weight: var(--weight-black);
+  font-size: var(--size-display);
+  line-height: 1.25;
+  color: var(--color-red);
+  /* ثقل بصري إضافي — الحرف العربي يحتاجه ليصمد أمام الحد الأسود حوله */
+  -webkit-text-stroke: 2px var(--color-ink);
+  paint-order: stroke fill;
+}
+
+.title {
+  font-family: var(--font-display), sans-serif;
+  font-weight: var(--weight-bold);
+  font-size: var(--size-title);
+  line-height: var(--leading-tight);
+}
+
+/* الأقواس «» عنصر توقيع — تُضاف بالـ CSS فيبقى النص نظيفًا */
+.title--quoted::before {
+  content: '«';
+  color: var(--color-red);
+}
+.title--quoted::after {
+  content: '»';
+  color: var(--color-red);
+}
+
+.text {
+  font-size: var(--size-body);
+  line-height: var(--leading-base);
+}
+
+.text--muted {
+  color: color-mix(in srgb, var(--color-ink) 55%, transparent);
+}
+
+.label {
+  font-size: var(--size-label);
+  font-weight: var(--weight-medium);
+}
+
+.meta {
+  font-size: var(--size-meta);
+}
+
+/* ————— الأزرار ————— */
+
+.btn {
+  --shadow: var(--color-ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-lg);
+  font-family: var(--font-display), sans-serif;
+  font-weight: var(--weight-bold);
+  font-size: var(--size-label);
+  line-height: 1.4;
+  border: var(--stroke-base) solid var(--color-ink);
+  border-radius: var(--radius-sm);
+  box-shadow: calc(var(--lift-sm) * -1) var(--lift-sm) 0 var(--shadow);
+  white-space: nowrap;
+}
+
+/* الفعل البطل: أصفر بظل أحمر — اندماج لوني الهوية في عنصر واحد */
+.btn--start {
+  background: var(--color-yellow);
+  color: var(--on-yellow);
+  --shadow: var(--color-red-deep);
+}
+
+.btn--join {
+  background: var(--color-red);
+  color: var(--on-red);
+}
+
+/* الإيقاف أسود لا أحمر — الأحمر عندنا لون هوية لا لون خطر */
+.btn--stop {
+  background: var(--color-ink);
+  color: var(--on-ink);
+}
+
+/* ————— الشريط العلوي ————— */
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-base);
+  padding: var(--space-xs) var(--space-base);
+  background: var(--color-red);
+  color: var(--on-red);
+  border: var(--stroke-base) solid var(--color-ink);
+  border-radius: var(--radius-sm);
+  box-shadow: calc(var(--lift-sm) * -1) var(--lift-sm) 0 var(--color-ink);
+  font-family: var(--font-display), sans-serif;
+  font-weight: var(--weight-bold);
+  font-size: var(--size-label);
+}
+
+/* عدّاد اللاعبين — كبسولة صفراء داخل الشريط الأحمر */
+.bar__count {
+  padding: 2px var(--space-sm);
+  background: var(--color-yellow);
+  color: var(--on-yellow);
+  border: var(--stroke-thin) solid var(--color-ink);
+  border-radius: var(--radius-pill);
+  font-size: var(--size-meta);
+}
+
+/* ————— اللاعبون ————— */
+
+.player {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.player__slot {
+  position: relative;
+}
+
+.avatar {
+  width: 76px;
+  height: 76px;
+  flex: none;
+  border-radius: var(--radius-pill);
+  border: var(--stroke-base) solid var(--color-ink);
+  background: var(--color-cream);
+  object-fit: cover;
+}
+
+.avatar--sm {
+  width: 56px;
+  height: 56px;
+  border-width: var(--stroke-thin);
+}
+
+/* خانة فارغة — دائرة متقطّعة، لا صورة placeholder */
+.avatar--empty {
+  border-style: dashed;
+  background: transparent;
+  opacity: 0.45;
+}
+
+/* قائد اللعبة: حلقة صفراء حول أفتاره + شارة تاج مرسومة لا إيموجي */
+.player--host .avatar {
+  box-shadow: 0 0 0 var(--stroke-base) var(--color-yellow);
+}
+
+.player__crown {
+  position: absolute;
+  inset-block-start: -16px;
+  inset-inline-end: -14px;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  background: var(--color-yellow);
+  color: var(--on-yellow);
+  border: var(--stroke-thin) solid var(--color-ink);
+  border-radius: var(--radius-pill);
+}
+
+/* ————— الأيقونات ————— */
+
+/* تُحاذى بصريًا مع الحرف العربي لا مع خط القاعدة اللاتيني */
+.icon {
+  flex: none;
+  vertical-align: -0.18em;
+}
+
+.icon--yellow {
+  color: var(--color-yellow);
+}
+.icon--red {
+  color: var(--color-red);
+}
+
+.player__name {
+  display: inline-block;
+  font-size: var(--size-label);
+  font-weight: var(--weight-medium);
+  /* أسماء ديسكورد تطول وتخلط لاتيني بعربي — تُقصّ ولا تكسر التخطيط */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 250px;
+}
+
+/* ————— شريط الحالة ————— */
+
+.note {
+  padding: var(--space-xs) var(--space-sm);
+  background: color-mix(in srgb, var(--color-ink) 7%, transparent);
+  border: var(--stroke-thin) dashed color-mix(in srgb, var(--color-ink) 40%, transparent);
+  border-radius: var(--radius-sm);
+  font-size: var(--size-meta);
+  font-weight: var(--weight-medium);
+  text-align: center;
+}
+
+.note--ready {
+  background: color-mix(in srgb, var(--color-yellow) 40%, transparent);
+  border-style: solid;
+  border-color: var(--color-ink);
+}
+
+/* ————— الفواصل ————— */
+
+.rule {
+  border: none;
+  border-top: var(--stroke-base) solid var(--color-ink);
+  margin-block: var(--space-xs);
+}
+
+.rule--v {
+  border: none;
+  border-inline-start: var(--stroke-base) solid var(--color-ink);
+  align-self: stretch;
+}
+
+/* ————— أدوات تخطيط ————— */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.stack--lg {
+  gap: var(--space-base);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.grow {
+  flex: 1;
+}
+
+.center {
+  text-align: center;
+  align-items: center;
+}

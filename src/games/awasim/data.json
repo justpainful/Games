@@ -1,0 +1,778 @@
+[
+  {
+    "country": "السعودية",
+    "capital": "الرياض"
+  },
+  {
+    "country": "الإمارات",
+    "capital": "أبوظبي"
+  },
+  {
+    "country": "قطر",
+    "capital": "الدوحة"
+  },
+  {
+    "country": "الكويت",
+    "capital": "الكويت"
+  },
+  {
+    "country": "البحرين",
+    "capital": "المنامة"
+  },
+  {
+    "country": "عمان",
+    "capital": "مسقط"
+  },
+  {
+    "country": "اليمن",
+    "capital": "صنعاء"
+  },
+  {
+    "country": "العراق",
+    "capital": "بغداد"
+  },
+  {
+    "country": "سوريا",
+    "capital": "دمشق"
+  },
+  {
+    "country": "لبنان",
+    "capital": "بيروت"
+  },
+  {
+    "country": "الأردن",
+    "capital": "عمان"
+  },
+  {
+    "country": "فلسطين",
+    "capital": "القدس"
+  },
+  {
+    "country": "تركيا",
+    "capital": "أنقرة"
+  },
+  {
+    "country": "إيران",
+    "capital": "طهران"
+  },
+  {
+    "country": "أفغانستان",
+    "capital": "كابل"
+  },
+  {
+    "country": "باكستان",
+    "capital": "إسلام آباد"
+  },
+  {
+    "country": "الهند",
+    "capital": "نيودلهي"
+  },
+  {
+    "country": "بنغلاديش",
+    "capital": "دكا"
+  },
+  {
+    "country": "نيبال",
+    "capital": "كاتماندو"
+  },
+  {
+    "country": "بوتان",
+    "capital": "تيمفو"
+  },
+  {
+    "country": "سريلانكا",
+    "capital": "كولومبو"
+  },
+  {
+    "country": "جزر المالديف",
+    "capital": "ماليه"
+  },
+  {
+    "country": "الصين",
+    "capital": "بكين"
+  },
+  {
+    "country": "اليابان",
+    "capital": "طوكيو"
+  },
+  {
+    "country": "كوريا الجنوبية",
+    "capital": "سول"
+  },
+  {
+    "country": "كوريا الشمالية",
+    "capital": "بيونغ يانغ"
+  },
+  {
+    "country": "منغوليا",
+    "capital": "أولان باتور"
+  },
+  {
+    "country": "كازاخستان",
+    "capital": "أستانة"
+  },
+  {
+    "country": "أوزبكستان",
+    "capital": "طشقند"
+  },
+  {
+    "country": "تركمانستان",
+    "capital": "عشق آباد"
+  },
+  {
+    "country": "قرغيزستان",
+    "capital": "بيشكيك"
+  },
+  {
+    "country": "طاجيكستان",
+    "capital": "دوشنبه"
+  },
+  {
+    "country": "أذربيجان",
+    "capital": "باكو"
+  },
+  {
+    "country": "أرمينيا",
+    "capital": "يريفان"
+  },
+  {
+    "country": "جورجيا",
+    "capital": "تبليسي"
+  },
+  {
+    "country": "تايلاند",
+    "capital": "بانكوك"
+  },
+  {
+    "country": "فيتنام",
+    "capital": "هانوي"
+  },
+  {
+    "country": "لاوس",
+    "capital": "فيينتيان"
+  },
+  {
+    "country": "كمبوديا",
+    "capital": "بنوم بنه"
+  },
+  {
+    "country": "ميانمار",
+    "capital": "نايبيداو"
+  },
+  {
+    "country": "ماليزيا",
+    "capital": "كوالالمبور"
+  },
+  {
+    "country": "سنغافورة",
+    "capital": "سنغافورة"
+  },
+  {
+    "country": "إندونيسيا",
+    "capital": "جاكرتا"
+  },
+  {
+    "country": "الفلبين",
+    "capital": "مانيلا"
+  },
+  {
+    "country": "بروناي",
+    "capital": "بندر سري بكاوان"
+  },
+  {
+    "country": "تيمور الشرقية",
+    "capital": "ديلي"
+  },
+  {
+    "country": "قبرص",
+    "capital": "نيقوسيا"
+  },
+  {
+    "country": "مصر",
+    "capital": "القاهرة"
+  },
+  {
+    "country": "ليبيا",
+    "capital": "طرابلس"
+  },
+  {
+    "country": "تونس",
+    "capital": "تونس"
+  },
+  {
+    "country": "الجزائر",
+    "capital": "الجزائر"
+  },
+  {
+    "country": "المغرب",
+    "capital": "الرباط"
+  },
+  {
+    "country": "موريتانيا",
+    "capital": "نواكشوط"
+  },
+  {
+    "country": "السودان",
+    "capital": "الخرطوم"
+  },
+  {
+    "country": "جنوب السودان",
+    "capital": "جوبا"
+  },
+  {
+    "country": "الصومال",
+    "capital": "مقديشو"
+  },
+  {
+    "country": "جيبوتي",
+    "capital": "جيبوتي"
+  },
+  {
+    "country": "إريتريا",
+    "capital": "أسمرة"
+  },
+  {
+    "country": "إثيوبيا",
+    "capital": "أديس أبابا"
+  },
+  {
+    "country": "كينيا",
+    "capital": "نيروبي"
+  },
+  {
+    "country": "أوغندا",
+    "capital": "كمبالا"
+  },
+  {
+    "country": "تنزانيا",
+    "capital": "دودوما"
+  },
+  {
+    "country": "رواندا",
+    "capital": "كيغالي"
+  },
+  {
+    "country": "بوروندي",
+    "capital": "جيتيغا"
+  },
+  {
+    "country": "نيجيريا",
+    "capital": "أبوجا"
+  },
+  {
+    "country": "غانا",
+    "capital": "أكرا"
+  },
+  {
+    "country": "السنغال",
+    "capital": "داكار"
+  },
+  {
+    "country": "مالي",
+    "capital": "باماكو"
+  },
+  {
+    "country": "النيجر",
+    "capital": "نيامي"
+  },
+  {
+    "country": "تشاد",
+    "capital": "نجامينا"
+  },
+  {
+    "country": "بوركينا فاسو",
+    "capital": "واغادوغو"
+  },
+  {
+    "country": "ساحل العاج",
+    "capital": "ياموسوكرو"
+  },
+  {
+    "country": "غينيا",
+    "capital": "كوناكري"
+  },
+  {
+    "country": "غينيا بيساو",
+    "capital": "بيساو"
+  },
+  {
+    "country": "سيراليون",
+    "capital": "فريتاون"
+  },
+  {
+    "country": "ليبيريا",
+    "capital": "مونروفيا"
+  },
+  {
+    "country": "توغو",
+    "capital": "لومي"
+  },
+  {
+    "country": "بنين",
+    "capital": "بورتو نوفو"
+  },
+  {
+    "country": "الكاميرون",
+    "capital": "ياوندي"
+  },
+  {
+    "country": "غينيا الاستوائية",
+    "capital": "مالابو"
+  },
+  {
+    "country": "الغابون",
+    "capital": "ليبرفيل"
+  },
+  {
+    "country": "الكونغو",
+    "capital": "برازافيل"
+  },
+  {
+    "country": "الكونغو الديمقراطية",
+    "capital": "كينشاسا"
+  },
+  {
+    "country": "أفريقيا الوسطى",
+    "capital": "بانغي"
+  },
+  {
+    "country": "أنغولا",
+    "capital": "لواندا"
+  },
+  {
+    "country": "زامبيا",
+    "capital": "لوساكا"
+  },
+  {
+    "country": "زيمبابوي",
+    "capital": "هراري"
+  },
+  {
+    "country": "موزمبيق",
+    "capital": "مابوتو"
+  },
+  {
+    "country": "ملاوي",
+    "capital": "ليلونغوي"
+  },
+  {
+    "country": "بوتسوانا",
+    "capital": "غابورون"
+  },
+  {
+    "country": "ناميبيا",
+    "capital": "ويندهوك"
+  },
+  {
+    "country": "جنوب أفريقيا",
+    "capital": "بريتوريا"
+  },
+  {
+    "country": "ليسوتو",
+    "capital": "ماسيرو"
+  },
+  {
+    "country": "إسواتيني",
+    "capital": "مبابان"
+  },
+  {
+    "country": "مدغشقر",
+    "capital": "أنتاناناريفو"
+  },
+  {
+    "country": "موريشيوس",
+    "capital": "بورت لويس"
+  },
+  {
+    "country": "سيشل",
+    "capital": "فيكتوريا"
+  },
+  {
+    "country": "جزر القمر",
+    "capital": "موروني"
+  },
+  {
+    "country": "الرأس الأخضر",
+    "capital": "برايا"
+  },
+  {
+    "country": "ساو تومي وبرينسيبي",
+    "capital": "ساو تومي"
+  },
+  {
+    "country": "غامبيا",
+    "capital": "بانجول"
+  },
+  {
+    "country": "روسيا",
+    "capital": "موسكو"
+  },
+  {
+    "country": "أوكرانيا",
+    "capital": "كييف"
+  },
+  {
+    "country": "بيلاروسيا",
+    "capital": "مينسك"
+  },
+  {
+    "country": "بولندا",
+    "capital": "وارسو"
+  },
+  {
+    "country": "ألمانيا",
+    "capital": "برلين"
+  },
+  {
+    "country": "فرنسا",
+    "capital": "باريس"
+  },
+  {
+    "country": "بريطانيا",
+    "capital": "لندن"
+  },
+  {
+    "country": "إيرلندا",
+    "capital": "دبلن"
+  },
+  {
+    "country": "إسبانيا",
+    "capital": "مدريد"
+  },
+  {
+    "country": "البرتغال",
+    "capital": "لشبونة"
+  },
+  {
+    "country": "إيطاليا",
+    "capital": "روما"
+  },
+  {
+    "country": "اليونان",
+    "capital": "أثينا"
+  },
+  {
+    "country": "هولندا",
+    "capital": "أمستردام"
+  },
+  {
+    "country": "بلجيكا",
+    "capital": "بروكسل"
+  },
+  {
+    "country": "لوكسمبورغ",
+    "capital": "لوكسمبورغ"
+  },
+  {
+    "country": "سويسرا",
+    "capital": "برن"
+  },
+  {
+    "country": "النمسا",
+    "capital": "فيينا"
+  },
+  {
+    "country": "التشيك",
+    "capital": "براغ"
+  },
+  {
+    "country": "سلوفاكيا",
+    "capital": "براتيسلافا"
+  },
+  {
+    "country": "المجر",
+    "capital": "بودابست"
+  },
+  {
+    "country": "رومانيا",
+    "capital": "بوخارست"
+  },
+  {
+    "country": "بلغاريا",
+    "capital": "صوفيا"
+  },
+  {
+    "country": "صربيا",
+    "capital": "بلغراد"
+  },
+  {
+    "country": "كرواتيا",
+    "capital": "زغرب"
+  },
+  {
+    "country": "سلوفينيا",
+    "capital": "ليوبليانا"
+  },
+  {
+    "country": "البوسنة والهرسك",
+    "capital": "سراييفو"
+  },
+  {
+    "country": "الجبل الأسود",
+    "capital": "بودغوريتسا"
+  },
+  {
+    "country": "مقدونيا الشمالية",
+    "capital": "سكوبيه"
+  },
+  {
+    "country": "ألبانيا",
+    "capital": "تيرانا"
+  },
+  {
+    "country": "مولدوفا",
+    "capital": "كيشيناو"
+  },
+  {
+    "country": "ليتوانيا",
+    "capital": "فيلنيوس"
+  },
+  {
+    "country": "لاتفيا",
+    "capital": "ريغا"
+  },
+  {
+    "country": "إستونيا",
+    "capital": "تالين"
+  },
+  {
+    "country": "فنلندا",
+    "capital": "هلسنكي"
+  },
+  {
+    "country": "السويد",
+    "capital": "ستوكهولم"
+  },
+  {
+    "country": "النرويج",
+    "capital": "أوسلو"
+  },
+  {
+    "country": "الدنمارك",
+    "capital": "كوبنهاغن"
+  },
+  {
+    "country": "أيسلندا",
+    "capital": "ريكيافيك"
+  },
+  {
+    "country": "مالطا",
+    "capital": "فاليتا"
+  },
+  {
+    "country": "موناكو",
+    "capital": "موناكو"
+  },
+  {
+    "country": "أندورا",
+    "capital": "أندورا لا فيلا"
+  },
+  {
+    "country": "سان مارينو",
+    "capital": "سان مارينو"
+  },
+  {
+    "country": "ليختنشتاين",
+    "capital": "فادوز"
+  },
+  {
+    "country": "الفاتيكان",
+    "capital": "مدينة الفاتيكان"
+  },
+  {
+    "country": "الولايات المتحدة",
+    "capital": "واشنطن"
+  },
+  {
+    "country": "كندا",
+    "capital": "أوتاوا"
+  },
+  {
+    "country": "المكسيك",
+    "capital": "مكسيكو سيتي"
+  },
+  {
+    "country": "غواتيمالا",
+    "capital": "غواتيمالا سيتي"
+  },
+  {
+    "country": "بليز",
+    "capital": "بلموبان"
+  },
+  {
+    "country": "هندوراس",
+    "capital": "تيغوسيغالبا"
+  },
+  {
+    "country": "السلفادور",
+    "capital": "سان سلفادور"
+  },
+  {
+    "country": "نيكاراغوا",
+    "capital": "ماناغوا"
+  },
+  {
+    "country": "كوستاريكا",
+    "capital": "سان خوسيه"
+  },
+  {
+    "country": "بنما",
+    "capital": "مدينة بنما"
+  },
+  {
+    "country": "كوبا",
+    "capital": "هافانا"
+  },
+  {
+    "country": "جامايكا",
+    "capital": "كينغستون"
+  },
+  {
+    "country": "هايتي",
+    "capital": "بورت أو برنس"
+  },
+  {
+    "country": "جمهورية الدومينيكان",
+    "capital": "سانتو دومينغو"
+  },
+  {
+    "country": "الباهاما",
+    "capital": "ناسو"
+  },
+  {
+    "country": "باربادوس",
+    "capital": "بريدجتاون"
+  },
+  {
+    "country": "ترينيداد وتوباغو",
+    "capital": "بورت أوف سبين"
+  },
+  {
+    "country": "سانت لوسيا",
+    "capital": "كاستريس"
+  },
+  {
+    "country": "غرينادا",
+    "capital": "سانت جورجيس"
+  },
+  {
+    "country": "أنتيغوا وبربودا",
+    "capital": "سانت جونز"
+  },
+  {
+    "country": "سانت كيتس ونيفيس",
+    "capital": "باستير"
+  },
+  {
+    "country": "سانت فنسنت والغرينادين",
+    "capital": "كينغستاون"
+  },
+  {
+    "country": "دومينيكا",
+    "capital": "روسو"
+  },
+  {
+    "country": "البرازيل",
+    "capital": "برازيليا"
+  },
+  {
+    "country": "الأرجنتين",
+    "capital": "بوينس آيرس"
+  },
+  {
+    "country": "تشيلي",
+    "capital": "سانتياغو"
+  },
+  {
+    "country": "بيرو",
+    "capital": "ليما"
+  },
+  {
+    "country": "كولومبيا",
+    "capital": "بوغوتا"
+  },
+  {
+    "country": "فنزويلا",
+    "capital": "كاراكاس"
+  },
+  {
+    "country": "الإكوادور",
+    "capital": "كيتو"
+  },
+  {
+    "country": "بوليفيا",
+    "capital": "لاباز"
+  },
+  {
+    "country": "باراغواي",
+    "capital": "أسونسيون"
+  },
+  {
+    "country": "أوروغواي",
+    "capital": "مونتيفيديو"
+  },
+  {
+    "country": "غيانا",
+    "capital": "جورج تاون"
+  },
+  {
+    "country": "سورينام",
+    "capital": "باراماريبو"
+  },
+  {
+    "country": "أستراليا",
+    "capital": "كانبرا"
+  },
+  {
+    "country": "نيوزيلندا",
+    "capital": "ويلينغتون"
+  },
+  {
+    "country": "بابوا غينيا الجديدة",
+    "capital": "بورت مورسبي"
+  },
+  {
+    "country": "فيجي",
+    "capital": "سوفا"
+  },
+  {
+    "country": "جزر سليمان",
+    "capital": "هونيارا"
+  },
+  {
+    "country": "فانواتو",
+    "capital": "بورت فيلا"
+  },
+  {
+    "country": "ساموا",
+    "capital": "آبيا"
+  },
+  {
+    "country": "تونغا",
+    "capital": "نوكو ألوفا"
+  },
+  {
+    "country": "كيريباتي",
+    "capital": "تاراوا"
+  },
+  {
+    "country": "تفالو",
+    "capital": "فونافوتي"
+  },
+  {
+    "country": "ناورو",
+    "capital": "يارين"
+  },
+  {
+    "country": "جزر مارشال",
+    "capital": "ماجورو"
+  },
+  {
+    "country": "ميكرونيزيا",
+    "capital": "باليكير"
+  },
+  {
+    "country": "بالاو",
+    "capital": "نغيرولمود"
+  }
+]

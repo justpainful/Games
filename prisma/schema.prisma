@@ -1,0 +1,110 @@
+// قاعدة بيانات البوت. كل شيء مفهرس بـ guildId لأن البوت عام ومتعدد السيرفرات،
+// ولا يجوز أن يرى سيرفر بيانات سيرفر آخر.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum RoleKind {
+  ADMIN // يبدأ الألعاب ويوقفها
+  GAMES // يبدأ الألعاب والإيفنتات فقط
+  POINTS // يعطي النقاط
+}
+
+model Guild {
+  id            String  @id // معرّف سيرفر ديسكورد
+  prefix        String  @default("!")
+  prefixEnabled Boolean @default(true)
+  gamesChannel  String? // إن حُدّد، الألعاب لا تبدأ خارجه
+  nickname      String? // الاسم المستعار للبوت في هذا السيرفر تحديدًا
+
+  roles      GuildRole[]
+  authorized AuthorizedUser[]
+  games      GameConfig[]
+  players    Player[]
+  matches    MatchRecord[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model GuildRole {
+  guildId String
+  roleId  String
+  kind    RoleKind
+
+  guild Guild @relation(fields: [guildId], references: [id], onDelete: Cascade)
+
+  @@id([guildId, roleId, kind])
+  @@index([guildId])
+}
+
+/// المصرح لهم بلوحة إعدادات البوت في هذا السيرفر
+model AuthorizedUser {
+  guildId String
+  userId  String
+
+  guild Guild @relation(fields: [guildId], references: [id], onDelete: Cascade)
+
+  @@id([guildId, userId])
+  @@index([guildId])
+}
+
+model GameConfig {
+  guildId  String
+  gameKey  String
+  enabled  Boolean @default(true)
+  /// صورة اللعبة المخصّصة لهذا السيرفر — تُستبدل بها الصورة الافتراضية
+  imageUrl String?
+  /// إعدادات خاصة بكل لعبة (عدد الجولات، مدة الجولة، ...)
+  settings Json    @default("{}")
+
+  guild Guild @relation(fields: [guildId], references: [id], onDelete: Cascade)
+
+  @@id([guildId, gameKey])
+  @@index([guildId])
+}
+
+/// النقاط مقسّمة ثلاث محافظ كما في شاشة «نقاطي»
+model Player {
+  guildId String
+  userId  String
+
+  roulettePoints Int @default(0)
+  teamPoints     Int @default(0)
+  soloPoints     Int @default(0)
+
+  gamesPlayed Int @default(0)
+  wins        Int @default(0)
+
+  guild Guild @relation(fields: [guildId], references: [id], onDelete: Cascade)
+
+  updatedAt DateTime @updatedAt
+
+  @@id([guildId, userId])
+  @@index([guildId])
+  // لوحة الصدارة تُرتّب بهذه الحقول، والفهرس يمنع مسح الجدول كاملًا
+  @@index([guildId, soloPoints])
+  @@index([guildId, teamPoints])
+  @@index([guildId, roulettePoints])
+}
+
+model MatchRecord {
+  id       String    @id @default(cuid())
+  guildId  String
+  gameKey  String
+  winnerId String?
+  players  Int       @default(0)
+  startedAt DateTime @default(now())
+  endedAt  DateTime?
+
+  guild Guild @relation(fields: [guildId], references: [id], onDelete: Cascade)
+
+  @@index([guildId, gameKey])
+  @@index([guildId, startedAt])
+}

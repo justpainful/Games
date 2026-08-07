@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <!--
+      قشرة الصفحة التي تُحمّل مرة واحدة لكل صفحة في التجمّع.
+      الخطوط تُحمّل من القرص عبر مسار نسبي (الصفحة تُفتح بـ file://)
+      فيكاشها Chromium ولا نعيد حقن ميغابايت base64 مع كل رندر.
+    -->
+    <style>
+      @font-face {
+        font-family: 'Cairo';
+        src: url('./fonts/Cairo.ttf') format('truetype-variations');
+        font-weight: 200 1000;
+        font-display: block;
+      }
+      @font-face {
+        font-family: 'Baloo Bhaijaan 2';
+        src: url('./fonts/BalooBhaijaan2.ttf') format('truetype-variations');
+        font-weight: 400 800;
+        font-display: block;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: transparent;
+      }
+    </style>
+
+    <!-- تُملأ مرة واحدة من tokens.ts فلا تتفرّق القيم بين TS و CSS -->
+    <style id="tokens"></style>
+
+    <link rel="stylesheet" href="./components.css" />
+  </head>
+  <body>
+    <!-- كل رندر يبدّل محتوى هذا العنصر وحده -->
+    <div id="root"></div>
+  </body>
+</html>

@@ -1,0 +1,84 @@
+name: iOS
+
+# هذا الـ workflow ليس رفاهية — هو **حلقة التحقق الوحيدة** للمشروع:
+# التطوير يجري على ويندوز حيث لا يوجد Xcode، وSwiftUI لا يُبنى ولا يُصوَّر إلا
+# على macOS. كل لقطة أفحصها تأتي من هنا.
+# دقائق macOS مجانية لأن المستودع عام.
+
+on:
+  push:
+    paths: ['ios/**', '.github/workflows/ios.yml']
+  workflow_dispatch:
+
+jobs:
+  build-and-shoot:
+    runs-on: macos-15
+    timeout-minutes: 25
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: بيئة Xcode
+        run: xcodebuild -version && xcrun simctl list runtimes | head -20
+
+      - name: توليد مشروع Xcode
+        run: |
+          brew install xcodegen
+          cd ios && xcodegen generate
+
+      - name: بناء التطبيق
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -project ios/Games.xcodeproj \
+            -scheme Games \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -derivedDataPath ios/build \
+            CODE_SIGNING_ALLOWED=NO \
+            build 2>&1 | tail -40
+
+      - name: تشغيل المحاكي والتقاط اللقطات
+        run: |
+          set -e
+          # اختيار الجهاز ديناميكيًا: أسماء الأجهزة تتغيّر بين صور الرَنَر،
+          # وتثبيت "iPhone 16" يكسر البناء بصمت عند أول تحديث.
+          UDID=$(xcrun simctl list devices available -j | python3 -c "
+          import json,sys
+          data = json.load(sys.stdin)['devices']
+          for runtime, devices in data.items():
+              if 'iOS' in runtime:
+                  for d in devices:
+                      if 'iPhone' in d['name']:
+                          print(d['udid'], d['name'], file=sys.stderr)
+                          print(d['udid']); sys.exit(0)
+          sys.exit('لا يوجد محاكي iPhone متاح')
+          ")
+          echo "الجهاز: $UDID"
+
+          xcrun simctl boot "$UDID" || true
+          xcrun simctl bootstatus "$UDID" -b
+
+          APP=$(find ios/build/Build/Products -name "Games.app" -maxdepth 3 | head -1)
+          echo "التطبيق: $APP"
+          xcrun simctl install "$UDID" "$APP"
+          xcrun simctl launch "$UDID" com.justpainful.games
+
+          mkdir -p shots
+          # مهلة كافية لتحميل الخطوط ورسم أول إطار
+          sleep 6
+          xcrun simctl io "$UDID" screenshot shots/01-root.png
+
+          # لقطة ثانية للتأكد أن الشاشة مستقرة لا في منتصف انتقال
+          sleep 3
+          xcrun simctl io "$UDID" screenshot shots/02-root-settled.png
+
+          ls -la shots/
+
+      - name: رفع اللقطات
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: shots/
+          if-no-files-found: error

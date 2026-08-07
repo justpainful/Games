@@ -1,0 +1,40 @@
+{
+  "name": "discord-games",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "tsx watch src/app.ts",
+    "start": "tsx src/app.ts",
+    "preview": "tsx scripts/preview.ts",
+    "check:words": "tsx scripts/check-words.ts",
+    "smoke": "tsx scripts/smoke.ts",
+    "dryrun": "tsx scripts/dryrun.ts",
+    "publish:commands": "tsx scripts/publish-commands.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio",
+    "setup": "playwright install chromium"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.2.1",
+    "discord.js": "^14.17.3",
+    "dotenv": "^16.4.7",
+    "playwright": "^1.49.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.18.0",
+    "@types/node": "^22.10.5",
+    "eslint": "^9.18.0",
+    "prisma": "^6.2.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.20.0",
+    "vitest": "^2.1.8"
+  }
+}

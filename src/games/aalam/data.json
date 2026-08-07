@@ -1,0 +1,972 @@
+[
+  {
+    "country": "السعودية",
+    "emoji": "🇸🇦",
+    "code": "SA"
+  },
+  {
+    "country": "الإمارات",
+    "emoji": "🇦🇪",
+    "code": "AE"
+  },
+  {
+    "country": "قطر",
+    "emoji": "🇶🇦",
+    "code": "QA"
+  },
+  {
+    "country": "الكويت",
+    "emoji": "🇰🇼",
+    "code": "KW"
+  },
+  {
+    "country": "البحرين",
+    "emoji": "🇧🇭",
+    "code": "BH"
+  },
+  {
+    "country": "عمان",
+    "emoji": "🇴🇲",
+    "code": "OM"
+  },
+  {
+    "country": "اليمن",
+    "emoji": "🇾🇪",
+    "code": "YE"
+  },
+  {
+    "country": "العراق",
+    "emoji": "🇮🇶",
+    "code": "IQ"
+  },
+  {
+    "country": "سوريا",
+    "emoji": "🇸🇾",
+    "code": "SY"
+  },
+  {
+    "country": "لبنان",
+    "emoji": "🇱🇧",
+    "code": "LB"
+  },
+  {
+    "country": "الأردن",
+    "emoji": "🇯🇴",
+    "code": "JO"
+  },
+  {
+    "country": "فلسطين",
+    "emoji": "🇵🇸",
+    "code": "PS"
+  },
+  {
+    "country": "تركيا",
+    "emoji": "🇹🇷",
+    "code": "TR"
+  },
+  {
+    "country": "إيران",
+    "emoji": "🇮🇷",
+    "code": "IR"
+  },
+  {
+    "country": "أفغانستان",
+    "emoji": "🇦🇫",
+    "code": "AF"
+  },
+  {
+    "country": "باكستان",
+    "emoji": "🇵🇰",
+    "code": "PK"
+  },
+  {
+    "country": "الهند",
+    "emoji": "🇮🇳",
+    "code": "IN"
+  },
+  {
+    "country": "بنغلاديش",
+    "emoji": "🇧🇩",
+    "code": "BD"
+  },
+  {
+    "country": "نيبال",
+    "emoji": "🇳🇵",
+    "code": "NP"
+  },
+  {
+    "country": "بوتان",
+    "emoji": "🇧🇹",
+    "code": "BT"
+  },
+  {
+    "country": "سريلانكا",
+    "emoji": "🇱🇰",
+    "code": "LK"
+  },
+  {
+    "country": "جزر المالديف",
+    "emoji": "🇲🇻",
+    "code": "MV"
+  },
+  {
+    "country": "الصين",
+    "emoji": "🇨🇳",
+    "code": "CN"
+  },
+  {
+    "country": "اليابان",
+    "emoji": "🇯🇵",
+    "code": "JP"
+  },
+  {
+    "country": "كوريا الجنوبية",
+    "emoji": "🇰🇷",
+    "code": "KR"
+  },
+  {
+    "country": "كوريا الشمالية",
+    "emoji": "🇰🇵",
+    "code": "KP"
+  },
+  {
+    "country": "منغوليا",
+    "emoji": "🇲🇳",
+    "code": "MN"
+  },
+  {
+    "country": "كازاخستان",
+    "emoji": "🇰🇿",
+    "code": "KZ"
+  },
+  {
+    "country": "أوزبكستان",
+    "emoji": "🇺🇿",
+    "code": "UZ"
+  },
+  {
+    "country": "تركمانستان",
+    "emoji": "🇹🇲",
+    "code": "TM"
+  },
+  {
+    "country": "قرغيزستان",
+    "emoji": "🇰🇬",
+    "code": "KG"
+  },
+  {
+    "country": "طاجيكستان",
+    "emoji": "🇹🇯",
+    "code": "TJ"
+  },
+  {
+    "country": "أذربيجان",
+    "emoji": "🇦🇿",
+    "code": "AZ"
+  },
+  {
+    "country": "أرمينيا",
+    "emoji": "🇦🇲",
+    "code": "AM"
+  },
+  {
+    "country": "جورجيا",
+    "emoji": "🇬🇪",
+    "code": "GE"
+  },
+  {
+    "country": "تايلاند",
+    "emoji": "🇹🇭",
+    "code": "TH"
+  },
+  {
+    "country": "فيتنام",
+    "emoji": "🇻🇳",
+    "code": "VN"
+  },
+  {
+    "country": "لاوس",
+    "emoji": "🇱🇦",
+    "code": "LA"
+  },
+  {
+    "country": "كمبوديا",
+    "emoji": "🇰🇭",
+    "code": "KH"
+  },
+  {
+    "country": "ميانمار",
+    "emoji": "🇲🇲",
+    "code": "MM"
+  },
+  {
+    "country": "ماليزيا",
+    "emoji": "🇲🇾",
+    "code": "MY"
+  },
+  {
+    "country": "سنغافورة",
+    "emoji": "🇸🇬",
+    "code": "SG"
+  },
+  {
+    "country": "إندونيسيا",
+    "emoji": "🇮🇩",
+    "code": "ID"
+  },
+  {
+    "country": "الفلبين",
+    "emoji": "🇵🇭",
+    "code": "PH"
+  },
+  {
+    "country": "بروناي",
+    "emoji": "🇧🇳",
+    "code": "BN"
+  },
+  {
+    "country": "تيمور الشرقية",
+    "emoji": "🇹🇱",
+    "code": "TL"
+  },
+  {
+    "country": "قبرص",
+    "emoji": "🇨🇾",
+    "code": "CY"
+  },
+  {
+    "country": "مصر",
+    "emoji": "🇪🇬",
+    "code": "EG"
+  },
+  {
+    "country": "ليبيا",
+    "emoji": "🇱🇾",
+    "code": "LY"
+  },
+  {
+    "country": "تونس",
+    "emoji": "🇹🇳",
+    "code": "TN"
+  },
+  {
+    "country": "الجزائر",
+    "emoji": "🇩🇿",
+    "code": "DZ"
+  },
+  {
+    "country": "المغرب",
+    "emoji": "🇲🇦",
+    "code": "MA"
+  },
+  {
+    "country": "موريتانيا",
+    "emoji": "🇲🇷",
+    "code": "MR"
+  },
+  {
+    "country": "السودان",
+    "emoji": "🇸🇩",
+    "code": "SD"
+  },
+  {
+    "country": "جنوب السودان",
+    "emoji": "🇸🇸",
+    "code": "SS"
+  },
+  {
+    "country": "الصومال",
+    "emoji": "🇸🇴",
+    "code": "SO"
+  },
+  {
+    "country": "جيبوتي",
+    "emoji": "🇩🇯",
+    "code": "DJ"
+  },
+  {
+    "country": "إريتريا",
+    "emoji": "🇪🇷",
+    "code": "ER"
+  },
+  {
+    "country": "إثيوبيا",
+    "emoji": "🇪🇹",
+    "code": "ET"
+  },
+  {
+    "country": "كينيا",
+    "emoji": "🇰🇪",
+    "code": "KE"
+  },
+  {
+    "country": "أوغندا",
+    "emoji": "🇺🇬",
+    "code": "UG"
+  },
+  {
+    "country": "تنزانيا",
+    "emoji": "🇹🇿",
+    "code": "TZ"
+  },
+  {
+    "country": "رواندا",
+    "emoji": "🇷🇼",
+    "code": "RW"
+  },
+  {
+    "country": "بوروندي",
+    "emoji": "🇧🇮",
+    "code": "BI"
+  },
+  {
+    "country": "نيجيريا",
+    "emoji": "🇳🇬",
+    "code": "NG"
+  },
+  {
+    "country": "غانا",
+    "emoji": "🇬🇭",
+    "code": "GH"
+  },
+  {
+    "country": "السنغال",
+    "emoji": "🇸🇳",
+    "code": "SN"
+  },
+  {
+    "country": "مالي",
+    "emoji": "🇲🇱",
+    "code": "ML"
+  },
+  {
+    "country": "النيجر",
+    "emoji": "🇳🇪",
+    "code": "NE"
+  },
+  {
+    "country": "تشاد",
+    "emoji": "🇹🇩",
+    "code": "TD"
+  },
+  {
+    "country": "بوركينا فاسو",
+    "emoji": "🇧🇫",
+    "code": "BF"
+  },
+  {
+    "country": "ساحل العاج",
+    "emoji": "🇨🇮",
+    "code": "CI"
+  },
+  {
+    "country": "غينيا",
+    "emoji": "🇬🇳",
+    "code": "GN"
+  },
+  {
+    "country": "غينيا بيساو",
+    "emoji": "🇬🇼",
+    "code": "GW"
+  },
+  {
+    "country": "سيراليون",
+    "emoji": "🇸🇱",
+    "code": "SL"
+  },
+  {
+    "country": "ليبيريا",
+    "emoji": "🇱🇷",
+    "code": "LR"
+  },
+  {
+    "country": "توغو",
+    "emoji": "🇹🇬",
+    "code": "TG"
+  },
+  {
+    "country": "بنين",
+    "emoji": "🇧🇯",
+    "code": "BJ"
+  },
+  {
+    "country": "الكاميرون",
+    "emoji": "🇨🇲",
+    "code": "CM"
+  },
+  {
+    "country": "غينيا الاستوائية",
+    "emoji": "🇬🇶",
+    "code": "GQ"
+  },
+  {
+    "country": "الغابون",
+    "emoji": "🇬🇦",
+    "code": "GA"
+  },
+  {
+    "country": "الكونغو",
+    "emoji": "🇨🇬",
+    "code": "CG"
+  },
+  {
+    "country": "الكونغو الديمقراطية",
+    "emoji": "🇨🇩",
+    "code": "CD"
+  },
+  {
+    "country": "أفريقيا الوسطى",
+    "emoji": "🇨🇫",
+    "code": "CF"
+  },
+  {
+    "country": "أنغولا",
+    "emoji": "🇦🇴",
+    "code": "AO"
+  },
+  {
+    "country": "زامبيا",
+    "emoji": "🇿🇲",
+    "code": "ZM"
+  },
+  {
+    "country": "زيمبابوي",
+    "emoji": "🇿🇼",
+    "code": "ZW"
+  },
+  {
+    "country": "موزمبيق",
+    "emoji": "🇲🇿",
+    "code": "MZ"
+  },
+  {
+    "country": "ملاوي",
+    "emoji": "🇲🇼",
+    "code": "MW"
+  },
+  {
+    "country": "بوتسوانا",
+    "emoji": "🇧🇼",
+    "code": "BW"
+  },
+  {
+    "country": "ناميبيا",
+    "emoji": "🇳🇦",
+    "code": "NA"
+  },
+  {
+    "country": "جنوب أفريقيا",
+    "emoji": "🇿🇦",
+    "code": "ZA"
+  },
+  {
+    "country": "ليسوتو",
+    "emoji": "🇱🇸",
+    "code": "LS"
+  },
+  {
+    "country": "إسواتيني",
+    "emoji": "🇸🇿",
+    "code": "SZ"
+  },
+  {
+    "country": "مدغشقر",
+    "emoji": "🇲🇬",
+    "code": "MG"
+  },
+  {
+    "country": "موريشيوس",
+    "emoji": "🇲🇺",
+    "code": "MU"
+  },
+  {
+    "country": "سيشل",
+    "emoji": "🇸🇨",
+    "code": "SC"
+  },
+  {
+    "country": "جزر القمر",
+    "emoji": "🇰🇲",
+    "code": "KM"
+  },
+  {
+    "country": "الرأس الأخضر",
+    "emoji": "🇨🇻",
+    "code": "CV"
+  },
+  {
+    "country": "ساو تومي وبرينسيبي",
+    "emoji": "🇸🇹",
+    "code": "ST"
+  },
+  {
+    "country": "غامبيا",
+    "emoji": "🇬🇲",
+    "code": "GM"
+  },
+  {
+    "country": "روسيا",
+    "emoji": "🇷🇺",
+    "code": "RU"
+  },
+  {
+    "country": "أوكرانيا",
+    "emoji": "🇺🇦",
+    "code": "UA"
+  },
+  {
+    "country": "بيلاروسيا",
+    "emoji": "🇧🇾",
+    "code": "BY"
+  },
+  {
+    "country": "بولندا",
+    "emoji": "🇵🇱",
+    "code": "PL"
+  },
+  {
+    "country": "ألمانيا",
+    "emoji": "🇩🇪",
+    "code": "DE"
+  },
+  {
+    "country": "فرنسا",
+    "emoji": "🇫🇷",
+    "code": "FR"
+  },
+  {
+    "country": "بريطانيا",
+    "emoji": "🇬🇧",
+    "code": "GB"
+  },
+  {
+    "country": "إيرلندا",
+    "emoji": "🇮🇪",
+    "code": "IE"
+  },
+  {
+    "country": "إسبانيا",
+    "emoji": "🇪🇸",
+    "code": "ES"
+  },
+  {
+    "country": "البرتغال",
+    "emoji": "🇵🇹",
+    "code": "PT"
+  },
+  {
+    "country": "إيطاليا",
+    "emoji": "🇮🇹",
+    "code": "IT"
+  },
+  {
+    "country": "اليونان",
+    "emoji": "🇬🇷",
+    "code": "GR"
+  },
+  {
+    "country": "هولندا",
+    "emoji": "🇳🇱",
+    "code": "NL"
+  },
+  {
+    "country": "بلجيكا",
+    "emoji": "🇧🇪",
+    "code": "BE"
+  },
+  {
+    "country": "لوكسمبورغ",
+    "emoji": "🇱🇺",
+    "code": "LU"
+  },
+  {
+    "country": "سويسرا",
+    "emoji": "🇨🇭",
+    "code": "CH"
+  },
+  {
+    "country": "النمسا",
+    "emoji": "🇦🇹",
+    "code": "AT"
+  },
+  {
+    "country": "التشيك",
+    "emoji": "🇨🇿",
+    "code": "CZ"
+  },
+  {
+    "country": "سلوفاكيا",
+    "emoji": "🇸🇰",
+    "code": "SK"
+  },
+  {
+    "country": "المجر",
+    "emoji": "🇭🇺",
+    "code": "HU"
+  },
+  {
+    "country": "رومانيا",
+    "emoji": "🇷🇴",
+    "code": "RO"
+  },
+  {
+    "country": "بلغاريا",
+    "emoji": "🇧🇬",
+    "code": "BG"
+  },
+  {
+    "country": "صربيا",
+    "emoji": "🇷🇸",
+    "code": "RS"
+  },
+  {
+    "country": "كرواتيا",
+    "emoji": "🇭🇷",
+    "code": "HR"
+  },
+  {
+    "country": "سلوفينيا",
+    "emoji": "🇸🇮",
+    "code": "SI"
+  },
+  {
+    "country": "البوسنة والهرسك",
+    "emoji": "🇧🇦",
+    "code": "BA"
+  },
+  {
+    "country": "الجبل الأسود",
+    "emoji": "🇲🇪",
+    "code": "ME"
+  },
+  {
+    "country": "مقدونيا الشمالية",
+    "emoji": "🇲🇰",
+    "code": "MK"
+  },
+  {
+    "country": "ألبانيا",
+    "emoji": "🇦🇱",
+    "code": "AL"
+  },
+  {
+    "country": "مولدوفا",
+    "emoji": "🇲🇩",
+    "code": "MD"
+  },
+  {
+    "country": "ليتوانيا",
+    "emoji": "🇱🇹",
+    "code": "LT"
+  },
+  {
+    "country": "لاتفيا",
+    "emoji": "🇱🇻",
+    "code": "LV"
+  },
+  {
+    "country": "إستونيا",
+    "emoji": "🇪🇪",
+    "code": "EE"
+  },
+  {
+    "country": "فنلندا",
+    "emoji": "🇫🇮",
+    "code": "FI"
+  },
+  {
+    "country": "السويد",
+    "emoji": "🇸🇪",
+    "code": "SE"
+  },
+  {
+    "country": "النرويج",
+    "emoji": "🇳🇴",
+    "code": "NO"
+  },
+  {
+    "country": "الدنمارك",
+    "emoji": "🇩🇰",
+    "code": "DK"
+  },
+  {
+    "country": "أيسلندا",
+    "emoji": "🇮🇸",
+    "code": "IS"
+  },
+  {
+    "country": "مالطا",
+    "emoji": "🇲🇹",
+    "code": "MT"
+  },
+  {
+    "country": "موناكو",
+    "emoji": "🇲🇨",
+    "code": "MC"
+  },
+  {
+    "country": "أندورا",
+    "emoji": "🇦🇩",
+    "code": "AD"
+  },
+  {
+    "country": "سان مارينو",
+    "emoji": "🇸🇲",
+    "code": "SM"
+  },
+  {
+    "country": "ليختنشتاين",
+    "emoji": "🇱🇮",
+    "code": "LI"
+  },
+  {
+    "country": "الفاتيكان",
+    "emoji": "🇻🇦",
+    "code": "VA"
+  },
+  {
+    "country": "الولايات المتحدة",
+    "emoji": "🇺🇸",
+    "code": "US"
+  },
+  {
+    "country": "كندا",
+    "emoji": "🇨🇦",
+    "code": "CA"
+  },
+  {
+    "country": "المكسيك",
+    "emoji": "🇲🇽",
+    "code": "MX"
+  },
+  {
+    "country": "غواتيمالا",
+    "emoji": "🇬🇹",
+    "code": "GT"
+  },
+  {
+    "country": "بليز",
+    "emoji": "🇧🇿",
+    "code": "BZ"
+  },
+  {
+    "country": "هندوراس",
+    "emoji": "🇭🇳",
+    "code": "HN"
+  },
+  {
+    "country": "السلفادور",
+    "emoji": "🇸🇻",
+    "code": "SV"
+  },
+  {
+    "country": "نيكاراغوا",
+    "emoji": "🇳🇮",
+    "code": "NI"
+  },
+  {
+    "country": "كوستاريكا",
+    "emoji": "🇨🇷",
+    "code": "CR"
+  },
+  {
+    "country": "بنما",
+    "emoji": "🇵🇦",
+    "code": "PA"
+  },
+  {
+    "country": "كوبا",
+    "emoji": "🇨🇺",
+    "code": "CU"
+  },
+  {
+    "country": "جامايكا",
+    "emoji": "🇯🇲",
+    "code": "JM"
+  },
+  {
+    "country": "هايتي",
+    "emoji": "🇭🇹",
+    "code": "HT"
+  },
+  {
+    "country": "جمهورية الدومينيكان",
+    "emoji": "🇩🇴",
+    "code": "DO"
+  },
+  {
+    "country": "الباهاما",
+    "emoji": "🇧🇸",
+    "code": "BS"
+  },
+  {
+    "country": "باربادوس",
+    "emoji": "🇧🇧",
+    "code": "BB"
+  },
+  {
+    "country": "ترينيداد وتوباغو",
+    "emoji": "🇹🇹",
+    "code": "TT"
+  },
+  {
+    "country": "سانت لوسيا",
+    "emoji": "🇱🇨",
+    "code": "LC"
+  },
+  {
+    "country": "غرينادا",
+    "emoji": "🇬🇩",
+    "code": "GD"
+  },
+  {
+    "country": "أنتيغوا وبربودا",
+    "emoji": "🇦🇬",
+    "code": "AG"
+  },
+  {
+    "country": "سانت كيتس ونيفيس",
+    "emoji": "🇰🇳",
+    "code": "KN"
+  },
+  {
+    "country": "سانت فنسنت والغرينادين",
+    "emoji": "🇻🇨",
+    "code": "VC"
+  },
+  {
+    "country": "دومينيكا",
+    "emoji": "🇩🇲",
+    "code": "DM"
+  },
+  {
+    "country": "البرازيل",
+    "emoji": "🇧🇷",
+    "code": "BR"
+  },
+  {
+    "country": "الأرجنتين",
+    "emoji": "🇦🇷",
+    "code": "AR"
+  },
+  {
+    "country": "تشيلي",
+    "emoji": "🇨🇱",
+    "code": "CL"
+  },
+  {
+    "country": "بيرو",
+    "emoji": "🇵🇪",
+    "code": "PE"
+  },
+  {
+    "country": "كولومبيا",
+    "emoji": "🇨🇴",
+    "code": "CO"
+  },
+  {
+    "country": "فنزويلا",
+    "emoji": "🇻🇪",
+    "code": "VE"
+  },
+  {
+    "country": "الإكوادور",
+    "emoji": "🇪🇨",
+    "code": "EC"
+  },
+  {
+    "country": "بوليفيا",
+    "emoji": "🇧🇴",
+    "code": "BO"
+  },
+  {
+    "country": "باراغواي",
+    "emoji": "🇵🇾",
+    "code": "PY"
+  },
+  {
+    "country": "أوروغواي",
+    "emoji": "🇺🇾",
+    "code": "UY"
+  },
+  {
+    "country": "غيانا",
+    "emoji": "🇬🇾",
+    "code": "GY"
+  },
+  {
+    "country": "سورينام",
+    "emoji": "🇸🇷",
+    "code": "SR"
+  },
+  {
+    "country": "أستراليا",
+    "emoji": "🇦🇺",
+    "code": "AU"
+  },
+  {
+    "country": "نيوزيلندا",
+    "emoji": "🇳🇿",
+    "code": "NZ"
+  },
+  {
+    "country": "بابوا غينيا الجديدة",
+    "emoji": "🇵🇬",
+    "code": "PG"
+  },
+  {
+    "country": "فيجي",
+    "emoji": "🇫🇯",
+    "code": "FJ"
+  },
+  {
+    "country": "جزر سليمان",
+    "emoji": "🇸🇧",
+    "code": "SB"
+  },
+  {
+    "country": "فانواتو",
+    "emoji": "🇻🇺",
+    "code": "VU"
+  },
+  {
+    "country": "ساموا",
+    "emoji": "🇼🇸",
+    "code": "WS"
+  },
+  {
+    "country": "تونغا",
+    "emoji": "🇹🇴",
+    "code": "TO"
+  },
+  {
+    "country": "كيريباتي",
+    "emoji": "🇰🇮",
+    "code": "KI"
+  },
+  {
+    "country": "تفالو",
+    "emoji": "🇹🇻",
+    "code": "TV"
+  },
+  {
+    "country": "ناورو",
+    "emoji": "🇳🇷",
+    "code": "NR"
+  },
+  {
+    "country": "جزر مارشال",
+    "emoji": "🇲🇭",
+    "code": "MH"
+  },
+  {
+    "country": "ميكرونيزيا",
+    "emoji": "🇫🇲",
+    "code": "FM"
+  },
+  {
+    "country": "بالاو",
+    "emoji": "🇵🇼",
+    "code": "PW"
+  }
+]

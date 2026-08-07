@@ -1,0 +1,778 @@
+[
+  {
+    "country": "السعودية",
+    "continent": "آسيا"
+  },
+  {
+    "country": "الإمارات",
+    "continent": "آسيا"
+  },
+  {
+    "country": "قطر",
+    "continent": "آسيا"
+  },
+  {
+    "country": "الكويت",
+    "continent": "آسيا"
+  },
+  {
+    "country": "البحرين",
+    "continent": "آسيا"
+  },
+  {
+    "country": "عمان",
+    "continent": "آسيا"
+  },
+  {
+    "country": "اليمن",
+    "continent": "آسيا"
+  },
+  {
+    "country": "العراق",
+    "continent": "آسيا"
+  },
+  {
+    "country": "سوريا",
+    "continent": "آسيا"
+  },
+  {
+    "country": "لبنان",
+    "continent": "آسيا"
+  },
+  {
+    "country": "الأردن",
+    "continent": "آسيا"
+  },
+  {
+    "country": "فلسطين",
+    "continent": "آسيا"
+  },
+  {
+    "country": "تركيا",
+    "continent": "آسيا"
+  },
+  {
+    "country": "إيران",
+    "continent": "آسيا"
+  },
+  {
+    "country": "أفغانستان",
+    "continent": "آسيا"
+  },
+  {
+    "country": "باكستان",
+    "continent": "آسيا"
+  },
+  {
+    "country": "الهند",
+    "continent": "آسيا"
+  },
+  {
+    "country": "بنغلاديش",
+    "continent": "آسيا"
+  },
+  {
+    "country": "نيبال",
+    "continent": "آسيا"
+  },
+  {
+    "country": "بوتان",
+    "continent": "آسيا"
+  },
+  {
+    "country": "سريلانكا",
+    "continent": "آسيا"
+  },
+  {
+    "country": "جزر المالديف",
+    "continent": "آسيا"
+  },
+  {
+    "country": "الصين",
+    "continent": "آسيا"
+  },
+  {
+    "country": "اليابان",
+    "continent": "آسيا"
+  },
+  {
+    "country": "كوريا الجنوبية",
+    "continent": "آسيا"
+  },
+  {
+    "country": "كوريا الشمالية",
+    "continent": "آسيا"
+  },
+  {
+    "country": "منغوليا",
+    "continent": "آسيا"
+  },
+  {
+    "country": "كازاخستان",
+    "continent": "آسيا"
+  },
+  {
+    "country": "أوزبكستان",
+    "continent": "آسيا"
+  },
+  {
+    "country": "تركمانستان",
+    "continent": "آسيا"
+  },
+  {
+    "country": "قرغيزستان",
+    "continent": "آسيا"
+  },
+  {
+    "country": "طاجيكستان",
+    "continent": "آسيا"
+  },
+  {
+    "country": "أذربيجان",
+    "continent": "آسيا"
+  },
+  {
+    "country": "أرمينيا",
+    "continent": "آسيا"
+  },
+  {
+    "country": "جورجيا",
+    "continent": "آسيا"
+  },
+  {
+    "country": "تايلاند",
+    "continent": "آسيا"
+  },
+  {
+    "country": "فيتنام",
+    "continent": "آسيا"
+  },
+  {
+    "country": "لاوس",
+    "continent": "آسيا"
+  },
+  {
+    "country": "كمبوديا",
+    "continent": "آسيا"
+  },
+  {
+    "country": "ميانمار",
+    "continent": "آسيا"
+  },
+  {
+    "country": "ماليزيا",
+    "continent": "آسيا"
+  },
+  {
+    "country": "سنغافورة",
+    "continent": "آسيا"
+  },
+  {
+    "country": "إندونيسيا",
+    "continent": "آسيا"
+  },
+  {
+    "country": "الفلبين",
+    "continent": "آسيا"
+  },
+  {
+    "country": "بروناي",
+    "continent": "آسيا"
+  },
+  {
+    "country": "تيمور الشرقية",
+    "continent": "آسيا"
+  },
+  {
+    "country": "قبرص",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "مصر",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "ليبيا",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "تونس",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "الجزائر",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "المغرب",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "موريتانيا",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "السودان",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "جنوب السودان",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "الصومال",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "جيبوتي",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "إريتريا",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "إثيوبيا",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "كينيا",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "أوغندا",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "تنزانيا",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "رواندا",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "بوروندي",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "نيجيريا",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "غانا",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "السنغال",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "مالي",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "النيجر",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "تشاد",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "بوركينا فاسو",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "ساحل العاج",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "غينيا",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "غينيا بيساو",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "سيراليون",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "ليبيريا",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "توغو",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "بنين",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "الكاميرون",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "غينيا الاستوائية",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "الغابون",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "الكونغو",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "الكونغو الديمقراطية",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "أفريقيا الوسطى",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "أنغولا",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "زامبيا",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "زيمبابوي",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "موزمبيق",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "ملاوي",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "بوتسوانا",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "ناميبيا",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "جنوب أفريقيا",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "ليسوتو",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "إسواتيني",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "مدغشقر",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "موريشيوس",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "سيشل",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "جزر القمر",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "الرأس الأخضر",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "ساو تومي وبرينسيبي",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "غامبيا",
+    "continent": "أفريقيا"
+  },
+  {
+    "country": "روسيا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "أوكرانيا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "بيلاروسيا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "بولندا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "ألمانيا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "فرنسا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "بريطانيا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "إيرلندا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "إسبانيا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "البرتغال",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "إيطاليا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "اليونان",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "هولندا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "بلجيكا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "لوكسمبورغ",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "سويسرا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "النمسا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "التشيك",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "سلوفاكيا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "المجر",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "رومانيا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "بلغاريا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "صربيا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "كرواتيا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "سلوفينيا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "البوسنة والهرسك",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "الجبل الأسود",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "مقدونيا الشمالية",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "ألبانيا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "مولدوفا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "ليتوانيا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "لاتفيا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "إستونيا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "فنلندا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "السويد",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "النرويج",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "الدنمارك",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "أيسلندا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "مالطا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "موناكو",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "أندورا",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "سان مارينو",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "ليختنشتاين",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "الفاتيكان",
+    "continent": "أوروبا"
+  },
+  {
+    "country": "الولايات المتحدة",
+    "continent": "أمريكا الشمالية"
+  },
+  {
+    "country": "كندا",
+    "continent": "أمريكا الشمالية"
+  },
+  {
+    "country": "المكسيك",
+    "continent": "أمريكا الشمالية"
+  },
+  {
+    "country": "غواتيمالا",
+    "continent": "أمريكا الشمالية"
+  },
+  {
+    "country": "بليز",
+    "continent": "أمريكا الشمالية"
+  },
+  {
+    "country": "هندوراس",
+    "continent": "أمريكا الشمالية"
+  },
+  {
+    "country": "السلفادور",
+    "continent": "أمريكا الشمالية"
+  },
+  {
+    "country": "نيكاراغوا",
+    "continent": "أمريكا الشمالية"
+  },
+  {
+    "country": "كوستاريكا",
+    "continent": "أمريكا الشمالية"
+  },
+  {
+    "country": "بنما",
+    "continent": "أمريكا الشمالية"
+  },
+  {
+    "country": "كوبا",
+    "continent": "أمريكا الشمالية"
+  },
+  {
+    "country": "جامايكا",
+    "continent": "أمريكا الشمالية"
+  },
+  {
+    "country": "هايتي",
+    "continent": "أمريكا الشمالية"
+  },
+  {
+    "country": "جمهورية الدومينيكان",
+    "continent": "أمريكا الشمالية"
+  },
+  {
+    "country": "الباهاما",
+    "continent": "أمريكا الشمالية"
+  },
+  {
+    "country": "باربادوس",
+    "continent": "أمريكا الشمالية"
+  },
+  {
+    "country": "ترينيداد وتوباغو",
+    "continent": "أمريكا الشمالية"
+  },
+  {
+    "country": "سانت لوسيا",
+    "continent": "أمريكا الشمالية"
+  },
+  {
+    "country": "غرينادا",
+    "continent": "أمريكا الشمالية"
+  },
+  {
+    "country": "أنتيغوا وبربودا",
+    "continent": "أمريكا الشمالية"
+  },
+  {
+    "country": "سانت كيتس ونيفيس",
+    "continent": "أمريكا الشمالية"
+  },
+  {
+    "country": "سانت فنسنت والغرينادين",
+    "continent": "أمريكا الشمالية"
+  },
+  {
+    "country": "دومينيكا",
+    "continent": "أمريكا الشمالية"
+  },
+  {
+    "country": "البرازيل",
+    "continent": "أمريكا الجنوبية"
+  },
+  {
+    "country": "الأرجنتين",
+    "continent": "أمريكا الجنوبية"
+  },
+  {
+    "country": "تشيلي",
+    "continent": "أمريكا الجنوبية"
+  },
+  {
+    "country": "بيرو",
+    "continent": "أمريكا الجنوبية"
+  },
+  {
+    "country": "كولومبيا",
+    "continent": "أمريكا الجنوبية"
+  },
+  {
+    "country": "فنزويلا",
+    "continent": "أمريكا الجنوبية"
+  },
+  {
+    "country": "الإكوادور",
+    "continent": "أمريكا الجنوبية"
+  },
+  {
+    "country": "بوليفيا",
+    "continent": "أمريكا الجنوبية"
+  },
+  {
+    "country": "باراغواي",
+    "continent": "أمريكا الجنوبية"
+  },
+  {
+    "country": "أوروغواي",
+    "continent": "أمريكا الجنوبية"
+  },
+  {
+    "country": "غيانا",
+    "continent": "أمريكا الجنوبية"
+  },
+  {
+    "country": "سورينام",
+    "continent": "أمريكا الجنوبية"
+  },
+  {
+    "country": "أستراليا",
+    "continent": "أوقيانوسيا"
+  },
+  {
+    "country": "نيوزيلندا",
+    "continent": "أوقيانوسيا"
+  },
+  {
+    "country": "بابوا غينيا الجديدة",
+    "continent": "أوقيانوسيا"
+  },
+  {
+    "country": "فيجي",
+    "continent": "أوقيانوسيا"
+  },
+  {
+    "country": "جزر سليمان",
+    "continent": "أوقيانوسيا"
+  },
+  {
+    "country": "فانواتو",
+    "continent": "أوقيانوسيا"
+  },
+  {
+    "country": "ساموا",
+    "continent": "أوقيانوسيا"
+  },
+  {
+    "country": "تونغا",
+    "continent": "أوقيانوسيا"
+  },
+  {
+    "country": "كيريباتي",
+    "continent": "أوقيانوسيا"
+  },
+  {
+    "country": "تفالو",
+    "continent": "أوقيانوسيا"
+  },
+  {
+    "country": "ناورو",
+    "continent": "أوقيانوسيا"
+  },
+  {
+    "country": "جزر مارشال",
+    "continent": "أوقيانوسيا"
+  },
+  {
+    "country": "ميكرونيزيا",
+    "continent": "أوقيانوسيا"
+  },
+  {
+    "country": "بالاو",
+    "continent": "أوقيانوسيا"
+  }
+]

@@ -1,0 +1,139 @@
+import SwiftUI
+
+/// مقاس النص على الجوال.
+///
+/// **لا يُولَّد** من `tokens.ts` عمدًا: مقاسات الكانفاس محسوبة لعرض 1500px،
+/// والشاشة نحو 390pt. التحويل النسبي كان يعطي عنوانًا بحجم 21pt — أي وسطًا
+/// لا هو عنوان ولا نص. المقاس هنا قرار مستقل لوسيط مختلف، واللون والشكل
+/// وحدهما يأتيان من المصدر المشترك.
+public enum Type {
+    public static let display: CGFloat = 34
+    public static let title: CGFloat = 22
+    public static let body: CGFloat = 17
+    public static let label: CGFloat = 15
+    public static let meta: CGFloat = 13
+
+    /// العربية تحتاج مساحة رأسية أكبر — DESIGN.md §4 لا ينزل تحت 1.7
+    public static let lineSpacing: CGFloat = 6
+}
+
+public extension Font {
+    static func display(_ size: CGFloat = Type.display) -> Font {
+        .custom(Face.display, size: size)
+    }
+    static func displaySoft(_ size: CGFloat = Type.title) -> Font {
+        .custom(Face.displaySoft, size: size)
+    }
+    static func bodyAr(_ size: CGFloat = Type.body) -> Font {
+        .custom(Face.body, size: size)
+    }
+    static func bodyArBold(_ size: CGFloat = Type.label) -> Font {
+        .custom(Face.bodyBold, size: size)
+    }
+}
+
+/// الظل الصلب — توقيع المشروع (DESIGN.md §5).
+///
+/// `shadow()` في SwiftUI ضبابي دائمًا ولا يمكن جعله صلبًا، فالتنفيذ نسخة ثانية
+/// من الشكل نفسه مزاحة خلفه. ولون الظل متغيّر: الأصفر يُلقي ظلًا أحمر، وهو
+/// موضع اندماج لوني الهوية.
+public struct HardShadow: ViewModifier {
+    let color: Color
+    let lift: CGFloat
+    let radius: CGFloat
+
+    public func body(content: Content) -> some View {
+        content.background(
+            RoundedRectangle(cornerRadius: radius, style: .continuous)
+                .fill(color)
+                // يسار-أسفل: يتبع اتجاه القراءة RTL، الضوء من جهة بداية السطر
+                .offset(x: -lift, y: lift)
+        )
+    }
+}
+
+public extension View {
+    func hardShadow(_ color: Color = Ink.ink, lift: CGFloat = 6, radius: CGFloat = 18) -> some View {
+        modifier(HardShadow(color: color, lift: lift, radius: radius))
+    }
+}
+
+/// بطاقة القصاصة المقصوصة: سطح كريمي + حد أسود سميك + ظل صلب.
+public struct Card<Content: View>: View {
+    var shadow: Color = Ink.ink
+    var padding: CGFloat = 18
+    @ViewBuilder var content: () -> Content
+
+    public init(shadow: Color = Ink.ink, padding: CGFloat = 18, @ViewBuilder content: @escaping () -> Content) {
+        self.shadow = shadow
+        self.padding = padding
+        self.content = content
+    }
+
+    public var body: some View {
+        content()
+            .padding(padding)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(
+                RoundedRectangle(cornerRadius: 18, style: .continuous).fill(Ink.surface)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    .strokeBorder(Ink.ink, lineWidth: 3)
+            )
+            .hardShadow(shadow, lift: 6, radius: 18)
+    }
+}
+
+/// كبسولة صغيرة — العدّادات وأسماء المحافظ.
+public struct Pill: View {
+    let text: String
+    var fill: Color = Ink.yellow
+    var textColor: Color = Ink.ink
+
+    public init(_ text: String, fill: Color = Ink.yellow, textColor: Color = Ink.ink) {
+        self.text = text
+        self.fill = fill
+        self.textColor = textColor
+    }
+
+    public var body: some View {
+        Text(text)
+            .font(.bodyArBold(Type.meta))
+            .foregroundStyle(textColor)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 5)
+            .background(Capsule().fill(fill))
+            .overlay(Capsule().strokeBorder(Ink.ink, lineWidth: 2))
+    }
+}
+
+/// الشريط الأحمر العلوي — عنوان الشاشة.
+public struct TopBar: View {
+    let title: String
+    var trailing: String?
+
+    public init(_ title: String, trailing: String? = nil) {
+        self.title = title
+        self.trailing = trailing
+    }
+
+    public var body: some View {
+        HStack {
+            Text(title)
+                .font(.displaySoft(Type.title))
+                .foregroundStyle(Ink.cream)
+            Spacer(minLength: 12)
+            if let trailing { Pill(trailing) }
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
+        .frame(maxWidth: .infinity)
+        .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Ink.red))
+        .overlay(
+            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                .strokeBorder(Ink.ink, lineWidth: 3)
+        )
+        .hardShadow(Ink.ink, lift: 5, radius: 14)
+    }
+}
