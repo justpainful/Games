@@ -171,9 +171,9 @@ struct SmallHeading: View {
     init(_ text: String) { self.text = text }
 
     var body: some View {
-        (Text("«").foregroundColor(Ink.red)
-         + Text(text).foregroundColor(Ink.ink)
-         + Text("»").foregroundColor(Ink.red))
+        (Text("«").foregroundStyle(Ink.red)
+         + Text(text).foregroundStyle(Ink.ink)
+         + Text("»").foregroundStyle(Ink.red))
             .font(.displaySoft(Type.body))
     }
 }

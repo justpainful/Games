@@ -182,10 +182,10 @@ enum LocalQuestions {
         return usable.shuffled().prefix(count).enumerated().map { index, word in
             let letters = Array(word.map(String.init))
             var mixed = letters.shuffled()
-            var guard_ = 0
-            while mixed == letters && guard_ < 8 {
+            var attempts = 0
+            while mixed == letters && attempts < 8 {
                 mixed = letters.shuffled()
-                guard_ += 1
+                attempts += 1
             }
             return LocalQuestion(id: "rakeb-\(index)", prompt: mixed.joined(separator: " "),
                                  lead: "أعد تركيب الحروف لتكوّن الكلمة", answers: [word])

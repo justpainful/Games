@@ -8,7 +8,7 @@ struct SoloView: View {
     @AppStorage(BotSettings.skillKey) private var skill: Skill = .normal
     @State private var path: [PlayRoute] = []
 
-    private let games = Catalog.soloGames
+    private var games: [GameInfo] { Catalog.soloGames }
 
     var body: some View {
         NavigationStack(path: $path) {

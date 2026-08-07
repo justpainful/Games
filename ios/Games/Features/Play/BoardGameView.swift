@@ -275,7 +275,9 @@ struct BoardGameView: View {
             }
         }
         .padding(10)
-        .background(RoundedRectangle(cornerRadius: 20, style: .continuous).fill(Ink.surface))
+        // اللوحة بلون الكتل العضوية لا بلون البطاقات: الخانة الفاتحة يجب أن
+        // تُقرأ فوقها، ولون البطاقة نفسه يجعل الشبكة سطحًا واحدًا بلا خانات.
+        .background(RoundedRectangle(cornerRadius: 20, style: .continuous).fill(Ink.paperTint))
         .overlay(
             RoundedRectangle(cornerRadius: 20, style: .continuous)
                 .strokeBorder(Ink.ink, lineWidth: 3)
@@ -294,10 +296,15 @@ private struct BoardCell: View {
 
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: rounded ? 999 : 12, style: .continuous)
-                .fill(fill)
-            RoundedRectangle(cornerRadius: rounded ? 999 : 12, style: .continuous)
-                .strokeBorder(Ink.ink, lineWidth: 3)
+            shape.fill(fill)
+            shape.strokeBorder(Ink.ink, lineWidth: 3)
+            // خانة الخط الفائز: حلقة كريمية داخلية تُرى فوق الأحمر والأصفر معًا،
+            // فلا يضيع الفوز حين تكون قطع الخصم صفراء أصلًا.
+            if highlighted {
+                shape
+                    .strokeBorder(Ink.cream, lineWidth: 3)
+                    .padding(5)
+            }
             if !rounded, let symbol {
                 Image(systemName: symbol)
                     .font(.system(size: 26, weight: .heavy))
@@ -306,6 +313,10 @@ private struct BoardCell: View {
         }
         .frame(maxWidth: .infinity)
         .aspectRatio(1, contentMode: .fit)
+    }
+
+    private var shape: RoundedRectangle {
+        RoundedRectangle(cornerRadius: rounded ? 999 : 12, style: .continuous)
     }
 
     private var symbol: String? {
@@ -317,12 +328,11 @@ private struct BoardCell: View {
     }
 
     private var fill: Color {
-        if highlighted { return Ink.yellow }
-        guard rounded else { return Ink.surface }
+        guard rounded else { return highlighted ? Ink.yellow : Ink.surface }
         switch mark {
         case "X": return Ink.red
         case "O": return Ink.yellow
-        default: return Ink.paperTint
+        default: return Ink.surface
         }
     }
 }

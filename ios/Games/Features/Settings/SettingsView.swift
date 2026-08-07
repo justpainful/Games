@@ -258,9 +258,11 @@ struct SettingsView: View {
 
     // ————— أدوات —————
 
+    // `@escaping` إلزامي: المحتوى يُمرَّر إلى `Card` التي تحتفظ به لترسمه لاحقًا،
+    // فهو يهرب من نطاق هذه الدالة.
     private func section<Content: View>(
         _ title: String,
-        @ViewBuilder content: () -> Content
+        @ViewBuilder content: @escaping () -> Content
     ) -> some View {
         Card(shadow: Ink.ink, padding: 16) {
             VStack(alignment: .leading, spacing: 12) {
