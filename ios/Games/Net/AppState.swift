@@ -28,9 +28,7 @@ public final class AppState {
     /// ضروري لأمرين: التقاط لقطات كل الشاشات في CI (البناء يجري على ماك بلا
     /// خادم ولا حساب ديسكورد)، وعرض التطبيق دون انتظار تشغيل الخلفية.
     /// يُفعَّل بوسيط الإقلاع `-demo` فقط، فلا يمكن الوصول إليه من التطبيق المنشور.
-    public static var isDemo: Bool {
-        ProcessInfo.processInfo.arguments.contains("-demo")
-    }
+    public static var isDemo: Bool { Demo.isOn }
 
     public init() {
         activeGuildID = UserDefaults.standard.string(forKey: "activeGuild")
@@ -100,18 +98,10 @@ public final class AppState {
     /// بيانات العرض. أسماء متنوّعة عمدًا — عربي طويل ولاتيني بنقطة بادئة —
     /// فتكشف اللقطة كسر الاتجاه والقصّ بدل أن تخفيه بأسماء قصيرة مثالية.
     private func loadDemo() {
-        account = Account(
-            id: "308994132968210433",
-            username: "abdulrahman",
-            displayName: "عبدالرحمن",
-            avatarHash: nil
-        )
-        points = Points(roulette: 14, team: 62, solo: 137, gamesPlayed: 48, wins: 19)
-        guilds = [
-            Guild(id: "1", name: "سيرفر الأصدقاء", iconHash: nil),
-            Guild(id: "2", name: "Gaming Lounge", iconHash: nil),
-        ]
-        activeGuildID = "1"
+        account = Demo.account
+        points = Demo.points
+        guilds = Demo.guilds
+        activeGuildID = Demo.guilds.first?.id
         phase = .signedIn
     }
 }

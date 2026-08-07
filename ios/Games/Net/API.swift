@@ -54,6 +54,13 @@ public actor API {
     private func send<T: Decodable, B: Encodable>(
         _ path: String, method: String, body: B?
     ) async throws -> T {
+        // وضع العرض يُعترَض هنا فتعمل كل الشاشات بلا خادم — بما فيها ما يُضاف
+        // لاحقًا، بلا أن تعرف الشاشة شيئًا عن الوضع.
+        if Demo.isOn, let canned = Demo.canned(for: path) {
+            let data = try encoder.encode(AnyEncodable(canned))
+            return try decoder.decode(T.self, from: data)
+        }
+
         // `appendingPathComponent` يرمّز `?` إلى `%3F`، فيصل المسار
         // `/leaders/1?wallet=solo` إلى الخادم كمسار واحد بلا استعلام والفلترة
         // تُتجاهل بصمت. البناء النصّي ثم `URL(string:)` يحفظ الاستعلام.
@@ -101,3 +108,13 @@ public actor API {
 }
 
 public struct Empty: Codable, Sendable { public init() {} }
+
+/// غلاف يمحو النوع ليمكن ترميز `any Encodable`.
+/// `JSONEncoder` لا يقبل الوجود المجرّد مباشرة.
+struct AnyEncodable: Encodable {
+    private let encodeTo: (Encoder) throws -> Void
+    init(_ wrapped: any Encodable) {
+        encodeTo = { encoder in try wrapped.encode(to: encoder) }
+    }
+    func encode(to encoder: Encoder) throws { try encodeTo(encoder) }
+}
