@@ -40,6 +40,9 @@ jobs:
         run: |
           brew install xcodegen
           cd ios && xcodegen generate
+          # إثبات أن أهداف الاختبار دخلت المشروع فعلًا — هدف مفقود يمرّ بصمت
+          # ويعطي "نجح البناء" بينما لم يُشغَّل أي اختبار وحدة.
+          xcodebuild -project Games.xcodeproj -list
 
       - name: اختيار المحاكي
         id: sim
@@ -70,6 +73,12 @@ jobs:
             -resultBundlePath ios/Result.xcresult \
             CODE_SIGNING_ALLOWED=NO \
             test 2>&1 | tail -80
+
+      - name: ملخّص الاختبارات
+        if: always()
+        run: |
+          xcrun xcresulttool get test-results summary \
+            --path ios/Result.xcresult 2>/dev/null | head -40 || true
 
       - name: استخراج اللقطات من نتيجة الاختبار
         if: always()
