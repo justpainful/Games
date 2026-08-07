@@ -93,7 +93,14 @@ async function replace(dead: Page): Promise<void> {
  * يرسم HTML مشهد كامل ويعيد PNG.
  * اللقطة تُؤخذ لعنصر `.scene` وحده، فيتمدد الارتفاع مع المحتوى تلقائيًا.
  */
-export async function shoot(sceneHtml: string): Promise<Buffer> {
+export type ShootOptions = {
+  /** أي عنصر يُلتقط. الافتراضي جذر المشهد. */
+  selector?: string
+  /** خلفية شفافة — للأيقونات التي تُركَّب فوق أسطح مختلفة. */
+  transparent?: boolean
+}
+
+export async function shoot(sceneHtml: string, opts: ShootOptions = {}): Promise<Buffer> {
   const page = await acquire()
   try {
     await page.evaluate((h) => {
@@ -107,8 +114,12 @@ export async function shoot(sceneHtml: string): Promise<Buffer> {
       ),
     )
 
-    const target = page.locator('.scene')
-    const png = await target.screenshot({ type: 'png', timeout: TIMEOUT_MS })
+    const target = page.locator(opts.selector ?? '.scene')
+    const png = await target.screenshot({
+      type: 'png',
+      timeout: TIMEOUT_MS,
+      omitBackground: opts.transparent ?? false,
+    })
     release(page)
     return png
   } catch (err) {

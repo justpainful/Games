@@ -7,19 +7,21 @@ import SwiftUI
 /// اللاعب للقسم الذي جاء من أجله.
 struct RootTabView: View {
     var body: some View {
-        // صيغة `Tab` الحديثة: متاحة لأن الحد الأدنى iOS 26، وهي ما يكسوه
-        // النظام زجاجًا تلقائيًا في شريط التنقّل.
+        // أيقونات المشروع لا SF Symbols: هندسة آبل رفيعة وحادة، وهويتنا سميكة
+        // مدوّرة (DESIGN.md §5) — أيقونة النظام وسط بطاقاتنا القصاصية تبدو
+        // مستعارة. الأصول مولّدة بـ `npm run gen:navicons` ومعلّمة `template`،
+        // فيصبغها النظام بالأحمر عند الاختيار ويبقى سلوك iOS كما هو.
         TabView {
-            Tab("الألعاب", systemImage: "gamecontroller.fill") {
+            Tab("الألعاب", image: "NavGames") {
                 CatalogView()
             }
-            Tab("منفرد", systemImage: "cpu.fill") {
+            Tab("منفرد", image: "NavSolo") {
                 SoloView()
             }
-            Tab("الصدارة", systemImage: "trophy.fill") {
+            Tab("الصدارة", image: "NavLeaders") {
                 LeadersView()
             }
-            Tab("حسابي", systemImage: "person.crop.circle.fill") {
+            Tab("حسابي", image: "NavProfile") {
                 ProfileView()
             }
         }
