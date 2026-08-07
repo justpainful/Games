@@ -21,7 +21,7 @@ targets:
     info:
       path: Games/Info.plist
       properties:
-        CFBundleDisplayName: العاب
+        CFBundleDisplayName: Arcade
         CFBundleDevelopmentRegion: ar
         # فارغة عمدًا: أي UIColorName هنا يتطلب أصلًا في asset catalog،
         # وغيابه يفشل البناء برسالة غامضة

@@ -51,7 +51,7 @@ ${
     ? html`
         <header class="bar">
           <div class="bar__in">
-            <span class="brand">لوحة التحكّم</span>
+            <span class="brand">Arcade</span>
             <span class="pill">${guild.name}</span>
             <span class="grow"></span>
             ${user ? html`<span class="who"><bdi>${user.displayName ?? user.username}</bdi></span>` : ''}
