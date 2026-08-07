@@ -111,7 +111,9 @@ public struct PatternDuelBot: DuelOpponent {
     }
 
     private static func isEmpty(_ weights: [Double]) -> Bool {
-        for weight in weights where weight > 0 { return false }
+        for weight in weights {
+            if weight > 0 { return false }
+        }
         return true
     }
 }

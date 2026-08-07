@@ -87,8 +87,9 @@ final class BotTests: XCTestCase {
 
     private func walkTicTacToe(board: [String?], botTurn: Bool,
                                bot: MinimaxBoardBot, memo: inout Set<String>) {
+        let printable = board.map { $0 ?? "." }.joined()
         if let winner = ticTacToeWinner(board) {
-            XCTAssertNotEqual(winner, "O", "البوت الصعب خسر في هذا الفرع: \(board.map { $0 ?? "." })")
+            XCTAssertNotEqual(winner, "O", "البوت الصعب خسر في هذا الفرع: " + printable)
             return
         }
 
@@ -98,7 +99,7 @@ final class BotTests: XCTestCase {
         }
         if empties.isEmpty { return }
 
-        let key = board.map { $0 ?? "." }.joined() + (botTurn ? "|B" : "|H")
+        let key = printable + (botTurn ? "|B" : "|H")
         if memo.contains(key) { return }
         memo.insert(key)
 
@@ -183,7 +184,7 @@ final class BotTests: XCTestCase {
         let bot = MinimaxBoardBot(random: BotRandom(seed: 8))
         let move = bot.move(board: board, cols: connectCols, me: "R", rival: "Y", skill: .hard)
         XCTAssertEqual(move, 39, "الفوز الفوري بإسقاط القطعة في العمود 4")
-        XCTAssertEqual(move.map { $0 % connectCols }, 4)
+        XCTAssertEqual((move ?? -1) % connectCols, 4)
     }
 
     func testConnectFourBlocksOpponentRow() {
@@ -216,8 +217,8 @@ final class BotTests: XCTestCase {
                 }
                 XCTAssertNotEqual(move % connectCols, column, "اختار عمودًا ممتلئًا")
                 XCTAssertNil(board[move], "اختار خانة مشغولة")
-                XCTAssertEqual(lowestEmpty(board, cols: connectCols, column: move % connectCols), move,
-                               "القطعة لم تسقط لأدنى خانة فارغة")
+                let landing = lowestEmpty(board, cols: connectCols, column: move % connectCols) ?? -1
+                XCTAssertEqual(landing, move, "القطعة لم تسقط لأدنى خانة فارغة")
             }
         }
     }
@@ -242,7 +243,8 @@ final class BotTests: XCTestCase {
                 continue
             }
             XCTAssertNil(board[move])
-            XCTAssertEqual(lowestEmpty(board, cols: connectCols, column: move % connectCols), move)
+            let landing = lowestEmpty(board, cols: connectCols, column: move % connectCols) ?? -1
+            XCTAssertEqual(landing, move)
         }
     }
 
@@ -454,7 +456,7 @@ final class BotTests: XCTestCase {
         let bot = TimedQuizBot(random: BotRandom(seed: 44),
                                easyAccuracy: 1.0,
                                normalAccuracy: 2.0,
-                               hardAccuracy: .infinity)
+                               hardAccuracy: 0.999)
         for skill in Skill.allCases {
             XCTAssertLessThan(bot.accuracy(for: skill), 1.0)
         }

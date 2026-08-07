@@ -289,9 +289,11 @@ public struct MinimaxBoardBot: BoardOpponent {
             guard index >= 0, index < geo.windowsByCell.count else { return false }
             for windowID in geo.windowsByCell[index] {
                 var complete = true
-                for cell in geo.windows[windowID] where cells[cell] != player {
-                    complete = false
-                    break
+                for cell in geo.windows[windowID] {
+                    if cells[cell] != player {
+                        complete = false
+                        break
+                    }
                 }
                 if complete { return true }
             }

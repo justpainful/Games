@@ -54,8 +54,9 @@ async function points(ctx: Ctx): Promise<void> {
 async function leaders(ctx: Ctx): Promise<void> {
   const userId = requireUser(ctx)
   const guildId = ctx.params['guildId'] ?? ''
-  await assertMember(userId, guildId)
 
+  // التحقق من المدخلات قبل أي نداء شبكة أو قاعدة بيانات: طلب مشوّه يُرفض
+  // بـ 400 فورًا بدل أن يستهلك استعلامًا ثم يفشل برسالة أعمّ
   const asked = safeQuery(ctx.url, 'wallet', 16) ?? 'total'
   const wallet = WALLETS.find((known) => known === asked)
   if (!wallet) throw new HttpError(400, 'المحفظة غير معروفة — solo أو team أو roulette أو total')
@@ -64,6 +65,8 @@ async function leaders(ctx: Ctx): Promise<void> {
   const limit = Number.isFinite(askedLimit)
     ? Math.min(Math.max(Math.trunc(askedLimit), 1), MAX_ROWS)
     : DEFAULT_ROWS
+
+  await assertMember(userId, guildId)
 
   const rows = await leaderboard(guildId, wallet, limit)
 
