@@ -40,8 +40,9 @@ struct RootView: View {
                         Text("«فحص العربية»")
                             .font(.displaySoft(Type.title))
                             .foregroundStyle(Ink.ink)
-                        // خلط عربي/لاتيني/أرقام — أكثر ما يكشف كسر الاتجاه
-                        Text("اللاعب .zja6 جمع 12 نقطة في 3 جولات")
+                        // خلط عربي/لاتيني/أرقام — أكثر ما يكشف كسر الاتجاه.
+                        // الاسم معزول لأنه يبدأ بنقطة، ومحايدُ الطرف ينتقل بلا عزل.
+                        Text("اللاعب \(".zja6".bidiIsolated) جمع 12 نقطة في 3 جولات")
                             .font(.bodyAr())
                             .foregroundStyle(Ink.ink)
                             .lineSpacing(Type.lineSpacing)

@@ -32,6 +32,15 @@ public extension Font {
     }
 }
 
+public extension String {
+    /// عزل ثنائي الاتجاه — مكافئ `<bdi>` على الويب.
+    ///
+    /// أسماء ديسكورد لاتينية غالبًا وتبدأ أو تنتهي بمحارف محايدة (`.` `_` أرقام).
+    /// داخل نص عربي تنتقل تلك المحارف للطرف الخطأ فيصير ".zja6" معروضًا "zja6."
+    /// — وهو خطأ ظهر فعلًا في أول لقطة CI. الحلّ محرفا FSI/PDI حول النص.
+    var bidiIsolated: String { "\u{2068}\(self)\u{2069}" }
+}
+
 /// الظل الصلب — توقيع المشروع (DESIGN.md §5).
 ///
 /// `shadow()` في SwiftUI ضبابي دائمًا ولا يمكن جعله صلبًا، فالتنفيذ نسخة ثانية
@@ -46,8 +55,10 @@ public struct HardShadow: ViewModifier {
         content.background(
             RoundedRectangle(cornerRadius: radius, style: .continuous)
                 .fill(color)
-                // يسار-أسفل: يتبع اتجاه القراءة RTL، الضوء من جهة بداية السطر
-                .offset(x: -lift, y: lift)
+                // الهدف يسار-أسفل كما في الويب (DESIGN.md §5). القيمة موجبة لأن
+                // SwiftUI يعكس `offset` أفقيًا تحت layoutDirection = RTL —
+                // ثبت ذلك من أول لقطة CI حين خرج الظل يمينًا بقيمة سالبة.
+                .offset(x: lift, y: lift)
         )
     }
 }
