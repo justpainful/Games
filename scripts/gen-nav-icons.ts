@@ -65,6 +65,45 @@ function svg(body: string, px: number): string {
      style="display:block">${body}</svg>`
 }
 
+/**
+ * أيقونة التطبيق.
+ *
+ * أرضية حمراء وذراع تحكّم صفراء بحدّ أسود — نفس توقيع البطاقات (لون هوية،
+ * حدّ سميك، ظل صلب). لا شفافية: أيقونات iOS معتمة، والشفافية تُملأ أسود.
+ * مقاس واحد 1024 يكفي منذ Xcode 14 ويولّد النظام بقيّة المقاسات.
+ */
+function appIconSvg(px: number): string {
+  return `<svg id="icon" width="${px}" height="${px}" viewBox="0 0 100 100" style="display:block">
+    <rect width="100" height="100" fill="#E03A2F"/>
+    <g transform="translate(50 54) scale(0.62) translate(-50 -50)">
+      <path d="M30 36h40a26 26 0 0 1 24 30l-3 15a13 13 0 0 1-24 4l-5-9H38l-5 9a13 13 0 0 1-24-4l-3-15a26 26 0 0 1 24-30z"
+            fill="#FBBF1E" stroke="#1A1512" stroke-width="7" stroke-linejoin="round"/>
+      <path d="M28 58h14M35 51v14M66 52h.01M76 62h.01"
+            fill="none" stroke="#1A1512" stroke-width="7" stroke-linecap="round"/>
+    </g>
+  </svg>`
+}
+
+async function writeAppIcon(): Promise<void> {
+  const dir = path.join(OUT, 'AppIcon.appiconset')
+  await fs.mkdir(dir, { recursive: true })
+  // 1024 بكسل فيزيائي = 512 CSS تحت deviceScaleFactor 2
+  const png = await shoot(`<div>${appIconSvg(1024 / DEVICE_SCALE)}</div>`, { selector: '#icon' })
+  await fs.writeFile(path.join(dir, 'icon.png'), png)
+  await fs.writeFile(
+    path.join(dir, 'Contents.json'),
+    JSON.stringify(
+      {
+        images: [{ filename: 'icon.png', idiom: 'universal', platform: 'ios', size: '1024x1024' }],
+        info: { author: 'xcode', version: 1 },
+      },
+      null,
+      2,
+    ),
+  )
+  console.log('AppIcon ✓')
+}
+
 async function main(): Promise<void> {
   await fs.mkdir(OUT, { recursive: true })
   await fs.writeFile(
@@ -106,8 +145,10 @@ async function main(): Promise<void> {
     console.log(`${name} ✓`)
   }
 
+  await writeAppIcon()
+
   await stopRenderer()
-  console.log(`\nكُتبت ${Object.keys(ICONS).length} أيقونة في ${OUT}`)
+  console.log(`\nكُتبت ${Object.keys(ICONS).length} أيقونة تنقّل + أيقونة التطبيق في ${OUT}`)
 }
 
 main().catch(async (err) => {
