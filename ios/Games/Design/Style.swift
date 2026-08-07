@@ -119,6 +119,48 @@ public struct Pill: View {
     }
 }
 
+// ————— Liquid Glass —————
+//
+// قرار مقصود: الزجاج لا يُطبَّق على البطاقات.
+//
+// هوية المشروع مسطّحة بحدّ أسود وظل صلب (DESIGN.md §5)، والزجاج شفاف وضبابي —
+// وضعه على البطاقات يمحو التوقيع ويحوّل التطبيق إلى تطبيق iOS عام. لذلك
+// الزجاج يخدم **طبقة النظام** وحدها: شريط التنقّل، العناصر الطافية، والطبقات
+// المؤقتة فوق المحتوى. المحتوى نفسه يبقى قصاصات ورقية.
+
+public extension View {
+    /// سطح زجاجي تفاعلي مع بديل لما قبل iOS 26.
+    @ViewBuilder
+    func glassSurface(cornerRadius: CGFloat = 20, interactive: Bool = false) -> some View {
+        if #available(iOS 26, *) {
+            if interactive {
+                glassEffect(.regular.interactive(), in: .rect(cornerRadius: cornerRadius))
+            } else {
+                glassEffect(.regular, in: .rect(cornerRadius: cornerRadius))
+            }
+        } else {
+            background(
+                .ultraThinMaterial,
+                in: RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+            )
+        }
+    }
+
+    /// سطح زجاجي مصبوغ بلون الهوية — للعناصر الطافية التي يجب أن تُرى فوق أي خلفية.
+    @ViewBuilder
+    func glassTinted(_ tint: Color, cornerRadius: CGFloat = 20) -> some View {
+        if #available(iOS 26, *) {
+            glassEffect(.regular.tint(tint.opacity(0.55)).interactive(),
+                        in: .rect(cornerRadius: cornerRadius))
+        } else {
+            background(
+                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                    .fill(tint.opacity(0.92))
+            )
+        }
+    }
+}
+
 /// الشريط الأحمر العلوي — عنوان الشاشة.
 public struct TopBar: View {
     let title: String

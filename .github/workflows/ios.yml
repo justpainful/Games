@@ -2,7 +2,7 @@ name: iOS
 
 # هذا الـ workflow ليس رفاهية — هو **حلقة التحقق الوحيدة** للمشروع:
 # التطوير يجري على ويندوز حيث لا يوجد Xcode، وSwiftUI لا يُبنى ولا يُصوَّر إلا
-# على macOS. كل لقطة أفحصها تأتي من هنا.
+# على macOS. كل لقطة تُفحص وكل اختبار يُشغَّل يأتي من هنا.
 # دقائق macOS مجانية لأن المستودع عام.
 
 on:
@@ -11,69 +11,82 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-shoot:
+  build-test-shoot:
     runs-on: macos-15
-    timeout-minutes: 25
+    timeout-minutes: 40
 
     steps:
       - uses: actions/checkout@v4
 
       - name: بيئة Xcode
-        run: xcodebuild -version && xcrun simctl list runtimes | head -20
+        run: xcodebuild -version
 
       - name: توليد مشروع Xcode
         run: |
           brew install xcodegen
           cd ios && xcodegen generate
 
-      - name: بناء التطبيق
+      - name: اختيار المحاكي
+        id: sim
+        run: |
+          # ديناميكي: أسماء الأجهزة تتغيّر بين صور الرَنَر، وتثبيت اسم بعينه
+          # يكسر البناء بصمت عند أول تحديث للصورة.
+          UDID=$(xcrun simctl list devices available -j | python3 -c "
+          import json,sys
+          for runtime, devices in json.load(sys.stdin)['devices'].items():
+              if 'iOS' in runtime:
+                  for d in devices:
+                      if 'iPhone' in d['name']:
+                          print(d['udid']); sys.exit(0)
+          sys.exit('لا يوجد محاكي iPhone')
+          ")
+          echo "udid=$UDID" >> "$GITHUB_OUTPUT"
+          xcrun simctl list devices | grep "$UDID" || true
+
+      - name: بناء واختبار
         run: |
           set -o pipefail
           xcodebuild \
             -project ios/Games.xcodeproj \
             -scheme Games \
             -configuration Debug \
-            -sdk iphonesimulator \
+            -destination "id=${{ steps.sim.outputs.udid }}" \
             -derivedDataPath ios/build \
+            -resultBundlePath ios/Result.xcresult \
             CODE_SIGNING_ALLOWED=NO \
-            build 2>&1 | tail -40
+            test 2>&1 | tail -80
 
-      - name: تشغيل المحاكي والتقاط اللقطات
+      - name: استخراج اللقطات من نتيجة الاختبار
+        if: always()
         run: |
-          set -e
-          # اختيار الجهاز ديناميكيًا: أسماء الأجهزة تتغيّر بين صور الرَنَر،
-          # وتثبيت "iPhone 16" يكسر البناء بصمت عند أول تحديث.
-          UDID=$(xcrun simctl list devices available -j | python3 -c "
-          import json,sys
-          data = json.load(sys.stdin)['devices']
-          for runtime, devices in data.items():
-              if 'iOS' in runtime:
-                  for d in devices:
-                      if 'iPhone' in d['name']:
-                          print(d['udid'], d['name'], file=sys.stderr)
-                          print(d['udid']); sys.exit(0)
-          sys.exit('لا يوجد محاكي iPhone متاح')
-          ")
-          echo "الجهاز: $UDID"
-
-          xcrun simctl boot "$UDID" || true
-          xcrun simctl bootstatus "$UDID" -b
-
-          APP=$(find ios/build/Build/Products -name "Games.app" -maxdepth 3 | head -1)
-          echo "التطبيق: $APP"
-          xcrun simctl install "$UDID" "$APP"
-          xcrun simctl launch "$UDID" com.justpainful.games
-
           mkdir -p shots
-          # مهلة كافية لتحميل الخطوط ورسم أول إطار
-          sleep 6
-          xcrun simctl io "$UDID" screenshot shots/01-root.png
+          # Xcode 16 غيّر واجهة xcresulttool؛ نجرّب الحديثة ثم القديمة بدل
+          # افتراض إصدار الرَنَر.
+          xcrun xcresulttool export attachments \
+            --path ios/Result.xcresult --output-path shots 2>/dev/null \
+          || xcrun xcresulttool export --legacy --type directory \
+            --path ios/Result.xcresult --output-path shots 2>/dev/null \
+          || echo "تعذّر الاستخراج بالأمرين"
 
-          # لقطة ثانية للتأكد أن الشاشة مستقرة لا في منتصف انتقال
-          sleep 3
-          xcrun simctl io "$UDID" screenshot shots/02-root-settled.png
-
-          ls -la shots/
+          # المرفقات تخرج بأسماء UUID — نعيد تسميتها من manifest.json
+          python3 - <<'PY'
+          import json, os, shutil, glob
+          man = 'shots/manifest.json'
+          if not os.path.exists(man):
+              print('لا يوجد manifest'); raise SystemExit(0)
+          data = json.load(open(man))
+          out = 'shots/named'; os.makedirs(out, exist_ok=True)
+          n = 0
+          for entry in data if isinstance(data, list) else [data]:
+              for att in entry.get('attachments', []):
+                  src = os.path.join('shots', att.get('exportedFileName', ''))
+                  name = att.get('suggestedHumanReadableName') or att.get('name') or f'shot{n}'
+                  if os.path.exists(src) and src.lower().endswith('.png'):
+                      shutil.copy(src, os.path.join(out, f'{name}.png')); n += 1
+          print(f'{n} لقطة مسمّاة')
+          PY
+          find shots -name '*.png' | head -30
+          echo "عدد اللقطات: $(find shots -name '*.png' | wc -l)"
 
       - name: رفع اللقطات
         if: always()
@@ -81,4 +94,11 @@ jobs:
         with:
           name: screenshots
           path: shots/
-          if-no-files-found: error
+          if-no-files-found: warn
+
+      - name: رفع نتيجة الاختبار عند الفشل
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xcresult
+          path: ios/Result.xcresult

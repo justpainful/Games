@@ -26,6 +26,10 @@ targets:
         UILaunchScreen: {}
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
+        APIBaseURL: $(API_BASE_URL)
+        CFBundleURLTypes:
+          - CFBundleURLName: com.justpainful.games.auth
+            CFBundleURLSchemes: [gamesapp]
         UIAppFonts:
           - Cairo-Regular.ttf
           - Cairo-Bold.ttf
@@ -42,3 +46,36 @@ targets:
         CODE_SIGN_IDENTITY: ""
         SWIFT_VERSION: "5.9"
         ENABLE_USER_SCRIPT_SANDBOXING: "NO"
+        # عنوان الخادم يأتي من الإعداد لا من الكود — يُبدَّل بلا تعديل مصدر
+        API_BASE_URL: http://localhost:8080
+
+  GamesTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [GamesTests]
+    dependencies:
+      - target: Games
+    settings:
+      base:
+        CODE_SIGNING_ALLOWED: "NO"
+
+  GamesUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [GamesUITests]
+    dependencies:
+      - target: Games
+    settings:
+      base:
+        CODE_SIGNING_ALLOWED: "NO"
+
+schemes:
+  Games:
+    build:
+      targets:
+        Games: all
+        GamesTests: [test]
+        GamesUITests: [test]
+    test:
+      targets: [GamesTests, GamesUITests]
+      gatherCoverageData: false
