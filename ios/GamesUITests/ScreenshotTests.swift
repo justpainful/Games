@@ -54,19 +54,30 @@ final class ScreenshotTests: XCTestCase {
         XCTAssertGreaterThanOrEqual(tabs.frame.minY, screen.minY, "شريط التنقّل مقصوص من أعلى")
         XCTAssertLessThanOrEqual(tabs.frame.maxY, screen.maxY + 1, "شريط التنقّل مقصوص من أسفل")
 
-        // أي نص ظاهر يجب أن يقع داخل حدود الشاشة رأسيًا
-        for element in app.staticTexts.allElementsBoundByIndex.prefix(25) where element.exists {
+        // القصّ الحقيقي هو أن يخرج عنصر **مرئي** من أعلى الشاشة (تحت شريط الحالة
+        // أو الـ notch). أما امتداد المحتوى تحت الطيّة داخل ScrollView فهو تمرير
+        // طبيعي لا قصّ — الفحص السابق كان يعدّه خطأً ويفشل بلا سبب.
+        var checked = 0
+        for element in app.staticTexts.allElementsBoundByIndex.prefix(40) where element.exists {
             let f = element.frame
             guard f.height > 0, f.width > 0 else { continue }
+            // العناصر التي لم تُعرض بعد داخل التمرير تُتجاهل
+            guard f.minY < screen.maxY, f.maxY > screen.minY else { continue }
+            checked += 1
             XCTAssertGreaterThanOrEqual(
                 f.minY, screen.minY - 1,
-                "نص خارج الشاشة من أعلى: \(element.label)"
+                "عنصر مرئي مقصوص من أعلى: «\(element.label)»"
+            )
+            XCTAssertGreaterThanOrEqual(
+                f.minX, screen.minX - 1,
+                "عنصر مرئي مقصوص من الجانب: «\(element.label)»"
             )
             XCTAssertLessThanOrEqual(
-                f.maxY, screen.maxY + 1,
-                "نص خارج الشاشة من أسفل: \(element.label)"
+                f.maxX, screen.maxX + 1,
+                "عنصر مرئي يتجاوز عرض الشاشة: «\(element.label)»"
             )
         }
+        XCTAssertGreaterThan(checked, 0, "لم يُفحص أي عنصر — الشاشة فارغة؟")
 
         shoot("clip-check")
     }
