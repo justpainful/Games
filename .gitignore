@@ -6,3 +6,4 @@ out/
 !.env.example
 *.log
 dist/
+shots/
