@@ -20,6 +20,10 @@ model Guild {
   id            String  @id // معرّف سيرفر ديسكورد
   prefix        String  @default("!")
   prefixEnabled Boolean @default(true)
+  /// أوامر بلا بادئة: «اشبك» وحدها تبدأ اللعبة.
+  /// معطّل افتراضيًا لأن أسماء الألعاب كلمات عربية عادية — «حساب» و«جمع»
+  /// و«كت» و«قارة» — فتشغيله يجعل كل محادثة عادية قابلة لبدء لعبة بالخطأ.
+  bareCommands  Boolean @default(false)
   gamesChannel  String? // إن حُدّد، الألعاب لا تبدأ خارجه
   nickname      String? // الاسم المستعار للبوت في هذا السيرفر تحديدًا
 
@@ -100,6 +104,13 @@ model MatchRecord {
   gameKey  String
   winnerId String?
   players  Int       @default(0)
+  /// من شارك، لا عددهم وحده.
+  ///
+  /// كان الجدول يحفظ العدد رقمًا: يعرف أن أربعة لعبوا ولا يعرف من هم. يكفي
+  /// ذلك للإحصاء العام ولا يكفي لسؤال «متى لعب هذا الشخص؟»، وهو ما تقوم عليه
+  /// خريطة النشاط في البطاقة. تُملأ عند إغلاق المباراة، وما قبل هذا السطر
+  /// يبقى فارغًا: مشاركة لم تُسجَّل لا تُسترجع.
+  participants String[] @default([])
   startedAt DateTime @default(now())
   endedAt  DateTime?
 

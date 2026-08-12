@@ -16,7 +16,36 @@ const MARKS = ['X', 'O'] as const
 const TURN_MS = 45_000
 /** تأخّران متتاليان = انسحاب. الأول يُتخطّى فقط، فقد ينقطع اتصال اللاعب لحظة. */
 const MAX_MISSES = 2
-const BREATH_MS = 2_500
+
+/**
+ * وقفة قصيرة بين نقلة وأخرى.
+ *
+ * كانت 2_500، وموضعها في الحلقة هو ما جعلها مؤذية: النوم يقع قبل رسم النقلة
+ * لا بعدها. يضغط اللاعب فتبقى اللوحة على حالها ثانيتين ونصفًا ثم تظهر نقلته،
+ * فالوقفة التي قُصد بها إتاحة رؤية ما حدث كانت تؤخّر ظهوره.
+ *
+ * وفي لعبة لوح لا شاشة نتيجة تُقرأ: اللوحة نفسها هي الرد. فالباقي هنا فاصل
+ * يمنع تتابع مشهدين متشابهين بلا إحساس بالتغيّر، لا أكثر.
+ */
+const BREATH_MS = 400
+
+/**
+ * وجه الزر: علامة اللاعب رمزًا لا حرفًا لاتينيًا.
+ *
+ * كان الزر يحمل «X» و«O» نصًّا، وهما حرفان لاتينيان وسط واجهة عربية ويتشابهان
+ * عند الرصّ. الرمز يُقرأ من مسافة أبعد وبلمحة واحدة.
+ */
+const FACE: Record<string, string> = { X: '❌', O: '⭕' }
+
+/**
+ * وجه الخانة الفارغة: موضعها في الشبكة لا رقمها.
+ *
+ * ديسكورد يرصّ الأزرار خمسة في الصف، فتسع خانات تخرج صفّين (5+4) لا شبكة
+ * 3×3، وهذا سبب اختيار الأرقام أصلًا. لكن الرقم يجبر اللاعب على الترجمة بين
+ * لوحة مرقّمة وزرّ مرقّم. السهم يقول الموضع مباشرة: الزاوية زاوية والوسط
+ * وسط، مهما رصّ ديسكورد الصفوف.
+ */
+const SEATS = ['↖️', '⬆️', '↗️', '⬅️', '⏺️', '➡️', '↙️', '⬇️', '↘️'] as const
 
 const LINES: readonly (readonly number[])[] = [
   [0, 1, 2],
@@ -66,9 +95,12 @@ async function play(table: Table): Promise<GameResult> {
     const current = turns.next().value
     if (!current) break
 
-    await table.show(board(table, cells, sides, current), {
-      text: `<@${current.id}> دورك — اضغط رقم الخانة.`,
-      buttons: gridButtons(cells, { cols: 3, label: (i, value) => value ?? String(i + 1) }),
+    await table.update(board(table, cells, sides, current), {
+      text: `<@${current.id}> دورك. اضغط الخانة.`,
+      buttons: gridButtons(cells, {
+        cols: 3,
+        label: (i, value) => FACE[value ?? ''] ?? SEATS[i] ?? String(i + 1),
+      }),
     })
 
     const press = await table.waitPress(TURN_MS, (p) => {

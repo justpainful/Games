@@ -25,7 +25,8 @@
     "gen:swift": "tsx scripts/gen-swift-tokens.ts",
     "gen:navicons": "tsx scripts/gen-nav-icons.ts",
     "dash:check": "tsx scripts/dash-check.ts",
-    "gen:ds": "tsx scripts/gen-design-system.ts"
+    "gen:ds": "tsx scripts/gen-design-system.ts",
+    "gen:logo": "tsx scripts/gen-logo.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.2.1",

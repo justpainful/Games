@@ -35,9 +35,26 @@ export type Scene =
   | HuntScene
   | PollScene
   | ProfileScene
+  | CardScene
   | LeadersScene
   | PanelScene
   | NoticeScene
+
+/**
+ * بطاقة اللاعب: هويته، وخريطة نشاطه، وأربعة أرقام تلخّصه.
+ *
+ * مشهد مستقل عن `profile` لا بديل عنه. `profile` جواب سؤال «كم نقطة عندي؟»
+ * ويُقرأ في لمحة، وهذه جواب «من أنا في هذا السيرفر؟» وتُقرأ مرة وتُحفظ.
+ * دمجهما يعني مشهدًا يخدم سؤالين فلا يخدم أيًّا منهما.
+ */
+export type CardScene = {
+  kind: 'card'
+  player: PlayerView
+  /** يومٌ لكل خانة، الأقدم أولًا. العدد كم لعبة لُعبت في ذلك اليوم. */
+  days: { date: string; games: number }[]
+  /** أربع خانات أسفل الخريطة: رقم كبير وتسمية تحته. */
+  stats: { value: string; label: string }[]
+}
 
 /** شاشة الانتظار: من انضم، ومن يبدأ، وكيف تدخل. */
 export type LobbyScene = {

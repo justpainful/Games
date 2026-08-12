@@ -68,6 +68,7 @@ export function validateAction(action: DashAction, gameKeys: ReadonlySet<string>
       return null
 
     case 'togglePrefix':
+    case 'toggleBare':
       return null
 
     case 'setGamesChannel':
@@ -155,6 +156,7 @@ export function parseAction(form: URLSearchParams): DashAction | null {
     case 'setPrefix':
       return { kind, prefix: form.get('prefix') ?? '' }
     case 'togglePrefix':
+    case 'toggleBare':
       return { kind, enabled: bool(form, 'enabled') }
     case 'setGamesChannel':
       return { kind, channelId: orNull(form, 'channelId') }
@@ -220,6 +222,15 @@ async function apply(guildId: string, action: DashAction): Promise<string> {
     case 'setPrefix':
       await prisma.guild.update({ where: { id: guildId }, data: { prefix: action.prefix } })
       return `صار البريفكس «${action.prefix}».`
+
+    case 'toggleBare':
+      await prisma.guild.update({
+        where: { id: guildId },
+        data: { bareCommands: action.enabled },
+      })
+      return action.enabled
+        ? 'الأوامر تعمل الآن بلا بادئة. انتبه: أسماء الألعاب كلمات عادية.'
+        : 'رجعت الأوامر تحتاج بادئة.'
 
     case 'togglePrefix':
       await prisma.guild.update({

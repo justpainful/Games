@@ -58,18 +58,38 @@ export function makeDiscordSurface(args: {
   const { channel, session } = args
   let last: Message | null = null
 
-  async function send(scene: Scene, opts: ShowOptions | undefined, edit: boolean): Promise<void> {
+  /**
+   * `update` يحرّر المشهد في مكانه، و`show` ينشر جديدًا ويُبقي ما قبله.
+   *
+   * هذا هو العقد الأصلي، وقد كسرتُه مرتين قبل أن أفهم أين يقع الخط. الخط ليس
+   * بين لعبة وأخرى بل بين نوعَي مشهد:
+   *
+   *   حالة تتبدّل   لوحة، عجلة، عدّاد لوبي     -> `update` -> تحرير في مكانه
+   *   تسلسل يتراكم  سؤال، جولة، نتيجة نهائية   -> `show`   -> رسالة تبقى
+   *
+   * حذف السابق في `show` يمحو سجلّ لعبة تسأل عشرة أسئلة. وتحرير المشهد في
+   * `show` يخلط عشرة أسئلة في رسالة واحدة. وكلاهما جُرِّب.
+   *
+   * فلعبة تُغرق القناة بـ`show` مشكلتها في اللعبة لا هنا: تلك حالة تتبدّل
+   * كُتبت كأنها تسلسل، وعلاجها في ملف اللعبة.
+   */
+  async function send(scene: Scene, opts: ShowOptions | undefined, replace: boolean): Promise<void> {
     const components = opts?.buttons ? rows(opts.buttons) : []
-    const message =
-      edit && last
-        ? await editScene(last, scene, opts?.text ?? '')
-        : await sendScene(channel, scene, opts?.text ?? '')
 
+    if (replace && last) {
+      const edited = await editScene(last, scene, opts?.text ?? '', components)
+      if (edited) {
+        last = edited
+        session.liveMessageId = edited.id
+        return
+      }
+      // فشل التحرير يعني رسالة لم تعد موجودة، فيُسقط إلى إرسال جديد
+    }
+
+    const message = await sendScene(channel, scene, opts?.text ?? '', components)
     if (!message) return
+
     last = message
-    // الأزرار تُركّب بعد الصورة حتى لا تُفقد عند فشل الرندر
-    if (components.length > 0) await message.edit({ components }).catch(() => {})
-    else if (edit) await message.edit({ components: [] }).catch(() => {})
     // الضغطات على مشاهد قديمة تُرفض في running.deliverPress
     session.liveMessageId = message.id
   }

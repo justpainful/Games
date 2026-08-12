@@ -22,7 +22,10 @@ client.once(Events.ClientReady, (c) => {
 })
 
 client.on(Events.MessageCreate, (message) => {
-  if (message.author.bot) return
+  // بوت مأذون له بالجلوس على الطاولة يُقبل مجيبًا لا آمرًا: رسالته تصل إلى
+  // اللعبة النشطة ولا تمرّ على مسار الأوامر. بوت يبدأ الألعاب بوت يشغّل نفسه.
+  const seated = message.author.bot && settings.botPlayers.has(message.author.id)
+  if (message.author.bot && !seated) return
 
   // كل رسالة تُغذّي اللعبة النشطة أولًا (إجابات ألعاب الكتابة)،
   // ثم تُفحص كأمر بريفكس. الترتيب مهم: الإجابة ليست أمرًا.
@@ -30,6 +33,7 @@ client.on(Events.MessageCreate, (message) => {
     deliverChat(message.channelId, { userId: message.author.id, text: message.content })
   }
 
+  if (seated) return
   void handleMessage(message).catch((err) => console.error('خطأ في معالجة الرسالة:', err))
 })
 

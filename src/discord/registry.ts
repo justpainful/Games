@@ -1,5 +1,6 @@
 import { loadGames } from '../games/all.ts'
 import { activeIn } from '../games/running.ts'
+import { cardCommands } from './card.ts'
 import { register, type Command } from './commands.ts'
 import { startGame } from './host.ts'
 import { adminPanelCommands } from './panels/admin.ts'
@@ -38,6 +39,7 @@ export async function registerAllCommands(): Promise<number> {
     ...gamesPanelCommands,
     ...ownerPanelCommands,
     ...profileCommands,
+    ...cardCommands,
   )
 
   console.log(`سُجّلت ${games.length} لعبة: ${games.map((g) => g.name).join('، ')}`)

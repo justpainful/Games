@@ -80,10 +80,22 @@ export async function handleMessage(message: Message): Promise<void> {
   if (message.author.bot || !message.inGuild()) return
 
   const config = await guildConfig(message.guildId)
-  if (!config.prefixEnabled) return
-  if (!message.content.startsWith(config.prefix)) return
 
-  const [rawName, ...args] = message.content.slice(config.prefix.length).trim().split(/\s+/)
+  // بادئتان محتملتان لنفس الرسالة: البادئة المكتوبة، أو لا شيء.
+  //
+  // الترتيب مقصود — البادئة تُجرَّب أولًا حتى لا يصير «!اشبك» في وضع بلا
+  // بادئة أمرًا اسمه «!اشبك» لا وجود له. والوضعان يعملان معًا: تشغيل
+  // «بلا بادئة» لا يعطّل «!» لمن اعتاده.
+  const content = message.content.trim()
+  let body: string | null = null
+  if (config.prefixEnabled && content.startsWith(config.prefix)) {
+    body = content.slice(config.prefix.length)
+  } else if (config.bareCommands) {
+    body = content
+  }
+  if (body === null) return
+
+  const [rawName, ...args] = body.trim().split(/\s+/)
   if (!rawName) return
 
   const cmd = registry.get(rawName)

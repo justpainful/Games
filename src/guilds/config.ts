@@ -12,6 +12,7 @@ export type GuildConfig = {
   id: string
   prefix: string
   prefixEnabled: boolean
+  bareCommands: boolean
   gamesChannel: string | null
   nickname: string | null
   roles: Record<RoleKind, Set<string>>
@@ -38,6 +39,7 @@ export async function guildConfig(guildId: string): Promise<GuildConfig> {
     prefixEnabled: row.prefixEnabled,
     gamesChannel: row.gamesChannel,
     nickname: row.nickname,
+    bareCommands: row.bareCommands,
     roles: {
       ADMIN: new Set(row.roles.filter((r) => r.kind === 'ADMIN').map((r) => r.roleId)),
       GAMES: new Set(row.roles.filter((r) => r.kind === 'GAMES').map((r) => r.roleId)),

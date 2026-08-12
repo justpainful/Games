@@ -32,6 +32,7 @@ export type GuildSettingsView = {
   guild: ManagedGuild
   prefix: string
   prefixEnabled: boolean
+  bareCommands: boolean
   gamesChannel: string | null
   nickname: string | null
   roles: Record<RoleKind, string[]>
@@ -72,6 +73,7 @@ export type LeaderView = {
 export type DashAction =
   | { kind: 'setPrefix'; prefix: string }
   | { kind: 'togglePrefix'; enabled: boolean }
+  | { kind: 'toggleBare'; enabled: boolean }
   | { kind: 'setGamesChannel'; channelId: string | null }
   | { kind: 'setNickname'; nickname: string | null }
   | { kind: 'addRole'; role: RoleKind; roleId: string }

@@ -172,6 +172,7 @@ export async function guildSettings(guild: ManagedGuild): Promise<GuildSettingsV
     guild,
     prefix: saved.prefix,
     prefixEnabled: saved.prefixEnabled,
+    bareCommands: saved.bareCommands,
     gamesChannel: saved.gamesChannel,
     nickname: saved.nickname,
     roles: {

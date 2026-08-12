@@ -58,6 +58,26 @@ function prefixCard(v: GuildSettingsView, csrf: string, g: string): Html {
     })}
 
     <div class="row" style="margin-top:14px">
+      <span class="pill ${raw(v.bareCommands ? '' : 'pill--off')}">
+        ${v.bareCommands ? 'الأوامر تعمل بلا بادئة' : 'الأوامر تحتاج بادئة'}
+      </span>
+      ${form({
+        guildId: g,
+        page: 'general',
+        csrf,
+        kind: 'toggleBare',
+        body: html`
+          <input type="hidden" name="enabled" value="${raw(v.bareCommands ? OFF : ON)}" />
+          <button class="btn ${raw(v.bareCommands ? 'btn--danger' : 'btn--go')}" type="submit">
+            ${v.bareCommands ? 'اشترط البادئة' : 'اسمح بلا بادئة'}
+          </button>
+        `,
+      })}
+      <p class="hint">
+        بلا بادئة تكفي كلمة «اشبك» وحدها لبدء اللعبة. انتبه أن أسماء الألعاب كلمات عربية
+        عادية — «حساب» و«جمع» و«كت» و«قارة» — فقد تبدأ لعبة من كلام لم يُقصد به أمر.
+      </p>
+
       <span class="pill ${raw(v.prefixEnabled ? '' : 'pill--off')}">
         ${v.prefixEnabled ? 'أوامر البريفكس مفعّلة' : 'أوامر البريفكس معطّلة'}
       </span>

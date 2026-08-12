@@ -128,6 +128,7 @@ const SETTINGS: GuildSettingsView = {
   guild: GUILD,
   prefix: '!',
   prefixEnabled: true,
+      bareCommands: true,
   gamesChannel: CHANNELS[0]!.id,
   nickname: 'بوت الألعاب',
   roles: {
@@ -146,6 +147,7 @@ const EMPTY: GuildSettingsView = {
   guild: { id: '200000000000000009', name: XSS, iconHash: null, botPresent: true },
   prefix: '?',
   prefixEnabled: false,
+      bareCommands: false,
   gamesChannel: '399999999999999999',
   nickname: null,
   roles: { ADMIN: [], GAMES: [], POINTS: [] },

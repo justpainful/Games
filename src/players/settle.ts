@@ -49,7 +49,13 @@ export async function settleMatch(args: {
   await prisma.matchRecord
     .update({
       where: { id: matchId },
-      data: { endedAt: new Date(), winnerId: result.winnerId ?? null },
+      data: {
+        endedAt: new Date(),
+        winnerId: result.winnerId ?? null,
+        // المشاركون يُكتبون عند الإغلاق لا عند الفتح: اللوبي يقبل داخلًا
+        // وخارجًا حتى آخر لحظة، فقائمة الفتح ليست قائمة من لعب فعلًا.
+        participants: players,
+      },
     })
     .catch((error: unknown) => console.error('تعذّر إغلاق سجلّ المباراة:', error))
 }

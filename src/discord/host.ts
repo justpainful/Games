@@ -32,6 +32,20 @@ const LOBBY_BUTTONS: ButtonDef[] = [
   { id: 'lobby:cancel', label: 'إلغاء', style: 'stop' },
 ]
 
+/**
+ * زر يُقعد بوتًا مأذونًا على الطاولة.
+ *
+ * سببه قيد في ديسكورد لا في هذا الكود: **البوت لا يستطيع الضغط على زر**.
+ * التفاعلات تأتي من المستخدمين وحدهم، فلا سبيل لبوت أن يدخل لوبيًا بنفسه
+ * مهما أُذن له. فيُقعده إنسان بضغطة، ويلعب بعدها بالكتابة.
+ */
+const SEAT_BOT: ButtonDef = { id: 'lobby:seatbot', label: 'أضف بوتًا', style: 'plain' }
+
+/** أزرار اللوبي، مع زر إقعاد البوت حين يوجد بوت مأذون لم يجلس بعد. */
+function lobbyButtons(seatable: boolean): ButtonDef[] {
+  return seatable ? [...LOBBY_BUTTONS, SEAT_BOT] : LOBBY_BUTTONS
+}
+
 export async function startGame(args: {
   game: GameDef
   channel: TextBasedChannel
@@ -199,7 +213,7 @@ async function runLobby(args: {
 
   const deadline = Date.now() + settings.lobby.joinSeconds * 1000
   const text = () =>
-    `**${game.name}** — اضغط دخول للانضمام. يبدأ التسجيل حتى <t:${Math.floor(deadline / 1000)}:R>`
+    `**${game.name}**. اضغط دخول للانضمام. يبدأ التسجيل حتى <t:${Math.floor(deadline / 1000)}:R>`
 
   let closed = false
   let first = true
@@ -211,7 +225,14 @@ async function runLobby(args: {
       if (closed) return
       const replace = !first
       first = false
-      const opts = { text: text(), buttons: LOBBY_BUTTONS }
+      // زر إقعاد البوت يظهر فقط حين يوجد مأذون لم يجلس بعد وفي الطاولة متسع
+      const seatable = [...settings.botPlayers].some(
+        (id) => !joined.has(id) && joined.size < game.players.max,
+      )
+      console.log(
+        `[لوبي] بوتات مأذونة ${settings.botPlayers.size} · جالسون ${joined.size}/${game.players.max} · زر البوت ${seatable}`,
+      )
+      const opts = { text: text(), buttons: lobbyButtons(seatable) }
       await Promise.all(
         [discord, ...sockets].map((surface) =>
           surface.present(scene(), opts, replace).catch(() => {}),
@@ -264,7 +285,28 @@ async function runLobby(args: {
               changed = true
             }
           }
+          // اكتمال العدد يبدأ اللعبة فورًا.
+          //
+          // لا شيء ينتظره اللوبي بعد امتلائه: لا مكان لداخل جديد، وزر البدء
+          // لن يغيّر النتيجة. إبقاء المهلة تعمل هنا يعني انتظارًا خالصًا،
+          // وهو أظهر ما يكون في لعبة لاعبَين حيث يمتلئ اللوبي بأول ضغطة.
+          if (joined.size >= game.players.max) {
+            control.start(starter.id)
+            return
+          }
           break
+        case 'lobby:seatbot': {
+          // القائد وحده يُقعد بوتًا: من يفتح الطاولة يقرر من يجلس عليها
+          if (!isHost) break
+          const id = [...settings.botPlayers].find((b) => !joined.has(b))
+          if (!id || joined.size >= game.players.max) break
+          const member = await discordUser(id)
+          if (member) {
+            joined.set(id, member)
+            changed = true
+          }
+          break
+        }
         case 'lobby:leave':
           // القائد لا ينسحب من لعبته — إلغاؤها هو الخروج الصحيح
           if (!isHost && joined.delete(press.userId)) changed = true
@@ -293,7 +335,7 @@ async function runLobby(args: {
     return null
   }
   if (joined.size < game.players.min) {
-    await discord.say(`ما اكتمل العدد — تحتاج ${game.players.min} لاعبين على الأقل.`)
+    await discord.say(`ما اكتمل العدد. تحتاج ${game.players.min} لاعبين على الأقل.`)
     return null
   }
 

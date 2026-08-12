@@ -21,7 +21,15 @@ const MARKS = ['ح', 'ص'] as const
 const NEED = 4
 const TURN_MS = 45_000
 const MAX_MISSES = 2
-const BREATH_MS = 2_500
+
+/**
+ * وقفة قصيرة بين نقلة وأخرى.
+ *
+ * كانت 2_500، وموضعها قبل رسم النقلة لا بعدها: يضغط اللاعب فتبقى اللوحة على
+ * حالها ثانيتين ونصفًا ثم يسقط قرصه. الوقفة التي قُصد بها إتاحة رؤية ما حدث
+ * كانت تؤخّر ظهوره. واللوحة هنا هي الرد، فلا شاشة نتيجة تُقرأ.
+ */
+const BREATH_MS = 400
 
 /** اتجاهات الفحص الأربعة — كل خط يُفحص مرة واحدة من طرفه الأعلى/الأيسر. */
 const WAYS: readonly (readonly [number, number])[] = [
@@ -116,8 +124,8 @@ async function play(table: Table): Promise<GameResult> {
     const current = turns.next().value
     if (!current) break
 
-    await table.show(board(table, cells, sides, current, { note: 'أسقط قرصك قبل انتهاء المهلة' }), {
-      text: `<@${current.id}> دورك — اضغط رقم العمود.`,
+    await table.update(board(table, cells, sides, current, { note: 'أسقط قرصك قبل انتهاء المهلة' }), {
+      text: `<@${current.id}> دورك. اضغط رقم العمود.`,
       buttons: columnButtons(cells),
     })
 
