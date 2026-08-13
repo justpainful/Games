@@ -26,6 +26,9 @@ struct RootView: View {
             Tab("الرئيسية", systemImage: "gauge.with.dots.needle.bottom.50percent") {
                 HomeView()
             }
+            Tab("السيرفرات", systemImage: "server.rack") {
+                GuildsView()
+            }
             Tab("الإعدادات", systemImage: "gearshape") {
                 SettingsView()
             }

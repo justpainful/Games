@@ -76,6 +76,112 @@ struct Status: Decodable, Sendable {
     let live: [LiveSession]
 }
 
+struct GuildBrief: Decodable, Sendable, Identifiable, Equatable {
+    let id: String
+    let name: String
+    let icon: String?
+    let members: Int
+}
+
+struct Choice: Decodable, Sendable, Identifiable, Equatable {
+    let id: String
+    let name: String
+    let color: Int?
+}
+
+struct GameSetting: Decodable, Sendable, Identifiable, Equatable {
+    let key: String
+    let name: String
+    let tagline: String
+    let enabled: Bool
+    let minPlayers: Int
+    let maxPlayers: Int
+
+    var id: String { key }
+}
+
+struct GuildRoles: Decodable, Sendable, Equatable {
+    let ADMIN: [String]
+    let GAMES: [String]
+    let POINTS: [String]
+
+    func of(_ kind: String) -> [String] {
+        switch kind {
+        case "ADMIN": ADMIN
+        case "GAMES": GAMES
+        default: POINTS
+        }
+    }
+}
+
+struct GuildView: Decodable, Sendable, Equatable {
+    let guild: GuildBrief
+    let prefix: String
+    let prefixEnabled: Bool
+    let bareCommands: Bool
+    let gamesChannel: String?
+    let leadersChannel: String?
+    let nickname: String?
+    let roles: GuildRoles
+    let authorized: [String]
+    let games: [GameSetting]
+    let allRoles: [Choice]
+    let allChannels: [Choice]
+}
+
+struct Applied: Decodable, Sendable {
+    let said: String
+    let guild: GuildView?
+}
+
+/// تعديل واحد على سيرفر.
+///
+/// نوع واحد لكل التعديلات لا نوع لكل واحد: الحقول الزائدة تُحذف عند الترميز،
+/// والخادم يقرأ `kind` ويتحقّق مما يخصّه. وإضافة تعديل هنا سطر واحد.
+struct Change: Encodable, Sendable {
+    let kind: String
+    var value: Value?
+    var role: String?
+    var roleId: String?
+    var userId: String?
+    var gameKey: String?
+
+    /// `value` قد يكون نصًّا أو منطقيًّا أو فراغًا، و`Encodable` لا يقبل `Any`.
+    enum Value: Encodable, Sendable {
+        case text(String)
+        case flag(Bool)
+        case none
+
+        func encode(to encoder: Encoder) throws {
+            var out = encoder.singleValueContainer()
+            switch self {
+            case .text(let text): try out.encode(text)
+            case .flag(let flag): try out.encode(flag)
+            case .none: try out.encodeNil()
+            }
+        }
+    }
+
+    static func text(_ kind: String, _ value: String) -> Change {
+        Change(kind: kind, value: .text(value))
+    }
+    static func flag(_ kind: String, _ value: Bool) -> Change {
+        Change(kind: kind, value: .flag(value))
+    }
+    static func pick(_ kind: String, _ id: String?) -> Change {
+        Change(kind: kind, value: id.map(Value.text) ?? .none)
+    }
+    static func role(_ kind: String, _ roleId: String, _ on: Bool) -> Change {
+        Change(kind: "role", value: .flag(on), role: kind, roleId: roleId)
+    }
+    static func game(_ key: String, _ on: Bool) -> Change {
+        Change(kind: "game", value: .flag(on), gameKey: key)
+    }
+    static func authorized(_ userId: String, _ on: Bool) -> Change {
+        Change(kind: "authorized", value: .flag(on), userId: userId)
+    }
+}
+
 // ————————————————————— العميل —————————————————————
 
 /// عميل التحكّم.
@@ -107,7 +213,7 @@ struct Control: Sendable {
         try await send(path, method: "GET", body: nil)
     }
 
-    func post<T: Decodable>(_ path: String, _ body: [String: String]) async throws -> T {
+    func post<T: Decodable, B: Encodable>(_ path: String, _ body: B) async throws -> T {
         try await send(path, method: "POST", body: try JSONEncoder().encode(body))
     }
 

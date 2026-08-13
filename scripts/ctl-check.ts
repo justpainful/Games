@@ -34,6 +34,19 @@ await show('forged token    ', await fetch(`${base}/ctl/status`, {
   headers: { authorization: 'Bearer nope.nope.nope' },
 }))
 
+await show('guilds          ', await fetch(`${base}/ctl/guilds`, { headers: auth }))
+await show('bad guild       ', await fetch(`${base}/ctl/guild/123456789012345678`, { headers: auth }))
+await show('bad change      ', await fetch(`${base}/ctl/guild/123456789012345678`, {
+  method: 'POST',
+  headers: { ...auth, 'content-type': 'application/json' },
+  body: JSON.stringify({ kind: 'prefix', value: '' }),
+}))
+await show('unknown game    ', await fetch(`${base}/ctl/guild/123456789012345678`, {
+  method: 'POST',
+  headers: { ...auth, 'content-type': 'application/json' },
+  body: JSON.stringify({ kind: 'game', gameKey: 'not-a-game', value: false }),
+}))
+
 server.close()
 await unadvertise()
 process.exit(0)

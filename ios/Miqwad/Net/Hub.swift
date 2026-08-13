@@ -138,4 +138,53 @@ final class Hub {
             trouble = (error as? Control.Failure)?.errorDescription ?? "تعذّر التحديث."
         }
     }
+
+    // ————————————————————— السيرفرات —————————————————————
+
+    private(set) var guilds: [GuildBrief] = []
+    private(set) var opened: GuildView?
+    private(set) var saying: String?
+
+    func loadGuilds() async {
+        guard let control else { return }
+        do {
+            guilds = try await control.get("/guilds")
+            trouble = nil
+        } catch {
+            trouble = (error as? Control.Failure)?.errorDescription ?? "تعذّر قراءة السيرفرات."
+        }
+    }
+
+    func open(_ guildId: String) async {
+        guard let control else { return }
+        checking = true
+        defer { checking = false }
+        do {
+            opened = try await control.get("/guild/\(guildId)")
+            trouble = nil
+        } catch {
+            trouble = (error as? Control.Failure)?.errorDescription ?? "تعذّر فتح السيرفر."
+        }
+    }
+
+    /**
+     * يطبّق تعديلًا ويستبدل الحالة كلّها بما عاد به الخادم.
+     *
+     * لا تعديل متفائل هنا: قلبُ زرّ قبل وصول الردّ يعرض ما ظنّه التطبيق لا ما
+     * صار فعلًا، ويبقى الفرق خفيًّا حتى يُغلق التطبيق ويُفتح. والطلب على
+     * الشبكة المحلية بمللي ثوانٍ، فما يشتريه التفاؤل هنا لا يُرى.
+     */
+    func change(_ change: Change) async {
+        guard let control, let guildId = opened?.guild.id else { return }
+        checking = true
+        defer { checking = false }
+        do {
+            let applied: Applied = try await control.post("/guild/\(guildId)", change)
+            if let fresh = applied.guild { opened = fresh }
+            saying = applied.said
+            trouble = nil
+        } catch {
+            trouble = (error as? Control.Failure)?.errorDescription ?? "ما انحفظ التعديل."
+        }
+    }
 }

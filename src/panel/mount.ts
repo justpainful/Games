@@ -1,4 +1,5 @@
 import type { IncomingMessage, ServerResponse } from 'node:http'
+import { applyChange, guildView, listGuilds, readChange } from './guilds.ts'
 import { authorizeUrl, exchange, keys, makeState, readState } from './oauth.ts'
 import {
   clearTries,
@@ -132,7 +133,49 @@ export async function handleControl(
     return true
   }
 
+  if (route === 'guilds') {
+    json(res, 200, await listGuilds())
+    return true
+  }
+
+  // `guild/<id>` — قراءة بـGET وتعديل بـPOST على نفس المسار
+  const guild = /^guild\/(\d{15,25})$/.exec(route)
+  if (guild?.[1]) {
+    await handleGuild(req, res, guild[1])
+    return true
+  }
+
   return false
+}
+
+async function handleGuild(
+  req: IncomingMessage,
+  res: ServerResponse,
+  guildId: string,
+): Promise<void> {
+  if (req.method === 'POST') {
+    const change = await readChange(await readBody(req).catch(() => null))
+    if (!change) {
+      json(res, 400, { error: 'تعديل غير مفهوم أو قيمة غير صالحة' })
+      return
+    }
+
+    const said = await applyChange(guildId, change)
+    // الحالة كاملة مع كل تعديل، لا سطر «تم».
+    //
+    // زرّ يُضغط ثم يُعاد رسمه من ردّ لا يحمل إلا نجاحه يعرض ما ظنّه التطبيق
+    // لا ما صار فعلًا، ويبقى الفرق خفيًّا حتى يُغلق التطبيق ويُفتح. والرد
+    // كامل هنا لأن الطلب على الشبكة المحلية بمللي ثوانٍ لا يستحقّ التوفير.
+    json(res, 200, { said, guild: await guildView(guildId) })
+    return
+  }
+
+  const view = await guildView(guildId)
+  if (!view) {
+    json(res, 404, { error: 'البوت ليس في هذا السيرفر' })
+    return
+  }
+  json(res, 200, view)
 }
 
 async function pair(req: IncomingMessage, res: ServerResponse): Promise<void> {
