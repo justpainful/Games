@@ -1,4 +1,4 @@
-import type { ChatInput, Press, ShowOptions, Table } from './define.ts'
+import type { ButtonDef, ChatInput, Press, ShowOptions, Table } from './define.ts'
 import { feedChat, feedPress, type Session } from './running.ts'
 import type { GameBrief, PlayerView, Scene } from '../scenes/scene.ts'
 
@@ -60,7 +60,7 @@ export type Surface = {
 
   /** `replace = true` يقابل `update`: استبدل آخر مشهد بدل إرسال جديد. */
   present(scene: Scene, opts: ShowOptions | undefined, replace: boolean): Promise<void>
-  say(text: string): Promise<void>
+  say(text: string, opts?: { buttons?: ButtonDef[] }): Promise<void>
   whisper(userId: string, text: string): Promise<boolean>
 
   /**
@@ -116,6 +116,8 @@ export type FanoutContext = {
   brief: GameBrief
   players: PlayerView[]
   host: PlayerView
+  /** طاولة مفتوحة بلا لوبي — انظر `Table.open` */
+  open?: boolean
   /** مصدر `aborted` ومجمّع المستمعين — واحد لكل لعبة جارية */
   session: Session
 }
@@ -200,7 +202,7 @@ export function fanout(surfaces: Surface[], ctx: FanoutContext): MultiTable {
 
     show: (scene, opts) => broadcast((surface) => surface.present(scene, opts, false)),
     update: (scene, opts) => broadcast((surface) => surface.present(scene, opts, true)),
-    say: (text) => broadcast((surface) => surface.say(text)),
+    say: (text, opts) => broadcast((surface) => surface.say(text, opts)),
 
     /**
      * الهمس لصاحبه وحده: السطح الذي يملك اللاعب.
@@ -236,6 +238,8 @@ export function fanout(surfaces: Surface[], ctx: FanoutContext): MultiTable {
       }
       return false
     },
+
+    open: ctx.open === true,
 
     waitChat: (ms, test) => waitFor<ChatInput>(ms, session.chatListeners, test),
     waitPress: (ms, test) => waitFor<Press>(ms, session.pressListeners, test),
@@ -277,6 +281,10 @@ export function fanout(surfaces: Surface[], ctx: FanoutContext): MultiTable {
     },
 
     sleep: (ms) => new Promise((done) => setTimeout(done, ms)),
+
+    get attempts() {
+      return session.attempts
+    },
 
     /** يخرج اللاعب من الجدول ومن كل الأسطح معًا. */
     drop(userId) {

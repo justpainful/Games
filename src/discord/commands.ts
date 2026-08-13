@@ -95,10 +95,28 @@ export async function handleMessage(message: Message): Promise<void> {
   }
   if (body === null) return
 
-  const [rawName, ...args] = body.trim().split(/\s+/)
-  if (!rawName) return
-
-  const cmd = registry.get(rawName)
+  /**
+   * الاسم قد يكون أكثر من كلمة، فتُجرَّب أطول مطابقة أولًا.
+   *
+   * كان يؤخذ أول رمز وحده، فلعبة اسمها «لايرز بار» لا تبدأ أبدًا: يُبحث عن أمر
+   * اسمه «لايرز» فلا يوجد، ويصمت البوت. والصمت هنا أسوأ من رسالة خطأ لأنه
+   * يُقرأ «البوت معطّل» لا «الاسم ناقص»، وهو ما وقع فعلًا في أول تشغيل.
+   * و«كود نيمز» كانت تعمل بالمصادفة، لأن «كود» أُدرجت اسمًا بديلًا لها.
+   *
+   * والثلاثة سقف كافٍ: لا اسم أطول منه، والزيادة بحثٌ في كل رسالة بلا مقابل.
+   */
+  const parts = body.trim().split(/\s+/)
+  let cmd: Command | undefined
+  let args: string[] = []
+  for (let take = Math.min(parts.length, 3); take >= 1; take--) {
+    const candidate = parts.slice(0, take).join(' ')
+    const found = registry.get(candidate)
+    if (found) {
+      cmd = found
+      args = parts.slice(take)
+      break
+    }
+  }
   if (!cmd) return
 
   const member = message.member

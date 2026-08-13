@@ -20,7 +20,12 @@
   position: relative;
   width: var(--scene-width);
   min-height: var(--scene-min-height);
-  padding: var(--space-xl);
+  /*
+   * الحشوة lg لا xl: على لوحة 1500 كان الهامش 64 نسبته أربعة بالمئة من العرض،
+   * وعلى 1180 صار سبعة، فيأخذ من النص ليعطي الفراغ. و44 يبقي البطاقات بعيدة
+   * عن الحافة بلا أن يزاحمها.
+   */
+  padding: var(--space-lg);
   background: var(--color-paper);
   font-family: var(--font-body), sans-serif;
   color: var(--color-ink);
@@ -283,12 +288,6 @@
   border: none;
   border-top: var(--stroke-base) solid var(--color-ink);
   margin-block: var(--space-xs);
-}
-
-.rule--v {
-  border: none;
-  border-inline-start: var(--stroke-base) solid var(--color-ink);
-  align-self: stretch;
 }
 
 /* ————— أدوات تخطيط ————— */

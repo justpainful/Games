@@ -2,6 +2,11 @@ import { loadGames } from '../games/all.ts'
 import { activeIn } from '../games/running.ts'
 import { cardCommands } from './card.ts'
 import { register, type Command } from './commands.ts'
+import { eventCommand } from './event-command.ts'
+import { flagsCommand } from './flags-command.ts'
+import { shopCommand } from './shop-command.ts'
+import { statsCommand } from './stats-command.ts'
+import { tuningCommand } from './tuning-command.ts'
 import { startGame } from './host.ts'
 import { adminPanelCommands } from './panels/admin.ts'
 import { botPanelCommands } from './panels/bot.ts'
@@ -33,6 +38,11 @@ export async function registerAllCommands(): Promise<number> {
 
   register(
     ...gameCommands,
+    eventCommand,
+    flagsCommand,
+    shopCommand,
+    statsCommand,
+    tuningCommand,
     stopCommand,
     ...botPanelCommands,
     ...adminPanelCommands,

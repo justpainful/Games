@@ -32,8 +32,8 @@ const NEUTRAL: Paint = { fill: 'var(--color-ink)', on: 'var(--on-ink)' }
 
 const GAP = 14
 /** الصندوق الذي يجب أن تسعه الشبكة — مشتقّ من عرض المشهد ناقص العمود الجانبي. */
-const BOX_W = 930
-const BOX_H = 620
+const BOX_W = 700
+const BOX_H = 460
 const CELL_MIN = 54
 
 /**
@@ -55,7 +55,7 @@ export function boardScene(s: BoardScene): string {
 
       <div class="scene__body">
         <!-- العمود الجانبي — يمينًا في RTL -->
-        <aside class="stack" style="width: 380px">
+        <aside class="stack" style="width: 340px">
           <div class="bar">
             <span>${s.game.name}</span>
             <span class="bar__count"><bdi>${cols}×${rows}</bdi></span>

@@ -102,6 +102,7 @@ async function play(table: Table): Promise<GameResult> {
 
 export default defineGame({
   key: 'kt',
+  mode: 'game',
   name: 'كت',
   tagline: 'أجب لتنجو — من يسكت يخرج',
   howTo:

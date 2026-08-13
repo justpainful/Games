@@ -22,6 +22,7 @@ const TEAM_NAMES = ['الفريق الأحمر', 'الفريق الأصفر'] as
 
 export default defineGame({
   key: 'roulette',
+  mode: 'event',
   name: 'روليت',
   aliases: ['الروليت', 'العجلة'],
   tagline: 'عجلة تدور، والاسم الذي يقف عند المؤشّر يتحمّل النتيجة',

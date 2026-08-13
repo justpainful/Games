@@ -1,507 +1,3116 @@
 [
-  { "singular": "عين", "plural": "عيون" },
-  { "singular": "يد", "plural": "أيدي" },
-  { "singular": "ساق", "plural": "سيقان" },
-  { "singular": "أذن", "plural": "آذان" },
-  { "singular": "أنف", "plural": "أنوف" },
-  { "singular": "فم", "plural": "أفواه" },
-  { "singular": "رأس", "plural": "رؤوس" },
-  { "singular": "قلب", "plural": "قلوب" },
-  { "singular": "كبد", "plural": "أكباد" },
-  { "singular": "ظهر", "plural": "ظهور" },
-  { "singular": "كتف", "plural": "أكتاف" },
-  { "singular": "ركبة", "plural": "ركب" },
-  { "singular": "إصبع", "plural": "أصابع" },
-  { "singular": "ظفر", "plural": "أظافر" },
-  { "singular": "سن", "plural": "أسنان" },
-  { "singular": "لسان", "plural": "ألسنة" },
-  { "singular": "جلد", "plural": "جلود" },
-  { "singular": "عظم", "plural": "عظام" },
-  { "singular": "عرق", "plural": "عروق" },
-  { "singular": "صدر", "plural": "صدور" },
-  { "singular": "بطن", "plural": "بطون" },
-  { "singular": "خد", "plural": "خدود" },
-  { "singular": "جبهة", "plural": "جباه" },
-  { "singular": "حاجب", "plural": "حواجب" },
-  { "singular": "رمش", "plural": "رموش" },
-  { "singular": "شفة", "plural": "شفاه" },
-  { "singular": "عنق", "plural": "أعناق" },
-  { "singular": "ذراع", "plural": "أذرع" },
-  { "singular": "كف", "plural": "أكف" },
-  { "singular": "قدم", "plural": "أقدام" },
-  { "singular": "أسد", "plural": "أسود" },
-  { "singular": "نمر", "plural": "نمور" },
-  { "singular": "ذئب", "plural": "ذئاب" },
-  { "singular": "كلب", "plural": "كلاب" },
-  { "singular": "قط", "plural": "قطط" },
-  { "singular": "حصان", "plural": "أحصنة" },
-  { "singular": "حمار", "plural": "حمير" },
-  { "singular": "جمل", "plural": "جمال" },
-  { "singular": "بقرة", "plural": "أبقار" },
-  { "singular": "خروف", "plural": "خرفان" },
-  { "singular": "فيل", "plural": "أفيال" },
-  { "singular": "دب", "plural": "دببة" },
-  { "singular": "ثعلب", "plural": "ثعالب" },
-  { "singular": "أرنب", "plural": "أرانب" },
-  { "singular": "فأر", "plural": "فئران" },
-  { "singular": "غزال", "plural": "غزلان" },
-  { "singular": "قرد", "plural": "قرود" },
-  { "singular": "زرافة", "plural": "زرافات" },
-  { "singular": "تمساح", "plural": "تماسيح" },
-  { "singular": "سلحفاة", "plural": "سلاحف" },
-  { "singular": "ثعبان", "plural": "ثعابين" },
-  { "singular": "ضفدع", "plural": "ضفادع" },
-  { "singular": "سمكة", "plural": "أسماك" },
-  { "singular": "حوت", "plural": "حيتان" },
-  { "singular": "دلفين", "plural": "دلافين" },
-  { "singular": "قرش", "plural": "قروش" },
-  { "singular": "خنزير", "plural": "خنازير" },
-  { "singular": "ثور", "plural": "ثيران" },
-  { "singular": "وحش", "plural": "وحوش" },
-  { "singular": "سنجاب", "plural": "سناجب" },
-  { "singular": "ضبع", "plural": "ضباع" },
-  { "singular": "جناح", "plural": "أجنحة" },
-  { "singular": "ذيل", "plural": "ذيول" },
-  { "singular": "قرن", "plural": "قرون" },
-  { "singular": "ريشة", "plural": "ريش" },
-  { "singular": "حافر", "plural": "حوافر" },
-  { "singular": "مخلب", "plural": "مخالب" },
-  { "singular": "ناب", "plural": "أنياب" },
-  { "singular": "طائر", "plural": "طيور" },
-  { "singular": "حمامة", "plural": "حمام" },
-  { "singular": "صقر", "plural": "صقور" },
-  { "singular": "نسر", "plural": "نسور" },
-  { "singular": "غراب", "plural": "غربان" },
-  { "singular": "بومة", "plural": "بوم" },
-  { "singular": "دجاجة", "plural": "دجاج" },
-  { "singular": "ديك", "plural": "ديوك" },
-  { "singular": "بطة", "plural": "بط" },
-  { "singular": "إوزة", "plural": "إوز" },
-  { "singular": "عصفور", "plural": "عصافير" },
-  { "singular": "ببغاء", "plural": "ببغاوات" },
-  { "singular": "نعامة", "plural": "نعام" },
-  { "singular": "طاووس", "plural": "طواويس" },
-  { "singular": "كتكوت", "plural": "كتاكيت" },
-  { "singular": "نحلة", "plural": "نحل" },
-  { "singular": "نملة", "plural": "نمل" },
-  { "singular": "ذبابة", "plural": "ذباب" },
-  { "singular": "بعوضة", "plural": "بعوض" },
-  { "singular": "فراشة", "plural": "فراشات" },
-  { "singular": "صرصور", "plural": "صراصير" },
-  { "singular": "عنكبوت", "plural": "عناكب" },
-  { "singular": "جرادة", "plural": "جراد" },
-  { "singular": "عقرب", "plural": "عقارب" },
-  { "singular": "دودة", "plural": "ديدان" },
-  { "singular": "خنفساء", "plural": "خنافس" },
-  { "singular": "شجرة", "plural": "أشجار" },
-  { "singular": "وردة", "plural": "ورود" },
-  { "singular": "زهرة", "plural": "زهور" },
-  { "singular": "نخلة", "plural": "نخيل" },
-  { "singular": "غصن", "plural": "أغصان" },
-  { "singular": "ورقة", "plural": "أوراق" },
-  { "singular": "جذر", "plural": "جذور" },
-  { "singular": "بذرة", "plural": "بذور" },
-  { "singular": "ثمرة", "plural": "ثمار" },
-  { "singular": "تفاحة", "plural": "تفاح" },
-  { "singular": "برتقالة", "plural": "برتقال" },
-  { "singular": "موزة", "plural": "موز" },
-  { "singular": "عنبة", "plural": "عنب" },
-  { "singular": "تينة", "plural": "تين" },
-  { "singular": "رمانة", "plural": "رمان" },
-  { "singular": "بطيخة", "plural": "بطيخ" },
-  { "singular": "خوخة", "plural": "خوخ" },
-  { "singular": "مشمشة", "plural": "مشمش" },
-  { "singular": "تمرة", "plural": "تمر" },
-  { "singular": "زيتونة", "plural": "زيتون" },
-  { "singular": "ليمونة", "plural": "ليمون" },
-  { "singular": "جوزة", "plural": "جوز" },
-  { "singular": "لوزة", "plural": "لوز" },
-  { "singular": "توتة", "plural": "توت" },
-  { "singular": "كرزة", "plural": "كرز" },
-  { "singular": "سنبلة", "plural": "سنابل" },
-  { "singular": "حبة", "plural": "حبوب" },
-  { "singular": "عشبة", "plural": "أعشاب" },
-  { "singular": "نبتة", "plural": "نباتات" },
-  { "singular": "حقل", "plural": "حقول" },
-  { "singular": "بستان", "plural": "بساتين" },
-  { "singular": "غابة", "plural": "غابات" },
-  { "singular": "جذع", "plural": "جذوع" },
-  { "singular": "برعم", "plural": "براعم" },
-  { "singular": "رغيف", "plural": "أرغفة" },
-  { "singular": "لحم", "plural": "لحوم" },
-  { "singular": "بيضة", "plural": "بيض" },
-  { "singular": "جبنة", "plural": "أجبان" },
-  { "singular": "لبن", "plural": "ألبان" },
-  { "singular": "ملح", "plural": "أملاح" },
-  { "singular": "زيت", "plural": "زيوت" },
-  { "singular": "كعكة", "plural": "كعك" },
-  { "singular": "طعام", "plural": "أطعمة" },
-  { "singular": "وجبة", "plural": "وجبات" },
-  { "singular": "مائدة", "plural": "موائد" },
-  { "singular": "صحن", "plural": "صحون" },
-  { "singular": "طبق", "plural": "أطباق" },
-  { "singular": "ملعقة", "plural": "ملاعق" },
-  { "singular": "شوكة", "plural": "شوك" },
-  { "singular": "سكين", "plural": "سكاكين" },
-  { "singular": "كوب", "plural": "أكواب" },
-  { "singular": "كأس", "plural": "كؤوس" },
-  { "singular": "إبريق", "plural": "أباريق" },
-  { "singular": "قدر", "plural": "قدور" },
-  { "singular": "صينية", "plural": "صواني" },
-  { "singular": "غطاء", "plural": "أغطية" },
-  { "singular": "علبة", "plural": "علب" },
-  { "singular": "زجاجة", "plural": "زجاجات" },
-  { "singular": "سلة", "plural": "سلال" },
-  { "singular": "جرة", "plural": "جرار" },
-  { "singular": "دلو", "plural": "دلاء" },
-  { "singular": "فنجان", "plural": "فناجين" },
-  { "singular": "مغرفة", "plural": "مغارف" },
-  { "singular": "قارورة", "plural": "قوارير" },
-  { "singular": "قميص", "plural": "قمصان" },
-  { "singular": "ثوب", "plural": "ثياب" },
-  { "singular": "معطف", "plural": "معاطف" },
-  { "singular": "حذاء", "plural": "أحذية" },
-  { "singular": "جورب", "plural": "جوارب" },
-  { "singular": "قبعة", "plural": "قبعات" },
-  { "singular": "عباءة", "plural": "عباءات" },
-  { "singular": "وشاح", "plural": "أوشحة" },
-  { "singular": "حزام", "plural": "أحزمة" },
-  { "singular": "قفاز", "plural": "قفازات" },
-  { "singular": "رداء", "plural": "أردية" },
-  { "singular": "فستان", "plural": "فساتين" },
-  { "singular": "جلباب", "plural": "جلابيب" },
-  { "singular": "عمامة", "plural": "عمائم" },
-  { "singular": "نعل", "plural": "نعال" },
-  { "singular": "كم", "plural": "أكمام" },
-  { "singular": "زر", "plural": "أزرار" },
-  { "singular": "خيط", "plural": "خيوط" },
-  { "singular": "إبرة", "plural": "إبر" },
-  { "singular": "منديل", "plural": "مناديل" },
-  { "singular": "سترة", "plural": "سترات" },
-  { "singular": "كرسي", "plural": "كراسي" },
-  { "singular": "طاولة", "plural": "طاولات" },
-  { "singular": "سرير", "plural": "أسرة" },
-  { "singular": "خزانة", "plural": "خزائن" },
-  { "singular": "رف", "plural": "رفوف" },
-  { "singular": "مرآة", "plural": "مرايا" },
-  { "singular": "وسادة", "plural": "وسائد" },
-  { "singular": "بساط", "plural": "بسط" },
-  { "singular": "سجادة", "plural": "سجاد" },
-  { "singular": "ستارة", "plural": "ستائر" },
-  { "singular": "مصباح", "plural": "مصابيح" },
-  { "singular": "باب", "plural": "أبواب" },
-  { "singular": "نافذة", "plural": "نوافذ" },
-  { "singular": "جدار", "plural": "جدران" },
-  { "singular": "سقف", "plural": "سقوف" },
-  { "singular": "درج", "plural": "أدراج" },
-  { "singular": "صندوق", "plural": "صناديق" },
-  { "singular": "مقعد", "plural": "مقاعد" },
-  { "singular": "أريكة", "plural": "أرائك" },
-  { "singular": "شمعة", "plural": "شموع" },
-  { "singular": "ساعة", "plural": "ساعات" },
-  { "singular": "لوحة", "plural": "لوحات" },
-  { "singular": "سلم", "plural": "سلالم" },
-  { "singular": "مفتاح", "plural": "مفاتيح" },
-  { "singular": "قفل", "plural": "أقفال" },
-  { "singular": "بيت", "plural": "بيوت" },
-  { "singular": "منزل", "plural": "منازل" },
-  { "singular": "قصر", "plural": "قصور" },
-  { "singular": "مدرسة", "plural": "مدارس" },
-  { "singular": "مسجد", "plural": "مساجد" },
-  { "singular": "كنيسة", "plural": "كنائس" },
-  { "singular": "مستشفى", "plural": "مستشفيات" },
-  { "singular": "مكتبة", "plural": "مكتبات" },
-  { "singular": "متجر", "plural": "متاجر" },
-  { "singular": "سوق", "plural": "أسواق" },
-  { "singular": "مصنع", "plural": "مصانع" },
-  { "singular": "مطار", "plural": "مطارات" },
-  { "singular": "ميناء", "plural": "موانئ" },
-  { "singular": "محطة", "plural": "محطات" },
-  { "singular": "مدينة", "plural": "مدن" },
-  { "singular": "قرية", "plural": "قرى" },
-  { "singular": "شارع", "plural": "شوارع" },
-  { "singular": "طريق", "plural": "طرق" },
-  { "singular": "جسر", "plural": "جسور" },
-  { "singular": "نفق", "plural": "أنفاق" },
-  { "singular": "حديقة", "plural": "حدائق" },
-  { "singular": "ملعب", "plural": "ملاعب" },
-  { "singular": "مسرح", "plural": "مسارح" },
-  { "singular": "متحف", "plural": "متاحف" },
-  { "singular": "فندق", "plural": "فنادق" },
-  { "singular": "مطعم", "plural": "مطاعم" },
-  { "singular": "سجن", "plural": "سجون" },
-  { "singular": "قلعة", "plural": "قلاع" },
-  { "singular": "برج", "plural": "أبراج" },
-  { "singular": "سور", "plural": "أسوار" },
-  { "singular": "خيمة", "plural": "خيام" },
-  { "singular": "كوخ", "plural": "أكواخ" },
-  { "singular": "غرفة", "plural": "غرف" },
-  { "singular": "مطبخ", "plural": "مطابخ" },
-  { "singular": "ساحة", "plural": "ساحات" },
-  { "singular": "مزرعة", "plural": "مزارع" },
-  { "singular": "بئر", "plural": "آبار" },
-  { "singular": "سد", "plural": "سدود" },
-  { "singular": "مقبرة", "plural": "مقابر" },
-  { "singular": "جبل", "plural": "جبال" },
-  { "singular": "نهر", "plural": "أنهار" },
-  { "singular": "بحر", "plural": "بحار" },
-  { "singular": "محيط", "plural": "محيطات" },
-  { "singular": "بحيرة", "plural": "بحيرات" },
-  { "singular": "صحراء", "plural": "صحارى" },
-  { "singular": "وادي", "plural": "أودية" },
-  { "singular": "تل", "plural": "تلال" },
-  { "singular": "كهف", "plural": "كهوف" },
-  { "singular": "شاطئ", "plural": "شواطئ" },
-  { "singular": "جزيرة", "plural": "جزر" },
-  { "singular": "سهل", "plural": "سهول" },
-  { "singular": "هضبة", "plural": "هضاب" },
-  { "singular": "رمل", "plural": "رمال" },
-  { "singular": "صخرة", "plural": "صخور" },
-  { "singular": "حجر", "plural": "أحجار" },
-  { "singular": "ثلج", "plural": "ثلوج" },
-  { "singular": "مطر", "plural": "أمطار" },
-  { "singular": "ريح", "plural": "رياح" },
-  { "singular": "سحابة", "plural": "سحب" },
-  { "singular": "عاصفة", "plural": "عواصف" },
-  { "singular": "برق", "plural": "بروق" },
-  { "singular": "رعد", "plural": "رعود" },
-  { "singular": "موجة", "plural": "أمواج" },
-  { "singular": "نبع", "plural": "ينابيع" },
-  { "singular": "شلال", "plural": "شلالات" },
-  { "singular": "غيمة", "plural": "غيوم" },
-  { "singular": "شمس", "plural": "شموس" },
-  { "singular": "قمر", "plural": "أقمار" },
-  { "singular": "نجم", "plural": "نجوم" },
-  { "singular": "كوكب", "plural": "كواكب" },
-  { "singular": "مجرة", "plural": "مجرات" },
-  { "singular": "سماء", "plural": "سماوات" },
-  { "singular": "أرض", "plural": "أراضي" },
-  { "singular": "ليلة", "plural": "ليالي" },
-  { "singular": "يوم", "plural": "أيام" },
-  { "singular": "شهر", "plural": "شهور" },
-  { "singular": "سنة", "plural": "سنوات" },
-  { "singular": "أسبوع", "plural": "أسابيع" },
-  { "singular": "دقيقة", "plural": "دقائق" },
-  { "singular": "فصل", "plural": "فصول" },
-  { "singular": "ظل", "plural": "ظلال" },
-  { "singular": "نور", "plural": "أنوار" },
-  { "singular": "ضوء", "plural": "أضواء" },
-  { "singular": "نار", "plural": "نيران" },
-  { "singular": "شعاع", "plural": "أشعة" },
-  { "singular": "سيارة", "plural": "سيارات" },
-  { "singular": "حافلة", "plural": "حافلات" },
-  { "singular": "قطار", "plural": "قطارات" },
-  { "singular": "طائرة", "plural": "طائرات" },
-  { "singular": "سفينة", "plural": "سفن" },
-  { "singular": "قارب", "plural": "قوارب" },
-  { "singular": "دراجة", "plural": "دراجات" },
-  { "singular": "شاحنة", "plural": "شاحنات" },
-  { "singular": "عجلة", "plural": "عجلات" },
-  { "singular": "مركبة", "plural": "مركبات" },
-  { "singular": "صاروخ", "plural": "صواريخ" },
-  { "singular": "زورق", "plural": "زوارق" },
-  { "singular": "عربة", "plural": "عربات" },
-  { "singular": "كتاب", "plural": "كتب" },
-  { "singular": "قلم", "plural": "أقلام" },
-  { "singular": "دفتر", "plural": "دفاتر" },
-  { "singular": "حقيبة", "plural": "حقائب" },
-  { "singular": "مسطرة", "plural": "مساطر" },
-  { "singular": "درس", "plural": "دروس" },
-  { "singular": "صف", "plural": "صفوف" },
-  { "singular": "طالب", "plural": "طلاب" },
-  { "singular": "معلم", "plural": "معلمون" },
-  { "singular": "أستاذ", "plural": "أساتذة" },
-  { "singular": "امتحان", "plural": "امتحانات" },
-  { "singular": "سؤال", "plural": "أسئلة" },
-  { "singular": "جواب", "plural": "أجوبة" },
-  { "singular": "صفحة", "plural": "صفحات" },
-  { "singular": "سطر", "plural": "سطور" },
-  { "singular": "حرف", "plural": "حروف" },
-  { "singular": "كلمة", "plural": "كلمات" },
-  { "singular": "قصة", "plural": "قصص" },
-  { "singular": "رسالة", "plural": "رسائل" },
-  { "singular": "مجلة", "plural": "مجلات" },
-  { "singular": "جريدة", "plural": "جرائد" },
-  { "singular": "رقم", "plural": "أرقام" },
-  { "singular": "عدد", "plural": "أعداد" },
-  { "singular": "طبيب", "plural": "أطباء" },
-  { "singular": "مهندس", "plural": "مهندسون" },
-  { "singular": "نجار", "plural": "نجارون" },
-  { "singular": "حداد", "plural": "حدادون" },
-  { "singular": "خباز", "plural": "خبازون" },
-  { "singular": "فلاح", "plural": "فلاحون" },
-  { "singular": "تاجر", "plural": "تجار" },
-  { "singular": "صياد", "plural": "صيادون" },
-  { "singular": "جندي", "plural": "جنود" },
-  { "singular": "ضابط", "plural": "ضباط" },
-  { "singular": "قاضي", "plural": "قضاة" },
-  { "singular": "شاعر", "plural": "شعراء" },
-  { "singular": "رسام", "plural": "رسامون" },
-  { "singular": "سائق", "plural": "سائقون" },
-  { "singular": "طباخ", "plural": "طباخون" },
-  { "singular": "بائع", "plural": "باعة" },
-  { "singular": "راعي", "plural": "رعاة" },
-  { "singular": "عامل", "plural": "عمال" },
-  { "singular": "حارس", "plural": "حراس" },
-  { "singular": "ممرض", "plural": "ممرضون" },
-  { "singular": "صيدلي", "plural": "صيادلة" },
-  { "singular": "محامي", "plural": "محامون" },
-  { "singular": "خياط", "plural": "خياطون" },
-  { "singular": "جزار", "plural": "جزارون" },
-  { "singular": "ملك", "plural": "ملوك" },
-  { "singular": "أمير", "plural": "أمراء" },
-  { "singular": "وزير", "plural": "وزراء" },
-  { "singular": "رئيس", "plural": "رؤساء" },
-  { "singular": "عالم", "plural": "علماء" },
-  { "singular": "طيار", "plural": "طيارون" },
-  { "singular": "فارس", "plural": "فرسان" },
-  { "singular": "سيف", "plural": "سيوف" },
-  { "singular": "رمح", "plural": "رماح" },
-  { "singular": "سهم", "plural": "سهام" },
-  { "singular": "قوس", "plural": "أقواس" },
-  { "singular": "درع", "plural": "دروع" },
-  { "singular": "خنجر", "plural": "خناجر" },
-  { "singular": "مدفع", "plural": "مدافع" },
-  { "singular": "بندقية", "plural": "بنادق" },
-  { "singular": "عصا", "plural": "عصي" },
-  { "singular": "مطرقة", "plural": "مطارق" },
-  { "singular": "منشار", "plural": "مناشير" },
-  { "singular": "مسمار", "plural": "مسامير" },
-  { "singular": "حبل", "plural": "حبال" },
-  { "singular": "سلسلة", "plural": "سلاسل" },
-  { "singular": "فأس", "plural": "فؤوس" },
-  { "singular": "مجرفة", "plural": "مجارف" },
-  { "singular": "ميزان", "plural": "موازين" },
-  { "singular": "آلة", "plural": "آلات" },
-  { "singular": "جهاز", "plural": "أجهزة" },
-  { "singular": "أداة", "plural": "أدوات" },
-  { "singular": "اسم", "plural": "أسماء" },
-  { "singular": "عمل", "plural": "أعمال" },
-  { "singular": "شيء", "plural": "أشياء" },
-  { "singular": "أمر", "plural": "أمور" },
-  { "singular": "خبر", "plural": "أخبار" },
-  { "singular": "فكرة", "plural": "أفكار" },
-  { "singular": "رأي", "plural": "آراء" },
-  { "singular": "حق", "plural": "حقوق" },
-  { "singular": "واجب", "plural": "واجبات" },
-  { "singular": "حلم", "plural": "أحلام" },
-  { "singular": "أمل", "plural": "آمال" },
-  { "singular": "هدف", "plural": "أهداف" },
-  { "singular": "سبب", "plural": "أسباب" },
-  { "singular": "نتيجة", "plural": "نتائج" },
-  { "singular": "مشكلة", "plural": "مشاكل" },
-  { "singular": "حل", "plural": "حلول" },
-  { "singular": "نصيحة", "plural": "نصائح" },
-  { "singular": "عادة", "plural": "عادات" },
-  { "singular": "قانون", "plural": "قوانين" },
-  { "singular": "حكم", "plural": "أحكام" },
-  { "singular": "عقد", "plural": "عقود" },
-  { "singular": "مال", "plural": "أموال" },
-  { "singular": "ثمن", "plural": "أثمان" },
-  { "singular": "سعر", "plural": "أسعار" },
-  { "singular": "ربح", "plural": "أرباح" },
-  { "singular": "كنز", "plural": "كنوز" },
-  { "singular": "هدية", "plural": "هدايا" },
-  { "singular": "عيد", "plural": "أعياد" },
-  { "singular": "حفلة", "plural": "حفلات" },
-  { "singular": "لعبة", "plural": "ألعاب" },
-  { "singular": "فريق", "plural": "فرق" },
-  { "singular": "جائزة", "plural": "جوائز" },
-  { "singular": "بطل", "plural": "أبطال" },
-  { "singular": "شعب", "plural": "شعوب" },
-  { "singular": "قبيلة", "plural": "قبائل" },
-  { "singular": "عائلة", "plural": "عائلات" },
-  { "singular": "جار", "plural": "جيران" },
-  { "singular": "ضيف", "plural": "ضيوف" },
-  { "singular": "صوت", "plural": "أصوات" },
-  { "singular": "لغة", "plural": "لغات" },
-  { "singular": "دولة", "plural": "دول" },
-  { "singular": "جيش", "plural": "جيوش" },
-  { "singular": "حرب", "plural": "حروب" },
-  { "singular": "معركة", "plural": "معارك" },
-  { "singular": "عهد", "plural": "عهود" },
-  { "singular": "رحلة", "plural": "رحلات" },
-  { "singular": "طفل", "plural": "أطفال" },
-  { "singular": "ولد", "plural": "أولاد" },
-  { "singular": "بنت", "plural": "بنات" },
-  { "singular": "رجل", "plural": "رجال" },
-  { "singular": "امرأة", "plural": "نساء" },
-  { "singular": "شاب", "plural": "شباب" },
-  { "singular": "شيخ", "plural": "شيوخ" },
-  { "singular": "أب", "plural": "آباء" },
-  { "singular": "أم", "plural": "أمهات" },
-  { "singular": "ابن", "plural": "أبناء" },
-  { "singular": "أخ", "plural": "إخوة" },
-  { "singular": "أخت", "plural": "أخوات" },
-  { "singular": "عم", "plural": "أعمام" },
-  { "singular": "خال", "plural": "أخوال" },
-  { "singular": "جد", "plural": "أجداد" },
-  { "singular": "حفيد", "plural": "أحفاد" },
-  { "singular": "نفس", "plural": "نفوس" },
-  { "singular": "روح", "plural": "أرواح" },
-  { "singular": "عقل", "plural": "عقول" },
-  { "singular": "علم", "plural": "علوم" },
-  { "singular": "فن", "plural": "فنون" },
-  { "singular": "لحن", "plural": "ألحان" },
-  { "singular": "شعر", "plural": "أشعار" },
-  { "singular": "قصيدة", "plural": "قصائد" },
-  { "singular": "طبل", "plural": "طبول" },
-  { "singular": "عود", "plural": "أعواد" },
-  { "singular": "نظام", "plural": "أنظمة" },
-  { "singular": "برنامج", "plural": "برامج" },
-  { "singular": "خطة", "plural": "خطط" },
-  { "singular": "مشروع", "plural": "مشاريع" },
-  { "singular": "تقرير", "plural": "تقارير" },
-  { "singular": "ملف", "plural": "ملفات" },
-  { "singular": "سجل", "plural": "سجلات" },
-  { "singular": "شهادة", "plural": "شهادات" },
-  { "singular": "بطاقة", "plural": "بطاقات" },
-  { "singular": "ختم", "plural": "أختام" },
-  { "singular": "عنوان", "plural": "عناوين" },
-  { "singular": "مكان", "plural": "أماكن" },
-  { "singular": "حد", "plural": "حدود" },
-  { "singular": "جهة", "plural": "جهات" },
-  { "singular": "ركن", "plural": "أركان" },
-  { "singular": "زاوية", "plural": "زوايا" },
-  { "singular": "خط", "plural": "خطوط" },
-  { "singular": "دائرة", "plural": "دوائر" },
-  { "singular": "مثلث", "plural": "مثلثات" },
-  { "singular": "شكل", "plural": "أشكال" },
-  { "singular": "صورة", "plural": "صور" },
-  { "singular": "ظرف", "plural": "ظروف" },
-  { "singular": "كيس", "plural": "أكياس" },
-  { "singular": "قسم", "plural": "أقسام" },
-  { "singular": "جزء", "plural": "أجزاء" },
-  { "singular": "نصف", "plural": "أنصاف" },
-  { "singular": "قطعة", "plural": "قطع" },
-  { "singular": "نوع", "plural": "أنواع" },
-  { "singular": "صنف", "plural": "أصناف" },
-  { "singular": "مثال", "plural": "أمثلة" },
-  { "singular": "درجة", "plural": "درجات" },
-  { "singular": "مرحلة", "plural": "مراحل" },
-  { "singular": "خطوة", "plural": "خطوات" },
-  { "singular": "طابق", "plural": "طوابق" },
-  { "singular": "عمود", "plural": "أعمدة" },
-  { "singular": "قبة", "plural": "قباب" },
-  { "singular": "لون", "plural": "ألوان" },
-  { "singular": "كبير", "plural": "كبار" },
-  { "singular": "صغير", "plural": "صغار" },
-  { "singular": "طويل", "plural": "طوال" },
-  { "singular": "قصير", "plural": "قصار" },
-  { "singular": "كريم", "plural": "كرام" },
-  { "singular": "شجاع", "plural": "شجعان" },
-  { "singular": "غني", "plural": "أغنياء" },
-  { "singular": "فقير", "plural": "فقراء" },
-  { "singular": "عظيم", "plural": "عظماء" },
-  { "singular": "حكيم", "plural": "حكماء" },
-  { "singular": "قوي", "plural": "أقوياء" },
-  { "singular": "ضعيف", "plural": "ضعفاء" },
-  { "singular": "سعيد", "plural": "سعداء" },
-  { "singular": "صديق", "plural": "أصدقاء" },
-  { "singular": "عدو", "plural": "أعداء" },
-  { "singular": "مريض", "plural": "مرضى" },
-  { "singular": "جريح", "plural": "جرحى" },
-  { "singular": "أسير", "plural": "أسرى" },
-  { "singular": "يتيم", "plural": "أيتام" },
-  { "singular": "رفيق", "plural": "رفاق" }
+  {
+    "singular": "عين",
+    "plural": "عيون"
+  },
+  {
+    "singular": "يد",
+    "plural": "أيدي"
+  },
+  {
+    "singular": "ساق",
+    "plural": "سيقان"
+  },
+  {
+    "singular": "أذن",
+    "plural": "آذان"
+  },
+  {
+    "singular": "أنف",
+    "plural": "أنوف"
+  },
+  {
+    "singular": "فم",
+    "plural": "أفواه"
+  },
+  {
+    "singular": "رأس",
+    "plural": "رؤوس"
+  },
+  {
+    "singular": "قلب",
+    "plural": "قلوب"
+  },
+  {
+    "singular": "كبد",
+    "plural": "أكباد"
+  },
+  {
+    "singular": "ظهر",
+    "plural": "ظهور"
+  },
+  {
+    "singular": "كتف",
+    "plural": "أكتاف"
+  },
+  {
+    "singular": "ركبة",
+    "plural": "ركب"
+  },
+  {
+    "singular": "إصبع",
+    "plural": "أصابع"
+  },
+  {
+    "singular": "ظفر",
+    "plural": "أظافر"
+  },
+  {
+    "singular": "سن",
+    "plural": "أسنان"
+  },
+  {
+    "singular": "لسان",
+    "plural": "ألسنة"
+  },
+  {
+    "singular": "جلد",
+    "plural": "جلود"
+  },
+  {
+    "singular": "عظم",
+    "plural": "عظام"
+  },
+  {
+    "singular": "عرق",
+    "plural": "عروق"
+  },
+  {
+    "singular": "صدر",
+    "plural": "صدور"
+  },
+  {
+    "singular": "بطن",
+    "plural": "بطون"
+  },
+  {
+    "singular": "خد",
+    "plural": "خدود"
+  },
+  {
+    "singular": "جبهة",
+    "plural": "جباه"
+  },
+  {
+    "singular": "حاجب",
+    "plural": "حواجب"
+  },
+  {
+    "singular": "رمش",
+    "plural": "رموش"
+  },
+  {
+    "singular": "شفة",
+    "plural": "شفاه"
+  },
+  {
+    "singular": "عنق",
+    "plural": "أعناق"
+  },
+  {
+    "singular": "ذراع",
+    "plural": "أذرع"
+  },
+  {
+    "singular": "كف",
+    "plural": "أكف"
+  },
+  {
+    "singular": "قدم",
+    "plural": "أقدام"
+  },
+  {
+    "singular": "أسد",
+    "plural": "أسود"
+  },
+  {
+    "singular": "نمر",
+    "plural": "نمور"
+  },
+  {
+    "singular": "ذئب",
+    "plural": "ذئاب"
+  },
+  {
+    "singular": "كلب",
+    "plural": "كلاب"
+  },
+  {
+    "singular": "قط",
+    "plural": "قطط"
+  },
+  {
+    "singular": "حصان",
+    "plural": "أحصنة"
+  },
+  {
+    "singular": "حمار",
+    "plural": "حمير"
+  },
+  {
+    "singular": "جمل",
+    "plural": "جمال"
+  },
+  {
+    "singular": "بقرة",
+    "plural": "أبقار"
+  },
+  {
+    "singular": "خروف",
+    "plural": "خرفان"
+  },
+  {
+    "singular": "فيل",
+    "plural": "أفيال"
+  },
+  {
+    "singular": "دب",
+    "plural": "دببة"
+  },
+  {
+    "singular": "ثعلب",
+    "plural": "ثعالب"
+  },
+  {
+    "singular": "أرنب",
+    "plural": "أرانب"
+  },
+  {
+    "singular": "فأر",
+    "plural": "فئران"
+  },
+  {
+    "singular": "غزال",
+    "plural": "غزلان"
+  },
+  {
+    "singular": "قرد",
+    "plural": "قرود"
+  },
+  {
+    "singular": "زرافة",
+    "plural": "زرافات"
+  },
+  {
+    "singular": "تمساح",
+    "plural": "تماسيح"
+  },
+  {
+    "singular": "سلحفاة",
+    "plural": "سلاحف"
+  },
+  {
+    "singular": "ثعبان",
+    "plural": "ثعابين"
+  },
+  {
+    "singular": "ضفدع",
+    "plural": "ضفادع"
+  },
+  {
+    "singular": "سمكة",
+    "plural": "أسماك"
+  },
+  {
+    "singular": "حوت",
+    "plural": "حيتان"
+  },
+  {
+    "singular": "دلفين",
+    "plural": "دلافين"
+  },
+  {
+    "singular": "قرش",
+    "plural": "قروش"
+  },
+  {
+    "singular": "خنزير",
+    "plural": "خنازير"
+  },
+  {
+    "singular": "ثور",
+    "plural": "ثيران"
+  },
+  {
+    "singular": "وحش",
+    "plural": "وحوش"
+  },
+  {
+    "singular": "سنجاب",
+    "plural": "سناجب"
+  },
+  {
+    "singular": "ضبع",
+    "plural": "ضباع"
+  },
+  {
+    "singular": "جناح",
+    "plural": "أجنحة"
+  },
+  {
+    "singular": "ذيل",
+    "plural": "ذيول"
+  },
+  {
+    "singular": "قرن",
+    "plural": "قرون"
+  },
+  {
+    "singular": "ريشة",
+    "plural": "ريش"
+  },
+  {
+    "singular": "حافر",
+    "plural": "حوافر"
+  },
+  {
+    "singular": "مخلب",
+    "plural": "مخالب"
+  },
+  {
+    "singular": "ناب",
+    "plural": "أنياب"
+  },
+  {
+    "singular": "طائر",
+    "plural": "طيور"
+  },
+  {
+    "singular": "حمامة",
+    "plural": "حمام",
+    "accept": [
+      "حمائم"
+    ]
+  },
+  {
+    "singular": "صقر",
+    "plural": "صقور"
+  },
+  {
+    "singular": "نسر",
+    "plural": "نسور"
+  },
+  {
+    "singular": "غراب",
+    "plural": "غربان"
+  },
+  {
+    "singular": "بومة",
+    "plural": "بوم"
+  },
+  {
+    "singular": "دجاجة",
+    "plural": "دجاج",
+    "accept": [
+      "دجاجات"
+    ]
+  },
+  {
+    "singular": "ديك",
+    "plural": "ديوك"
+  },
+  {
+    "singular": "بطة",
+    "plural": "بط",
+    "accept": [
+      "بطات"
+    ]
+  },
+  {
+    "singular": "إوزة",
+    "plural": "إوز"
+  },
+  {
+    "singular": "عصفور",
+    "plural": "عصافير"
+  },
+  {
+    "singular": "ببغاء",
+    "plural": "ببغاوات"
+  },
+  {
+    "singular": "نعامة",
+    "plural": "نعام"
+  },
+  {
+    "singular": "طاووس",
+    "plural": "طواويس"
+  },
+  {
+    "singular": "كتكوت",
+    "plural": "كتاكيت"
+  },
+  {
+    "singular": "نحلة",
+    "plural": "نحل"
+  },
+  {
+    "singular": "نملة",
+    "plural": "نمل"
+  },
+  {
+    "singular": "ذبابة",
+    "plural": "ذباب"
+  },
+  {
+    "singular": "بعوضة",
+    "plural": "بعوض"
+  },
+  {
+    "singular": "فراشة",
+    "plural": "فراشات"
+  },
+  {
+    "singular": "صرصور",
+    "plural": "صراصير"
+  },
+  {
+    "singular": "عنكبوت",
+    "plural": "عناكب"
+  },
+  {
+    "singular": "جرادة",
+    "plural": "جراد"
+  },
+  {
+    "singular": "عقرب",
+    "plural": "عقارب"
+  },
+  {
+    "singular": "دودة",
+    "plural": "ديدان"
+  },
+  {
+    "singular": "خنفساء",
+    "plural": "خنافس"
+  },
+  {
+    "singular": "شجرة",
+    "plural": "أشجار"
+  },
+  {
+    "singular": "وردة",
+    "plural": "ورود"
+  },
+  {
+    "singular": "زهرة",
+    "plural": "زهور"
+  },
+  {
+    "singular": "نخلة",
+    "plural": "نخيل"
+  },
+  {
+    "singular": "غصن",
+    "plural": "أغصان"
+  },
+  {
+    "singular": "ورقة",
+    "plural": "أوراق"
+  },
+  {
+    "singular": "جذر",
+    "plural": "جذور"
+  },
+  {
+    "singular": "بذرة",
+    "plural": "بذور"
+  },
+  {
+    "singular": "ثمرة",
+    "plural": "ثمار"
+  },
+  {
+    "singular": "تفاحة",
+    "plural": "تفاح"
+  },
+  {
+    "singular": "برتقالة",
+    "plural": "برتقال"
+  },
+  {
+    "singular": "موزة",
+    "plural": "موز"
+  },
+  {
+    "singular": "عنبة",
+    "plural": "عنب"
+  },
+  {
+    "singular": "تينة",
+    "plural": "تين"
+  },
+  {
+    "singular": "رمانة",
+    "plural": "رمان"
+  },
+  {
+    "singular": "بطيخة",
+    "plural": "بطيخ"
+  },
+  {
+    "singular": "خوخة",
+    "plural": "خوخ"
+  },
+  {
+    "singular": "مشمشة",
+    "plural": "مشمش"
+  },
+  {
+    "singular": "تمرة",
+    "plural": "تمر"
+  },
+  {
+    "singular": "زيتونة",
+    "plural": "زيتون"
+  },
+  {
+    "singular": "ليمونة",
+    "plural": "ليمون"
+  },
+  {
+    "singular": "جوزة",
+    "plural": "جوز"
+  },
+  {
+    "singular": "لوزة",
+    "plural": "لوز"
+  },
+  {
+    "singular": "توتة",
+    "plural": "توت"
+  },
+  {
+    "singular": "كرزة",
+    "plural": "كرز"
+  },
+  {
+    "singular": "سنبلة",
+    "plural": "سنابل"
+  },
+  {
+    "singular": "حبة",
+    "plural": "حبوب"
+  },
+  {
+    "singular": "عشبة",
+    "plural": "أعشاب"
+  },
+  {
+    "singular": "نبتة",
+    "plural": "نباتات"
+  },
+  {
+    "singular": "حقل",
+    "plural": "حقول"
+  },
+  {
+    "singular": "بستان",
+    "plural": "بساتين"
+  },
+  {
+    "singular": "غابة",
+    "plural": "غابات"
+  },
+  {
+    "singular": "جذع",
+    "plural": "جذوع"
+  },
+  {
+    "singular": "برعم",
+    "plural": "براعم"
+  },
+  {
+    "singular": "رغيف",
+    "plural": "أرغفة"
+  },
+  {
+    "singular": "لحم",
+    "plural": "لحوم"
+  },
+  {
+    "singular": "بيضة",
+    "plural": "بيض"
+  },
+  {
+    "singular": "جبنة",
+    "plural": "أجبان"
+  },
+  {
+    "singular": "لبن",
+    "plural": "ألبان"
+  },
+  {
+    "singular": "ملح",
+    "plural": "أملاح"
+  },
+  {
+    "singular": "زيت",
+    "plural": "زيوت"
+  },
+  {
+    "singular": "كعكة",
+    "plural": "كعك"
+  },
+  {
+    "singular": "طعام",
+    "plural": "أطعمة"
+  },
+  {
+    "singular": "وجبة",
+    "plural": "وجبات"
+  },
+  {
+    "singular": "مائدة",
+    "plural": "موائد"
+  },
+  {
+    "singular": "صحن",
+    "plural": "صحون"
+  },
+  {
+    "singular": "طبق",
+    "plural": "أطباق"
+  },
+  {
+    "singular": "ملعقة",
+    "plural": "ملاعق"
+  },
+  {
+    "singular": "شوكة",
+    "plural": "شوك"
+  },
+  {
+    "singular": "سكين",
+    "plural": "سكاكين"
+  },
+  {
+    "singular": "كوب",
+    "plural": "أكواب"
+  },
+  {
+    "singular": "كأس",
+    "plural": "كؤوس"
+  },
+  {
+    "singular": "إبريق",
+    "plural": "أباريق"
+  },
+  {
+    "singular": "قدر",
+    "plural": "قدور"
+  },
+  {
+    "singular": "صينية",
+    "plural": "صواني"
+  },
+  {
+    "singular": "غطاء",
+    "plural": "أغطية"
+  },
+  {
+    "singular": "علبة",
+    "plural": "علب"
+  },
+  {
+    "singular": "زجاجة",
+    "plural": "زجاجات"
+  },
+  {
+    "singular": "سلة",
+    "plural": "سلال"
+  },
+  {
+    "singular": "جرة",
+    "plural": "جرار"
+  },
+  {
+    "singular": "دلو",
+    "plural": "دلاء"
+  },
+  {
+    "singular": "فنجان",
+    "plural": "فناجين"
+  },
+  {
+    "singular": "مغرفة",
+    "plural": "مغارف"
+  },
+  {
+    "singular": "قارورة",
+    "plural": "قوارير"
+  },
+  {
+    "singular": "قميص",
+    "plural": "قمصان"
+  },
+  {
+    "singular": "ثوب",
+    "plural": "ثياب"
+  },
+  {
+    "singular": "معطف",
+    "plural": "معاطف"
+  },
+  {
+    "singular": "حذاء",
+    "plural": "أحذية"
+  },
+  {
+    "singular": "جورب",
+    "plural": "جوارب"
+  },
+  {
+    "singular": "قبعة",
+    "plural": "قبعات"
+  },
+  {
+    "singular": "عباءة",
+    "plural": "عباءات"
+  },
+  {
+    "singular": "وشاح",
+    "plural": "أوشحة"
+  },
+  {
+    "singular": "حزام",
+    "plural": "أحزمة"
+  },
+  {
+    "singular": "قفاز",
+    "plural": "قفازات"
+  },
+  {
+    "singular": "رداء",
+    "plural": "أردية"
+  },
+  {
+    "singular": "فستان",
+    "plural": "فساتين"
+  },
+  {
+    "singular": "جلباب",
+    "plural": "جلابيب"
+  },
+  {
+    "singular": "عمامة",
+    "plural": "عمائم"
+  },
+  {
+    "singular": "نعل",
+    "plural": "نعال"
+  },
+  {
+    "singular": "كم",
+    "plural": "أكمام"
+  },
+  {
+    "singular": "زر",
+    "plural": "أزرار"
+  },
+  {
+    "singular": "خيط",
+    "plural": "خيوط"
+  },
+  {
+    "singular": "إبرة",
+    "plural": "إبر"
+  },
+  {
+    "singular": "منديل",
+    "plural": "مناديل"
+  },
+  {
+    "singular": "سترة",
+    "plural": "سترات"
+  },
+  {
+    "singular": "كرسي",
+    "plural": "كراسي"
+  },
+  {
+    "singular": "طاولة",
+    "plural": "طاولات"
+  },
+  {
+    "singular": "سرير",
+    "plural": "أسرة"
+  },
+  {
+    "singular": "خزانة",
+    "plural": "خزائن"
+  },
+  {
+    "singular": "رف",
+    "plural": "رفوف"
+  },
+  {
+    "singular": "مرآة",
+    "plural": "مرايا"
+  },
+  {
+    "singular": "وسادة",
+    "plural": "وسائد"
+  },
+  {
+    "singular": "بساط",
+    "plural": "بسط"
+  },
+  {
+    "singular": "سجادة",
+    "plural": "سجاد"
+  },
+  {
+    "singular": "ستارة",
+    "plural": "ستائر"
+  },
+  {
+    "singular": "مصباح",
+    "plural": "مصابيح"
+  },
+  {
+    "singular": "باب",
+    "plural": "أبواب"
+  },
+  {
+    "singular": "نافذة",
+    "plural": "نوافذ"
+  },
+  {
+    "singular": "جدار",
+    "plural": "جدران"
+  },
+  {
+    "singular": "سقف",
+    "plural": "سقوف"
+  },
+  {
+    "singular": "درج",
+    "plural": "أدراج"
+  },
+  {
+    "singular": "صندوق",
+    "plural": "صناديق"
+  },
+  {
+    "singular": "مقعد",
+    "plural": "مقاعد"
+  },
+  {
+    "singular": "أريكة",
+    "plural": "أرائك"
+  },
+  {
+    "singular": "شمعة",
+    "plural": "شموع"
+  },
+  {
+    "singular": "ساعة",
+    "plural": "ساعات"
+  },
+  {
+    "singular": "لوحة",
+    "plural": "لوحات"
+  },
+  {
+    "singular": "سلم",
+    "plural": "سلالم"
+  },
+  {
+    "singular": "مفتاح",
+    "plural": "مفاتيح"
+  },
+  {
+    "singular": "قفل",
+    "plural": "أقفال"
+  },
+  {
+    "singular": "بيت",
+    "plural": "بيوت"
+  },
+  {
+    "singular": "منزل",
+    "plural": "منازل"
+  },
+  {
+    "singular": "قصر",
+    "plural": "قصور"
+  },
+  {
+    "singular": "مدرسة",
+    "plural": "مدارس"
+  },
+  {
+    "singular": "مسجد",
+    "plural": "مساجد"
+  },
+  {
+    "singular": "كنيسة",
+    "plural": "كنائس"
+  },
+  {
+    "singular": "مستشفى",
+    "plural": "مستشفيات"
+  },
+  {
+    "singular": "مكتبة",
+    "plural": "مكتبات"
+  },
+  {
+    "singular": "متجر",
+    "plural": "متاجر"
+  },
+  {
+    "singular": "سوق",
+    "plural": "أسواق"
+  },
+  {
+    "singular": "مصنع",
+    "plural": "مصانع"
+  },
+  {
+    "singular": "مطار",
+    "plural": "مطارات"
+  },
+  {
+    "singular": "ميناء",
+    "plural": "موانئ"
+  },
+  {
+    "singular": "محطة",
+    "plural": "محطات"
+  },
+  {
+    "singular": "مدينة",
+    "plural": "مدن"
+  },
+  {
+    "singular": "قرية",
+    "plural": "قرى"
+  },
+  {
+    "singular": "شارع",
+    "plural": "شوارع"
+  },
+  {
+    "singular": "طريق",
+    "plural": "طرق"
+  },
+  {
+    "singular": "جسر",
+    "plural": "جسور"
+  },
+  {
+    "singular": "نفق",
+    "plural": "أنفاق"
+  },
+  {
+    "singular": "حديقة",
+    "plural": "حدائق"
+  },
+  {
+    "singular": "ملعب",
+    "plural": "ملاعب"
+  },
+  {
+    "singular": "مسرح",
+    "plural": "مسارح"
+  },
+  {
+    "singular": "متحف",
+    "plural": "متاحف"
+  },
+  {
+    "singular": "فندق",
+    "plural": "فنادق"
+  },
+  {
+    "singular": "مطعم",
+    "plural": "مطاعم"
+  },
+  {
+    "singular": "سجن",
+    "plural": "سجون"
+  },
+  {
+    "singular": "قلعة",
+    "plural": "قلاع"
+  },
+  {
+    "singular": "برج",
+    "plural": "أبراج"
+  },
+  {
+    "singular": "سور",
+    "plural": "أسوار"
+  },
+  {
+    "singular": "خيمة",
+    "plural": "خيام"
+  },
+  {
+    "singular": "كوخ",
+    "plural": "أكواخ"
+  },
+  {
+    "singular": "غرفة",
+    "plural": "غرف"
+  },
+  {
+    "singular": "مطبخ",
+    "plural": "مطابخ"
+  },
+  {
+    "singular": "ساحة",
+    "plural": "ساحات"
+  },
+  {
+    "singular": "مزرعة",
+    "plural": "مزارع"
+  },
+  {
+    "singular": "بئر",
+    "plural": "آبار"
+  },
+  {
+    "singular": "سد",
+    "plural": "سدود"
+  },
+  {
+    "singular": "مقبرة",
+    "plural": "مقابر"
+  },
+  {
+    "singular": "جبل",
+    "plural": "جبال"
+  },
+  {
+    "singular": "نهر",
+    "plural": "أنهار"
+  },
+  {
+    "singular": "بحر",
+    "plural": "بحار"
+  },
+  {
+    "singular": "محيط",
+    "plural": "محيطات"
+  },
+  {
+    "singular": "بحيرة",
+    "plural": "بحيرات"
+  },
+  {
+    "singular": "صحراء",
+    "plural": "صحارى"
+  },
+  {
+    "singular": "وادي",
+    "plural": "أودية"
+  },
+  {
+    "singular": "تل",
+    "plural": "تلال"
+  },
+  {
+    "singular": "كهف",
+    "plural": "كهوف"
+  },
+  {
+    "singular": "شاطئ",
+    "plural": "شواطئ"
+  },
+  {
+    "singular": "جزيرة",
+    "plural": "جزر"
+  },
+  {
+    "singular": "سهل",
+    "plural": "سهول"
+  },
+  {
+    "singular": "هضبة",
+    "plural": "هضاب"
+  },
+  {
+    "singular": "رمل",
+    "plural": "رمال"
+  },
+  {
+    "singular": "صخرة",
+    "plural": "صخور"
+  },
+  {
+    "singular": "حجر",
+    "plural": "أحجار"
+  },
+  {
+    "singular": "ثلج",
+    "plural": "ثلوج"
+  },
+  {
+    "singular": "مطر",
+    "plural": "أمطار"
+  },
+  {
+    "singular": "ريح",
+    "plural": "رياح"
+  },
+  {
+    "singular": "سحابة",
+    "plural": "سحب"
+  },
+  {
+    "singular": "عاصفة",
+    "plural": "عواصف"
+  },
+  {
+    "singular": "برق",
+    "plural": "بروق"
+  },
+  {
+    "singular": "رعد",
+    "plural": "رعود"
+  },
+  {
+    "singular": "موجة",
+    "plural": "أمواج"
+  },
+  {
+    "singular": "نبع",
+    "plural": "ينابيع"
+  },
+  {
+    "singular": "شلال",
+    "plural": "شلالات"
+  },
+  {
+    "singular": "غيمة",
+    "plural": "غيوم"
+  },
+  {
+    "singular": "شمس",
+    "plural": "شموس"
+  },
+  {
+    "singular": "قمر",
+    "plural": "أقمار"
+  },
+  {
+    "singular": "نجم",
+    "plural": "نجوم"
+  },
+  {
+    "singular": "كوكب",
+    "plural": "كواكب"
+  },
+  {
+    "singular": "مجرة",
+    "plural": "مجرات"
+  },
+  {
+    "singular": "سماء",
+    "plural": "سماوات"
+  },
+  {
+    "singular": "أرض",
+    "plural": "أراضي"
+  },
+  {
+    "singular": "ليلة",
+    "plural": "ليالي"
+  },
+  {
+    "singular": "يوم",
+    "plural": "أيام"
+  },
+  {
+    "singular": "شهر",
+    "plural": "شهور"
+  },
+  {
+    "singular": "سنة",
+    "plural": "سنوات"
+  },
+  {
+    "singular": "أسبوع",
+    "plural": "أسابيع"
+  },
+  {
+    "singular": "دقيقة",
+    "plural": "دقائق"
+  },
+  {
+    "singular": "فصل",
+    "plural": "فصول"
+  },
+  {
+    "singular": "ظل",
+    "plural": "ظلال"
+  },
+  {
+    "singular": "نور",
+    "plural": "أنوار"
+  },
+  {
+    "singular": "ضوء",
+    "plural": "أضواء"
+  },
+  {
+    "singular": "نار",
+    "plural": "نيران"
+  },
+  {
+    "singular": "شعاع",
+    "plural": "أشعة"
+  },
+  {
+    "singular": "سيارة",
+    "plural": "سيارات"
+  },
+  {
+    "singular": "حافلة",
+    "plural": "حافلات"
+  },
+  {
+    "singular": "قطار",
+    "plural": "قطارات"
+  },
+  {
+    "singular": "طائرة",
+    "plural": "طائرات"
+  },
+  {
+    "singular": "سفينة",
+    "plural": "سفن"
+  },
+  {
+    "singular": "قارب",
+    "plural": "قوارب"
+  },
+  {
+    "singular": "دراجة",
+    "plural": "دراجات"
+  },
+  {
+    "singular": "شاحنة",
+    "plural": "شاحنات"
+  },
+  {
+    "singular": "عجلة",
+    "plural": "عجلات"
+  },
+  {
+    "singular": "مركبة",
+    "plural": "مركبات"
+  },
+  {
+    "singular": "صاروخ",
+    "plural": "صواريخ"
+  },
+  {
+    "singular": "زورق",
+    "plural": "زوارق"
+  },
+  {
+    "singular": "عربة",
+    "plural": "عربات"
+  },
+  {
+    "singular": "كتاب",
+    "plural": "كتب"
+  },
+  {
+    "singular": "قلم",
+    "plural": "أقلام"
+  },
+  {
+    "singular": "دفتر",
+    "plural": "دفاتر"
+  },
+  {
+    "singular": "حقيبة",
+    "plural": "حقائب"
+  },
+  {
+    "singular": "مسطرة",
+    "plural": "مساطر"
+  },
+  {
+    "singular": "درس",
+    "plural": "دروس"
+  },
+  {
+    "singular": "صف",
+    "plural": "صفوف"
+  },
+  {
+    "singular": "طالب",
+    "plural": "طلاب"
+  },
+  {
+    "singular": "معلم",
+    "plural": "معلمون"
+  },
+  {
+    "singular": "أستاذ",
+    "plural": "أساتذة"
+  },
+  {
+    "singular": "امتحان",
+    "plural": "امتحانات"
+  },
+  {
+    "singular": "سؤال",
+    "plural": "أسئلة"
+  },
+  {
+    "singular": "جواب",
+    "plural": "أجوبة"
+  },
+  {
+    "singular": "صفحة",
+    "plural": "صفحات"
+  },
+  {
+    "singular": "سطر",
+    "plural": "سطور"
+  },
+  {
+    "singular": "حرف",
+    "plural": "حروف"
+  },
+  {
+    "singular": "كلمة",
+    "plural": "كلمات"
+  },
+  {
+    "singular": "قصة",
+    "plural": "قصص"
+  },
+  {
+    "singular": "رسالة",
+    "plural": "رسائل"
+  },
+  {
+    "singular": "مجلة",
+    "plural": "مجلات"
+  },
+  {
+    "singular": "جريدة",
+    "plural": "جرائد"
+  },
+  {
+    "singular": "رقم",
+    "plural": "أرقام"
+  },
+  {
+    "singular": "عدد",
+    "plural": "أعداد"
+  },
+  {
+    "singular": "طبيب",
+    "plural": "أطباء"
+  },
+  {
+    "singular": "مهندس",
+    "plural": "مهندسون"
+  },
+  {
+    "singular": "نجار",
+    "plural": "نجارون"
+  },
+  {
+    "singular": "حداد",
+    "plural": "حدادون"
+  },
+  {
+    "singular": "خباز",
+    "plural": "خبازون"
+  },
+  {
+    "singular": "فلاح",
+    "plural": "فلاحون"
+  },
+  {
+    "singular": "تاجر",
+    "plural": "تجار"
+  },
+  {
+    "singular": "صياد",
+    "plural": "صيادون"
+  },
+  {
+    "singular": "جندي",
+    "plural": "جنود"
+  },
+  {
+    "singular": "ضابط",
+    "plural": "ضباط"
+  },
+  {
+    "singular": "قاضي",
+    "plural": "قضاة"
+  },
+  {
+    "singular": "شاعر",
+    "plural": "شعراء"
+  },
+  {
+    "singular": "رسام",
+    "plural": "رسامون"
+  },
+  {
+    "singular": "سائق",
+    "plural": "سائقون"
+  },
+  {
+    "singular": "طباخ",
+    "plural": "طباخون"
+  },
+  {
+    "singular": "بائع",
+    "plural": "باعة"
+  },
+  {
+    "singular": "راعي",
+    "plural": "رعاة"
+  },
+  {
+    "singular": "عامل",
+    "plural": "عمال"
+  },
+  {
+    "singular": "حارس",
+    "plural": "حراس"
+  },
+  {
+    "singular": "ممرض",
+    "plural": "ممرضون"
+  },
+  {
+    "singular": "صيدلي",
+    "plural": "صيادلة"
+  },
+  {
+    "singular": "محامي",
+    "plural": "محامون"
+  },
+  {
+    "singular": "خياط",
+    "plural": "خياطون"
+  },
+  {
+    "singular": "جزار",
+    "plural": "جزارون"
+  },
+  {
+    "singular": "ملك",
+    "plural": "ملوك"
+  },
+  {
+    "singular": "أمير",
+    "plural": "أمراء"
+  },
+  {
+    "singular": "وزير",
+    "plural": "وزراء"
+  },
+  {
+    "singular": "رئيس",
+    "plural": "رؤساء"
+  },
+  {
+    "singular": "عالم",
+    "plural": "علماء"
+  },
+  {
+    "singular": "طيار",
+    "plural": "طيارون"
+  },
+  {
+    "singular": "فارس",
+    "plural": "فرسان"
+  },
+  {
+    "singular": "سيف",
+    "plural": "سيوف"
+  },
+  {
+    "singular": "رمح",
+    "plural": "رماح"
+  },
+  {
+    "singular": "سهم",
+    "plural": "سهام",
+    "accept": [
+      "أسهم"
+    ]
+  },
+  {
+    "singular": "قوس",
+    "plural": "أقواس"
+  },
+  {
+    "singular": "درع",
+    "plural": "دروع"
+  },
+  {
+    "singular": "خنجر",
+    "plural": "خناجر"
+  },
+  {
+    "singular": "مدفع",
+    "plural": "مدافع"
+  },
+  {
+    "singular": "بندقية",
+    "plural": "بنادق"
+  },
+  {
+    "singular": "عصا",
+    "plural": "عصي"
+  },
+  {
+    "singular": "مطرقة",
+    "plural": "مطارق"
+  },
+  {
+    "singular": "منشار",
+    "plural": "مناشير"
+  },
+  {
+    "singular": "مسمار",
+    "plural": "مسامير"
+  },
+  {
+    "singular": "حبل",
+    "plural": "حبال"
+  },
+  {
+    "singular": "سلسلة",
+    "plural": "سلاسل"
+  },
+  {
+    "singular": "فأس",
+    "plural": "فؤوس"
+  },
+  {
+    "singular": "مجرفة",
+    "plural": "مجارف"
+  },
+  {
+    "singular": "ميزان",
+    "plural": "موازين"
+  },
+  {
+    "singular": "آلة",
+    "plural": "آلات"
+  },
+  {
+    "singular": "جهاز",
+    "plural": "أجهزة"
+  },
+  {
+    "singular": "أداة",
+    "plural": "أدوات"
+  },
+  {
+    "singular": "اسم",
+    "plural": "أسماء"
+  },
+  {
+    "singular": "عمل",
+    "plural": "أعمال"
+  },
+  {
+    "singular": "شيء",
+    "plural": "أشياء"
+  },
+  {
+    "singular": "أمر",
+    "plural": "أمور"
+  },
+  {
+    "singular": "خبر",
+    "plural": "أخبار"
+  },
+  {
+    "singular": "فكرة",
+    "plural": "أفكار"
+  },
+  {
+    "singular": "رأي",
+    "plural": "آراء"
+  },
+  {
+    "singular": "حق",
+    "plural": "حقوق"
+  },
+  {
+    "singular": "واجب",
+    "plural": "واجبات"
+  },
+  {
+    "singular": "حلم",
+    "plural": "أحلام"
+  },
+  {
+    "singular": "أمل",
+    "plural": "آمال"
+  },
+  {
+    "singular": "هدف",
+    "plural": "أهداف"
+  },
+  {
+    "singular": "سبب",
+    "plural": "أسباب"
+  },
+  {
+    "singular": "نتيجة",
+    "plural": "نتائج"
+  },
+  {
+    "singular": "مشكلة",
+    "plural": "مشاكل"
+  },
+  {
+    "singular": "حل",
+    "plural": "حلول"
+  },
+  {
+    "singular": "نصيحة",
+    "plural": "نصائح"
+  },
+  {
+    "singular": "عادة",
+    "plural": "عادات"
+  },
+  {
+    "singular": "قانون",
+    "plural": "قوانين"
+  },
+  {
+    "singular": "حكم",
+    "plural": "أحكام"
+  },
+  {
+    "singular": "عقد",
+    "plural": "عقود"
+  },
+  {
+    "singular": "مال",
+    "plural": "أموال"
+  },
+  {
+    "singular": "ثمن",
+    "plural": "أثمان"
+  },
+  {
+    "singular": "سعر",
+    "plural": "أسعار"
+  },
+  {
+    "singular": "ربح",
+    "plural": "أرباح"
+  },
+  {
+    "singular": "كنز",
+    "plural": "كنوز"
+  },
+  {
+    "singular": "هدية",
+    "plural": "هدايا"
+  },
+  {
+    "singular": "عيد",
+    "plural": "أعياد"
+  },
+  {
+    "singular": "حفلة",
+    "plural": "حفلات"
+  },
+  {
+    "singular": "لعبة",
+    "plural": "ألعاب"
+  },
+  {
+    "singular": "فريق",
+    "plural": "فرق"
+  },
+  {
+    "singular": "جائزة",
+    "plural": "جوائز"
+  },
+  {
+    "singular": "بطل",
+    "plural": "أبطال"
+  },
+  {
+    "singular": "شعب",
+    "plural": "شعوب"
+  },
+  {
+    "singular": "قبيلة",
+    "plural": "قبائل"
+  },
+  {
+    "singular": "عائلة",
+    "plural": "عائلات"
+  },
+  {
+    "singular": "جار",
+    "plural": "جيران"
+  },
+  {
+    "singular": "ضيف",
+    "plural": "ضيوف"
+  },
+  {
+    "singular": "صوت",
+    "plural": "أصوات"
+  },
+  {
+    "singular": "لغة",
+    "plural": "لغات"
+  },
+  {
+    "singular": "دولة",
+    "plural": "دول"
+  },
+  {
+    "singular": "جيش",
+    "plural": "جيوش"
+  },
+  {
+    "singular": "حرب",
+    "plural": "حروب"
+  },
+  {
+    "singular": "معركة",
+    "plural": "معارك"
+  },
+  {
+    "singular": "عهد",
+    "plural": "عهود"
+  },
+  {
+    "singular": "رحلة",
+    "plural": "رحلات"
+  },
+  {
+    "singular": "طفل",
+    "plural": "أطفال"
+  },
+  {
+    "singular": "ولد",
+    "plural": "أولاد"
+  },
+  {
+    "singular": "بنت",
+    "plural": "بنات"
+  },
+  {
+    "singular": "رجل",
+    "plural": "رجال"
+  },
+  {
+    "singular": "امرأة",
+    "plural": "نساء"
+  },
+  {
+    "singular": "شاب",
+    "plural": "شباب"
+  },
+  {
+    "singular": "شيخ",
+    "plural": "شيوخ"
+  },
+  {
+    "singular": "أب",
+    "plural": "آباء"
+  },
+  {
+    "singular": "أم",
+    "plural": "أمهات"
+  },
+  {
+    "singular": "ابن",
+    "plural": "أبناء"
+  },
+  {
+    "singular": "أخ",
+    "plural": "إخوة"
+  },
+  {
+    "singular": "أخت",
+    "plural": "أخوات"
+  },
+  {
+    "singular": "عم",
+    "plural": "أعمام"
+  },
+  {
+    "singular": "خال",
+    "plural": "أخوال"
+  },
+  {
+    "singular": "جد",
+    "plural": "أجداد"
+  },
+  {
+    "singular": "حفيد",
+    "plural": "أحفاد"
+  },
+  {
+    "singular": "نفس",
+    "plural": "نفوس"
+  },
+  {
+    "singular": "روح",
+    "plural": "أرواح"
+  },
+  {
+    "singular": "عقل",
+    "plural": "عقول"
+  },
+  {
+    "singular": "علم",
+    "plural": "علوم"
+  },
+  {
+    "singular": "فن",
+    "plural": "فنون"
+  },
+  {
+    "singular": "لحن",
+    "plural": "ألحان"
+  },
+  {
+    "singular": "شعر",
+    "plural": "أشعار"
+  },
+  {
+    "singular": "قصيدة",
+    "plural": "قصائد"
+  },
+  {
+    "singular": "طبل",
+    "plural": "طبول"
+  },
+  {
+    "singular": "عود",
+    "plural": "أعواد"
+  },
+  {
+    "singular": "نظام",
+    "plural": "أنظمة"
+  },
+  {
+    "singular": "برنامج",
+    "plural": "برامج"
+  },
+  {
+    "singular": "خطة",
+    "plural": "خطط"
+  },
+  {
+    "singular": "مشروع",
+    "plural": "مشاريع"
+  },
+  {
+    "singular": "تقرير",
+    "plural": "تقارير"
+  },
+  {
+    "singular": "ملف",
+    "plural": "ملفات"
+  },
+  {
+    "singular": "سجل",
+    "plural": "سجلات"
+  },
+  {
+    "singular": "شهادة",
+    "plural": "شهادات"
+  },
+  {
+    "singular": "بطاقة",
+    "plural": "بطاقات"
+  },
+  {
+    "singular": "ختم",
+    "plural": "أختام"
+  },
+  {
+    "singular": "عنوان",
+    "plural": "عناوين"
+  },
+  {
+    "singular": "مكان",
+    "plural": "أماكن"
+  },
+  {
+    "singular": "حد",
+    "plural": "حدود"
+  },
+  {
+    "singular": "جهة",
+    "plural": "جهات"
+  },
+  {
+    "singular": "ركن",
+    "plural": "أركان"
+  },
+  {
+    "singular": "زاوية",
+    "plural": "زوايا"
+  },
+  {
+    "singular": "خط",
+    "plural": "خطوط"
+  },
+  {
+    "singular": "دائرة",
+    "plural": "دوائر"
+  },
+  {
+    "singular": "مثلث",
+    "plural": "مثلثات"
+  },
+  {
+    "singular": "شكل",
+    "plural": "أشكال"
+  },
+  {
+    "singular": "صورة",
+    "plural": "صور"
+  },
+  {
+    "singular": "ظرف",
+    "plural": "ظروف"
+  },
+  {
+    "singular": "كيس",
+    "plural": "أكياس"
+  },
+  {
+    "singular": "قسم",
+    "plural": "أقسام"
+  },
+  {
+    "singular": "جزء",
+    "plural": "أجزاء"
+  },
+  {
+    "singular": "نصف",
+    "plural": "أنصاف"
+  },
+  {
+    "singular": "قطعة",
+    "plural": "قطع"
+  },
+  {
+    "singular": "نوع",
+    "plural": "أنواع"
+  },
+  {
+    "singular": "صنف",
+    "plural": "أصناف"
+  },
+  {
+    "singular": "مثال",
+    "plural": "أمثلة"
+  },
+  {
+    "singular": "درجة",
+    "plural": "درجات"
+  },
+  {
+    "singular": "مرحلة",
+    "plural": "مراحل"
+  },
+  {
+    "singular": "خطوة",
+    "plural": "خطوات"
+  },
+  {
+    "singular": "طابق",
+    "plural": "طوابق"
+  },
+  {
+    "singular": "عمود",
+    "plural": "أعمدة"
+  },
+  {
+    "singular": "قبة",
+    "plural": "قباب"
+  },
+  {
+    "singular": "لون",
+    "plural": "ألوان"
+  },
+  {
+    "singular": "كبير",
+    "plural": "كبار"
+  },
+  {
+    "singular": "صغير",
+    "plural": "صغار"
+  },
+  {
+    "singular": "طويل",
+    "plural": "طوال"
+  },
+  {
+    "singular": "قصير",
+    "plural": "قصار"
+  },
+  {
+    "singular": "كريم",
+    "plural": "كرام",
+    "accept": [
+      "كرماء"
+    ]
+  },
+  {
+    "singular": "شجاع",
+    "plural": "شجعان"
+  },
+  {
+    "singular": "غني",
+    "plural": "أغنياء"
+  },
+  {
+    "singular": "فقير",
+    "plural": "فقراء"
+  },
+  {
+    "singular": "عظيم",
+    "plural": "عظماء"
+  },
+  {
+    "singular": "حكيم",
+    "plural": "حكماء"
+  },
+  {
+    "singular": "قوي",
+    "plural": "أقوياء"
+  },
+  {
+    "singular": "ضعيف",
+    "plural": "ضعفاء"
+  },
+  {
+    "singular": "سعيد",
+    "plural": "سعداء"
+  },
+  {
+    "singular": "صديق",
+    "plural": "أصدقاء"
+  },
+  {
+    "singular": "عدو",
+    "plural": "أعداء"
+  },
+  {
+    "singular": "مريض",
+    "plural": "مرضى"
+  },
+  {
+    "singular": "جريح",
+    "plural": "جرحى"
+  },
+  {
+    "singular": "أسير",
+    "plural": "أسرى"
+  },
+  {
+    "singular": "يتيم",
+    "plural": "أيتام"
+  },
+  {
+    "singular": "رفيق",
+    "plural": "رفاق"
+  },
+  {
+    "singular": "صائغ",
+    "plural": "صاغة"
+  },
+  {
+    "singular": "نساج",
+    "plural": "نساجون"
+  },
+  {
+    "singular": "ملاح",
+    "plural": "ملاحون"
+  },
+  {
+    "singular": "مدرس",
+    "plural": "مدرسون"
+  },
+  {
+    "singular": "تلميذ",
+    "plural": "تلاميذ"
+  },
+  {
+    "singular": "باحث",
+    "plural": "باحثون"
+  },
+  {
+    "singular": "مؤلف",
+    "plural": "مؤلفون"
+  },
+  {
+    "singular": "أديب",
+    "plural": "أدباء"
+  },
+  {
+    "singular": "صحفي",
+    "plural": "صحفيون"
+  },
+  {
+    "singular": "مذيع",
+    "plural": "مذيعون"
+  },
+  {
+    "singular": "مترجم",
+    "plural": "مترجمون"
+  },
+  {
+    "singular": "قائد",
+    "plural": "قادة"
+  },
+  {
+    "singular": "سفير",
+    "plural": "سفراء"
+  },
+  {
+    "singular": "حاكم",
+    "plural": "حكام"
+  },
+  {
+    "singular": "نائب",
+    "plural": "نواب"
+  },
+  {
+    "singular": "مدير",
+    "plural": "مديرون"
+  },
+  {
+    "singular": "موظف",
+    "plural": "موظفون"
+  },
+  {
+    "singular": "صانع",
+    "plural": "صناع"
+  },
+  {
+    "singular": "جراح",
+    "plural": "جراحون"
+  },
+  {
+    "singular": "نحات",
+    "plural": "نحاتون"
+  },
+  {
+    "singular": "مصور",
+    "plural": "مصورون"
+  },
+  {
+    "singular": "ممثل",
+    "plural": "ممثلون"
+  },
+  {
+    "singular": "مطرب",
+    "plural": "مطربون"
+  },
+  {
+    "singular": "عازف",
+    "plural": "عازفون"
+  },
+  {
+    "singular": "ملحن",
+    "plural": "ملحنون"
+  },
+  {
+    "singular": "لاعب",
+    "plural": "لاعبون"
+  },
+  {
+    "singular": "مدرب",
+    "plural": "مدربون"
+  },
+  {
+    "singular": "بستاني",
+    "plural": "بستانيون"
+  },
+  {
+    "singular": "عطار",
+    "plural": "عطارون"
+  },
+  {
+    "singular": "سمسار",
+    "plural": "سماسرة"
+  },
+  {
+    "singular": "صراف",
+    "plural": "صرافون"
+  },
+  {
+    "singular": "محاسب",
+    "plural": "محاسبون"
+  },
+  {
+    "singular": "نادل",
+    "plural": "نادلون"
+  },
+  {
+    "singular": "حلاق",
+    "plural": "حلاقون"
+  },
+  {
+    "singular": "غواص",
+    "plural": "غواصون"
+  },
+  {
+    "singular": "راهب",
+    "plural": "رهبان"
+  },
+  {
+    "singular": "إمام",
+    "plural": "أئمة"
+  },
+  {
+    "singular": "خطيب",
+    "plural": "خطباء"
+  },
+  {
+    "singular": "واعظ",
+    "plural": "وعاظ"
+  },
+  {
+    "singular": "مؤذن",
+    "plural": "مؤذنون"
+  },
+  {
+    "singular": "فقيه",
+    "plural": "فقهاء"
+  },
+  {
+    "singular": "عابد",
+    "plural": "عباد"
+  },
+  {
+    "singular": "زاهد",
+    "plural": "زهاد"
+  },
+  {
+    "singular": "شهيد",
+    "plural": "شهداء"
+  },
+  {
+    "singular": "نبي",
+    "plural": "أنبياء"
+  },
+  {
+    "singular": "رسول",
+    "plural": "رسل"
+  },
+  {
+    "singular": "ملاك",
+    "plural": "ملائكة"
+  },
+  {
+    "singular": "ولي",
+    "plural": "أولياء"
+  },
+  {
+    "singular": "زائر",
+    "plural": "زوار"
+  },
+  {
+    "singular": "مسافر",
+    "plural": "مسافرون"
+  },
+  {
+    "singular": "حاج",
+    "plural": "حجاج"
+  },
+  {
+    "singular": "راكب",
+    "plural": "ركاب"
+  },
+  {
+    "singular": "كريم",
+    "plural": "كرماء",
+    "accept": [
+      "كرام"
+    ]
+  },
+  {
+    "singular": "بخيل",
+    "plural": "بخلاء"
+  },
+  {
+    "singular": "جبان",
+    "plural": "جبناء"
+  },
+  {
+    "singular": "ذكي",
+    "plural": "أذكياء"
+  },
+  {
+    "singular": "غبي",
+    "plural": "أغبياء"
+  },
+  {
+    "singular": "سفيه",
+    "plural": "سفهاء"
+  },
+  {
+    "singular": "أمين",
+    "plural": "أمناء"
+  },
+  {
+    "singular": "خائن",
+    "plural": "خونة"
+  },
+  {
+    "singular": "صادق",
+    "plural": "صادقون"
+  },
+  {
+    "singular": "كاذب",
+    "plural": "كاذبون"
+  },
+  {
+    "singular": "تعيس",
+    "plural": "تعساء"
+  },
+  {
+    "singular": "قتيل",
+    "plural": "قتلى"
+  },
+  {
+    "singular": "عجوز",
+    "plural": "عجائز"
+  },
+  {
+    "singular": "رضيع",
+    "plural": "رضع"
+  },
+  {
+    "singular": "غلام",
+    "plural": "غلمان"
+  },
+  {
+    "singular": "فتى",
+    "plural": "فتيان"
+  },
+  {
+    "singular": "فتاة",
+    "plural": "فتيات"
+  },
+  {
+    "singular": "إنسان",
+    "plural": "ناس"
+  },
+  {
+    "singular": "شخص",
+    "plural": "أشخاص"
+  },
+  {
+    "singular": "فرد",
+    "plural": "أفراد"
+  },
+  {
+    "singular": "ظريف",
+    "plural": "ظرفاء"
+  },
+  {
+    "singular": "لطيف",
+    "plural": "لطفاء"
+  },
+  {
+    "singular": "نبيل",
+    "plural": "نبلاء"
+  },
+  {
+    "singular": "بليغ",
+    "plural": "بلغاء"
+  },
+  {
+    "singular": "فصيح",
+    "plural": "فصحاء"
+  },
+  {
+    "singular": "خبير",
+    "plural": "خبراء"
+  },
+  {
+    "singular": "زعيم",
+    "plural": "زعماء"
+  },
+  {
+    "singular": "وكيل",
+    "plural": "وكلاء"
+  },
+  {
+    "singular": "شريك",
+    "plural": "شركاء"
+  },
+  {
+    "singular": "خصم",
+    "plural": "خصوم"
+  },
+  {
+    "singular": "حبيب",
+    "plural": "أحباء"
+  },
+  {
+    "singular": "عاشق",
+    "plural": "عشاق"
+  },
+  {
+    "singular": "كسول",
+    "plural": "كسالى"
+  },
+  {
+    "singular": "نشيط",
+    "plural": "نشطاء"
+  },
+  {
+    "singular": "جاهل",
+    "plural": "جهلاء"
+  },
+  {
+    "singular": "أعمى",
+    "plural": "عميان"
+  },
+  {
+    "singular": "جديد",
+    "plural": "جدد"
+  },
+  {
+    "singular": "قديم",
+    "plural": "قدماء"
+  },
+  {
+    "singular": "ابنة",
+    "plural": "بنات"
+  },
+  {
+    "singular": "عمة",
+    "plural": "عمات"
+  },
+  {
+    "singular": "خالة",
+    "plural": "خالات"
+  },
+  {
+    "singular": "جدة",
+    "plural": "جدات"
+  },
+  {
+    "singular": "زوج",
+    "plural": "أزواج"
+  },
+  {
+    "singular": "زوجة",
+    "plural": "زوجات"
+  },
+  {
+    "singular": "عروس",
+    "plural": "عرائس"
+  },
+  {
+    "singular": "قريب",
+    "plural": "أقارب"
+  },
+  {
+    "singular": "عشيرة",
+    "plural": "عشائر"
+  },
+  {
+    "singular": "أسرة",
+    "plural": "أسر"
+  },
+  {
+    "singular": "مجلد",
+    "plural": "مجلدات"
+  },
+  {
+    "singular": "عبارة",
+    "plural": "عبارات"
+  },
+  {
+    "singular": "قاموس",
+    "plural": "قواميس"
+  },
+  {
+    "singular": "محبرة",
+    "plural": "محابر"
+  },
+  {
+    "singular": "معرفة",
+    "plural": "معارف"
+  },
+  {
+    "singular": "نظرية",
+    "plural": "نظريات"
+  },
+  {
+    "singular": "تجربة",
+    "plural": "تجارب"
+  },
+  {
+    "singular": "بحث",
+    "plural": "بحوث"
+  },
+  {
+    "singular": "مختبر",
+    "plural": "مختبرات"
+  },
+  {
+    "singular": "جامعة",
+    "plural": "جامعات"
+  },
+  {
+    "singular": "كلية",
+    "plural": "كليات"
+  },
+  {
+    "singular": "معهد",
+    "plural": "معاهد"
+  },
+  {
+    "singular": "قاعة",
+    "plural": "قاعات"
+  },
+  {
+    "singular": "سبورة",
+    "plural": "سبورات"
+  },
+  {
+    "singular": "خريطة",
+    "plural": "خرائط"
+  },
+  {
+    "singular": "مجهر",
+    "plural": "مجاهر"
+  },
+  {
+    "singular": "عدسة",
+    "plural": "عدسات"
+  },
+  {
+    "singular": "حاسوب",
+    "plural": "حواسيب"
+  },
+  {
+    "singular": "هاتف",
+    "plural": "هواتف"
+  },
+  {
+    "singular": "شاشة",
+    "plural": "شاشات"
+  },
+  {
+    "singular": "سلك",
+    "plural": "أسلاك"
+  },
+  {
+    "singular": "بطارية",
+    "plural": "بطاريات"
+  },
+  {
+    "singular": "محرك",
+    "plural": "محركات"
+  },
+  {
+    "singular": "شبكة",
+    "plural": "شبكات"
+  },
+  {
+    "singular": "مولد",
+    "plural": "مولدات"
+  },
+  {
+    "singular": "مضخة",
+    "plural": "مضخات"
+  },
+  {
+    "singular": "ثلاجة",
+    "plural": "ثلاجات"
+  },
+  {
+    "singular": "مروحة",
+    "plural": "مراوح"
+  },
+  {
+    "singular": "كاميرا",
+    "plural": "كاميرات"
+  },
+  {
+    "singular": "سماعة",
+    "plural": "سماعات"
+  },
+  {
+    "singular": "مئذنة",
+    "plural": "مآذن"
+  },
+  {
+    "singular": "محراب",
+    "plural": "محاريب"
+  },
+  {
+    "singular": "منبر",
+    "plural": "منابر"
+  },
+  {
+    "singular": "دكان",
+    "plural": "دكاكين"
+  },
+  {
+    "singular": "مخزن",
+    "plural": "مخازن"
+  },
+  {
+    "singular": "صيدلية",
+    "plural": "صيدليات"
+  },
+  {
+    "singular": "ميدان",
+    "plural": "ميادين"
+  },
+  {
+    "singular": "حصن",
+    "plural": "حصون"
+  },
+  {
+    "singular": "بوابة",
+    "plural": "بوابات"
+  },
+  {
+    "singular": "حي",
+    "plural": "أحياء"
+  },
+  {
+    "singular": "عمارة",
+    "plural": "عمارات"
+  },
+  {
+    "singular": "مصعد",
+    "plural": "مصاعد"
+  },
+  {
+    "singular": "مخبز",
+    "plural": "مخابز"
+  },
+  {
+    "singular": "قناة",
+    "plural": "قنوات"
+  },
+  {
+    "singular": "ينبوع",
+    "plural": "ينابيع"
+  },
+  {
+    "singular": "مصرف",
+    "plural": "مصارف"
+  },
+  {
+    "singular": "مركز",
+    "plural": "مراكز"
+  },
+  {
+    "singular": "مكتب",
+    "plural": "مكاتب"
+  },
+  {
+    "singular": "وزارة",
+    "plural": "وزارات"
+  },
+  {
+    "singular": "سفارة",
+    "plural": "سفارات"
+  },
+  {
+    "singular": "محكمة",
+    "plural": "محاكم"
+  },
+  {
+    "singular": "مباراة",
+    "plural": "مباريات"
+  },
+  {
+    "singular": "بطولة",
+    "plural": "بطولات"
+  },
+  {
+    "singular": "ميدالية",
+    "plural": "ميداليات"
+  },
+  {
+    "singular": "سباق",
+    "plural": "سباقات"
+  },
+  {
+    "singular": "جولة",
+    "plural": "جولات"
+  },
+  {
+    "singular": "شوط",
+    "plural": "أشواط"
+  },
+  {
+    "singular": "نادي",
+    "plural": "أندية"
+  },
+  {
+    "singular": "مشجع",
+    "plural": "مشجعون"
+  },
+  {
+    "singular": "منافس",
+    "plural": "منافسون"
+  },
+  {
+    "singular": "كرة",
+    "plural": "كرات"
+  },
+  {
+    "singular": "مضرب",
+    "plural": "مضارب"
+  },
+  {
+    "singular": "تمثال",
+    "plural": "تماثيل"
+  },
+  {
+    "singular": "نقش",
+    "plural": "نقوش"
+  },
+  {
+    "singular": "زخرفة",
+    "plural": "زخارف"
+  },
+  {
+    "singular": "نغمة",
+    "plural": "نغمات"
+  },
+  {
+    "singular": "مسرحية",
+    "plural": "مسرحيات"
+  },
+  {
+    "singular": "رواية",
+    "plural": "روايات"
+  },
+  {
+    "singular": "حكاية",
+    "plural": "حكايات"
+  },
+  {
+    "singular": "أسطورة",
+    "plural": "أساطير"
+  },
+  {
+    "singular": "فيلم",
+    "plural": "أفلام"
+  },
+  {
+    "singular": "مشهد",
+    "plural": "مشاهد"
+  },
+  {
+    "singular": "دور",
+    "plural": "أدوار"
+  },
+  {
+    "singular": "وتر",
+    "plural": "أوتار"
+  },
+  {
+    "singular": "مزمار",
+    "plural": "مزامير"
+  },
+  {
+    "singular": "عصر",
+    "plural": "عصور"
+  },
+  {
+    "singular": "دهر",
+    "plural": "دهور"
+  },
+  {
+    "singular": "لحظة",
+    "plural": "لحظات"
+  },
+  {
+    "singular": "موعد",
+    "plural": "مواعيد"
+  },
+  {
+    "singular": "تاريخ",
+    "plural": "تواريخ"
+  },
+  {
+    "singular": "فترة",
+    "plural": "فترات"
+  },
+  {
+    "singular": "حقبة",
+    "plural": "حقب"
+  },
+  {
+    "singular": "مناسبة",
+    "plural": "مناسبات"
+  },
+  {
+    "singular": "موسم",
+    "plural": "مواسم"
+  },
+  {
+    "singular": "مقياس",
+    "plural": "مقاييس"
+  },
+  {
+    "singular": "وزن",
+    "plural": "أوزان"
+  },
+  {
+    "singular": "مقدار",
+    "plural": "مقادير"
+  },
+  {
+    "singular": "كمية",
+    "plural": "كميات"
+  },
+  {
+    "singular": "نسبة",
+    "plural": "نسب"
+  },
+  {
+    "singular": "مستوى",
+    "plural": "مستويات"
+  },
+  {
+    "singular": "حجم",
+    "plural": "أحجام"
+  },
+  {
+    "singular": "مساحة",
+    "plural": "مساحات"
+  },
+  {
+    "singular": "نقطة",
+    "plural": "نقاط"
+  },
+  {
+    "singular": "مربع",
+    "plural": "مربعات"
+  },
+  {
+    "singular": "موج",
+    "plural": "أمواج"
+  },
+  {
+    "singular": "مركب",
+    "plural": "مراكب"
+  },
+  {
+    "singular": "شراع",
+    "plural": "أشرعة"
+  },
+  {
+    "singular": "مجداف",
+    "plural": "مجاديف"
+  },
+  {
+    "singular": "صنارة",
+    "plural": "صنانير"
+  },
+  {
+    "singular": "صدفة",
+    "plural": "أصداف"
+  },
+  {
+    "singular": "لؤلؤة",
+    "plural": "لآلئ"
+  },
+  {
+    "singular": "خليج",
+    "plural": "خلجان"
+  },
+  {
+    "singular": "ساحل",
+    "plural": "سواحل"
+  },
+  {
+    "singular": "غواصة",
+    "plural": "غواصات"
+  },
+  {
+    "singular": "كثيب",
+    "plural": "كثبان"
+  },
+  {
+    "singular": "واحة",
+    "plural": "واحات"
+  },
+  {
+    "singular": "ناقة",
+    "plural": "نوق"
+  },
+  {
+    "singular": "قافلة",
+    "plural": "قوافل"
+  },
+  {
+    "singular": "نسيم",
+    "plural": "نسائم"
+  },
+  {
+    "singular": "إعصار",
+    "plural": "أعاصير"
+  },
+  {
+    "singular": "أفق",
+    "plural": "آفاق"
+  },
+  {
+    "singular": "ثروة",
+    "plural": "ثروات"
+  },
+  {
+    "singular": "خسارة",
+    "plural": "خسائر"
+  },
+  {
+    "singular": "دين",
+    "plural": "ديون"
+  },
+  {
+    "singular": "قرض",
+    "plural": "قروض"
+  },
+  {
+    "singular": "صفقة",
+    "plural": "صفقات"
+  },
+  {
+    "singular": "فاتورة",
+    "plural": "فواتير"
+  },
+  {
+    "singular": "ضريبة",
+    "plural": "ضرائب"
+  },
+  {
+    "singular": "عملة",
+    "plural": "عملات"
+  },
+  {
+    "singular": "درهم",
+    "plural": "دراهم"
+  },
+  {
+    "singular": "دينار",
+    "plural": "دنانير"
+  },
+  {
+    "singular": "سهم",
+    "plural": "أسهم",
+    "accept": [
+      "سهام"
+    ]
+  },
+  {
+    "singular": "بضاعة",
+    "plural": "بضائع"
+  },
+  {
+    "singular": "سلعة",
+    "plural": "سلع"
+  },
+  {
+    "singular": "زبون",
+    "plural": "زبائن"
+  },
+  {
+    "singular": "شركة",
+    "plural": "شركات"
+  },
+  {
+    "singular": "حساب",
+    "plural": "حسابات"
+  },
+  {
+    "singular": "راتب",
+    "plural": "رواتب"
+  },
+  {
+    "singular": "أجر",
+    "plural": "أجور"
+  },
+  {
+    "singular": "كتيبة",
+    "plural": "كتائب"
+  },
+  {
+    "singular": "سلاح",
+    "plural": "أسلحة"
+  },
+  {
+    "singular": "خوذة",
+    "plural": "خوذ"
+  },
+  {
+    "singular": "راية",
+    "plural": "رايات"
+  },
+  {
+    "singular": "دبابة",
+    "plural": "دبابات"
+  },
+  {
+    "singular": "قنبلة",
+    "plural": "قنابل"
+  },
+  {
+    "singular": "رصاصة",
+    "plural": "رصاصات"
+  },
+  {
+    "singular": "خندق",
+    "plural": "خنادق"
+  },
+  {
+    "singular": "غنيمة",
+    "plural": "غنائم"
+  },
+  {
+    "singular": "هزيمة",
+    "plural": "هزائم"
+  },
+  {
+    "singular": "انتصار",
+    "plural": "انتصارات"
+  },
+  {
+    "singular": "معاهدة",
+    "plural": "معاهدات"
+  },
+  {
+    "singular": "حلف",
+    "plural": "أحلاف"
+  },
+  {
+    "singular": "بغل",
+    "plural": "بغال"
+  },
+  {
+    "singular": "حمامة",
+    "plural": "حمائم",
+    "accept": [
+      "حمام"
+    ]
+  },
+  {
+    "singular": "دجاجة",
+    "plural": "دجاجات",
+    "accept": [
+      "دجاج"
+    ]
+  },
+  {
+    "singular": "بطة",
+    "plural": "بطات",
+    "accept": [
+      "بط"
+    ]
+  },
+  {
+    "singular": "جدي",
+    "plural": "جداء"
+  },
+  {
+    "singular": "كبش",
+    "plural": "كباش"
+  },
+  {
+    "singular": "ظبي",
+    "plural": "ظباء"
+  },
+  {
+    "singular": "يمامة",
+    "plural": "يمام"
+  },
+  {
+    "singular": "قنفذ",
+    "plural": "قنافذ"
+  },
+  {
+    "singular": "مصحف",
+    "plural": "مصاحف"
+  },
+  {
+    "singular": "آية",
+    "plural": "آيات"
+  },
+  {
+    "singular": "سورة",
+    "plural": "سور"
+  },
+  {
+    "singular": "صلاة",
+    "plural": "صلوات"
+  },
+  {
+    "singular": "ركعة",
+    "plural": "ركعات"
+  },
+  {
+    "singular": "دعاء",
+    "plural": "أدعية"
+  },
+  {
+    "singular": "معجزة",
+    "plural": "معجزات"
+  },
+  {
+    "singular": "جنة",
+    "plural": "جنان"
+  },
+  {
+    "singular": "ذنب",
+    "plural": "ذنوب"
+  },
+  {
+    "singular": "بركة",
+    "plural": "بركات"
+  },
+  {
+    "singular": "شيطان",
+    "plural": "شياطين"
+  },
+  {
+    "singular": "أمة",
+    "plural": "أمم"
+  },
+  {
+    "singular": "شريعة",
+    "plural": "شرائع"
+  },
+  {
+    "singular": "حديث",
+    "plural": "أحاديث"
+  },
+  {
+    "singular": "عبادة",
+    "plural": "عبادات"
+  }
 ]

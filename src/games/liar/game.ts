@@ -41,10 +41,11 @@ const TURN_MS = 60_000
 const CALL_MS = 25_000
 const BREATH_MS = 2_000
 
+/** كما تُقال على الطاولة لا كما تُترجم — انظر `scenes/cards.ts`. */
 const NAME: Record<CardFace, string> = {
-  ace: 'الآس',
-  king: 'الملك',
-  queen: 'الملكة',
+  ace: 'الأص',
+  king: 'الشايب',
+  queen: 'البنت',
   joker: 'الجوكر',
 }
 
@@ -392,8 +393,11 @@ async function finish(table: Table, seats: Seat[]): Promise<GameResult> {
 
 export default defineGame({
   key: 'liar',
+  mode: 'event',
   name: 'لايرز بار',
-  aliases: ['كذاب', 'ليرز', 'liars', 'liar'],
+  // الصيغ التي جرّبها اللاعبون فعلًا قبل أن تعمل: الاسم بكلمتين وبلا فراغ،
+  // وباللاتينية بالوجهين. الاسم البديل أرخص من أن يقف اللاعب أمام صمت.
+  aliases: ['لايرزبار', 'لايرز', 'كذاب', 'ليرز', 'liars bar', 'liarsbar', 'liars', 'liar'],
   tagline: 'ورق مقلوب وادعاء، ومن يكشفك يربح',
   howTo:
     'كل لاعب يأخذ خمس أوراق سرية، والطاولة تطلب نوعًا واحدًا: آس أو ملك أو ملكة. ' +

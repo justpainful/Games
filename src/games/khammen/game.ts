@@ -90,6 +90,7 @@ async function play(table: Table): Promise<GameResult> {
 
 export default defineGame({
   key: 'khammen',
+  mode: 'game',
   name: 'خمن',
   aliases: ['خمّن'],
   tagline: 'تلميح بعد تلميح حتى تنكشف',

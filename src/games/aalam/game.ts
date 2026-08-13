@@ -13,6 +13,7 @@ function next(): Row {
 
 export default defineGame({
   key: 'aalam',
+  mode: 'game',
   name: 'اعلام',
   aliases: ['أعلام'],
   tagline: 'علم يرفرف، ودولة تُعرف',

@@ -175,6 +175,7 @@ async function finish(
 
 export default defineGame({
   key: 'nard',
+  mode: 'event',
   name: 'نرد',
   aliases: ['النرد', 'زهر'],
   tagline: 'ثلاث رميات ومن يجمع أكثر يفوز',

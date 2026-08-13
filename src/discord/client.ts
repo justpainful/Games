@@ -2,6 +2,7 @@ import { Client, Events, GatewayIntentBits, Partials } from 'discord.js'
 import { deliverChat, deliverPress } from '../games/running.ts'
 import { settings } from '../settings.ts'
 import { handleMessage, handleSlash } from './commands.ts'
+import { isPanel } from './panels.ts'
 import { holdInteraction } from './tickets.ts'
 
 /**
@@ -31,7 +32,14 @@ client.on(Events.MessageCreate, (message) => {
   // كل رسالة تُغذّي اللعبة النشطة أولًا (إجابات ألعاب الكتابة)،
   // ثم تُفحص كأمر بريفكس. الترتيب مهم: الإجابة ليست أمرًا.
   if (message.inGuild()) {
-    deliverChat(message.channelId, { userId: message.author.id, text: message.content })
+    // الاسم والصورة يمرّان مع الرسالة: اللعبة المفتوحة لا روستر لها، فمن يجيب
+    // فيها لا يُعرف اسمه إلا من هنا. والسطح يملكهما أصلًا فلا كلفة في تمريرهما.
+    deliverChat(message.channelId, {
+      userId: message.author.id,
+      text: message.content,
+      name: message.member?.displayName ?? message.author.username,
+      avatar: message.author.displayAvatarURL({ extension: 'png', size: 128 }),
+    })
   }
 
   if (seated) return
@@ -45,6 +53,9 @@ client.on(Events.InteractionCreate, (interaction) => {
   }
 
   if (interaction.isButton()) {
+    // لوحة تنتظر ضغطاتها بنفسها: التأجيل هنا يمنعها من فتح نافذة (انظر panels.ts)
+    if (isPanel(interaction.message.id)) return
+
     const taken = deliverPress(interaction.channelId, interaction.message.id, {
       userId: interaction.user.id,
       id: interaction.customId,

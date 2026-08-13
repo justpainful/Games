@@ -18,6 +18,7 @@ const MAX_ROOMS = 6
 
 export default defineGame({
   key: 'ghuraf',
+  mode: 'event',
   name: 'غرف',
   aliases: ['الغرف', 'تقسيم', 'فرق'],
   tagline: 'قسّم الحاضرين غرفًا متوازنة بضغطة',

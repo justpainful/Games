@@ -22,15 +22,15 @@ export function roundScene(s: RoundScene): string {
     <div class="scene">
       ${background()}
 
-      <div class="scene__body" style="flex-direction: column; min-height: 512px">
+      <div class="scene__body" style="flex-direction: column; min-height: 400px">
         <div class="bar">
           <span>${s.game.name}</span>
           <span class="bar__count">الجولة ${s.index} من ${s.total}</span>
         </div>
 
         <div
-          class="card card--hero grow center stack stack--lg"
-          style="justify-content: center; padding-block: var(--space-lg)"
+          class="card card--hero grow center stack"
+          style="justify-content: center; padding-block: var(--space-base)"
         >
           <h2 class="title title--quoted">${heading}</h2>
           ${promptText(prompt)} ${s.hint ? hintNote(s.hint) : ''}
@@ -54,12 +54,18 @@ const CHIP = 'align-self: center; display: inline-flex; align-items: center; gap
  * الكلمة القصيرة ضائعة أو يقصّ السؤال الطويل.
  */
 function promptText(prompt: string): Html {
+  const lines = [...prompt].length > 30
   const style = [
     'font-family: var(--font-display), sans-serif',
     'font-weight: var(--weight-black)',
     `font-size: ${promptSize(prompt)}px`,
-    // العربية لا تنزل تحت 1.7 (DESIGN §4) — والهواء هنا مقصود، السطر بطل الشاشة
-    'line-height: 1.7',
+    /**
+     * قاعدة 1.7 (DESIGN §4) للفقرات لا للعناوين. السؤال هنا سطر أو سطران بخط
+     * يقارب 150 بكسل، و1.7 عليه تعني مئة بكسل هواء فوق السطر وتحته: ذلك ما
+     * كان يمدّ الصورة طولًا حتى يصغّرها ديسكورد. الطويل وحده يحتاج التنفّس
+     * لأن سطوره تتجاور فعلًا.
+     */
+    `line-height: ${lines ? 1.55 : 1.2}`,
     'letter-spacing: 0',
     'color: var(--color-ink)',
     'max-width: 1150px',

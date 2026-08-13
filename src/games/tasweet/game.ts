@@ -22,6 +22,7 @@ const MAX_LABEL = 60
 
 export default defineGame({
   key: 'tasweet',
+  mode: 'event',
   name: 'تصويت',
   aliases: ['التصويت', 'استفتاء'],
   tagline: 'سؤال واحد وخيارات، والأغلبية تحكم',

@@ -76,9 +76,27 @@ function shade(games: number): string {
   return 'var(--color-red)'
 }
 
+/**
+ * أكبر مقاس تظهر به الخانة.
+ *
+ * كانت الأعمدة `1fr` فتأخذ الخريطة عرض البطاقة مهما قلّت أسابيعها، وثلاثة
+ * عشر أسبوعًا تعني خانة بثمانين بكسل — سبعة صفوف منها تصنع نصف ارتفاع الصورة
+ * لأجل مربّعات لا نصّ فيها. والخريطة تُقرأ بالنمط لا بمساحة الخانة، فحدٌّ
+ * أعلى يكفيها ويترك الطول للأرقام والاسم.
+ */
+const DAY_MAX = 46
+const DAY_MIN = 12
+const DAY_GAP = 8
+/** عرض البطاقة الداخلي: المشهد ناقص حشوته وحشوة البطاقة وحدّيها. */
+const MAP_W = 1004
+
 function heatmap(days: CardScene['days']): Html {
   // سبعة صفوف: أسبوع لكل عمود، فتُقرأ الخريطة أعمدةً كتقويم لا شريطًا طويلًا
   const weeks = Math.ceil(days.length / 7)
+  const cell = Math.max(
+    DAY_MIN,
+    Math.min(DAY_MAX, Math.floor((MAP_W - DAY_GAP * (weeks - 1)) / Math.max(1, weeks))),
+  )
   const cells = days.map(
     (day) => html`
       <div
@@ -92,19 +110,20 @@ function heatmap(days: CardScene['days']): Html {
     `,
   )
 
-  // أعمدة بـ1fr لا بمقاس ثابت: الشبكة الثابتة تنكمش في ركن وتترك اللوحة
-  // فارغة، وهي أبرز عنصر في البطاقة فيجب أن تأخذ عرضها كاملًا.
+  // الشبكة تتوسّط بدل أن تتمدّد: الخانة لها سقف، وما زاد عن الشبكة يُترك
+  // فراغًا متوازنًا على الطرفين لا شبكة منزاحة إلى ركن
   return html`
-    <div
-      class="grow"
-      style="
-        display: grid; grid-auto-flow: column;
-        grid-template-columns: repeat(${String(weeks)}, 1fr);
-        grid-template-rows: repeat(7, auto);
-        gap: 8px; direction: rtl;
-      "
-    >
-      ${cells}
+    <div style="display: flex; justify-content: center">
+      <div
+        style="
+          display: grid; grid-auto-flow: column;
+          grid-template-columns: repeat(${String(weeks)}, ${String(cell)}px);
+          grid-template-rows: repeat(7, ${String(cell)}px);
+          gap: ${String(DAY_GAP)}px; direction: rtl;
+        "
+      >
+        ${cells}
+      </div>
     </div>
   `
 }

@@ -13,6 +13,7 @@ function next(): Row {
 
 export default defineGame({
   key: 'maarifa',
+  mode: 'game',
   name: 'معرفه',
   aliases: ['معرفة'],
   tagline: 'أسئلة عامة، وأسرع من يعرف',

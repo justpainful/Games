@@ -50,6 +50,7 @@ const DM_PROBE =
 
 export default defineGame({
   key: 'mafia',
+  mode: 'event',
   name: 'مافيا',
   aliases: ['المافيا'],
   tagline: 'ليل يقتل ونهار يحاكم — من تصدّق ومن تعدم؟',

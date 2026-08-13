@@ -32,6 +32,7 @@ function fakeSession(): Session {
     get aborted() {
       return aborted
     },
+    attempts: 0,
     chatListeners: new Set(),
     pressListeners: new Set(),
     liveMessageId: null,

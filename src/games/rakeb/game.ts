@@ -33,6 +33,7 @@ function scramble(word: string): string {
 
 export default defineGame({
   key: 'rakeb',
+  mode: 'game',
   name: 'ركب',
   tagline: 'حروف مبعثرة تنتظر من يجمعها',
   howTo:

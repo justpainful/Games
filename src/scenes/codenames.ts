@@ -33,23 +33,29 @@ const PAINTS: Record<Codeword, Paint> = {
 }
 
 const GAP = 12
-/** الصندوق الباقي بعد العمود الجانبي وحشوة المشهد. */
-const BOX_W = 1040
-const BOX_H = 600
+/**
+ * الصندوق الباقي بعد العمود الجانبي وحشوة المشهد.
+ *
+ * الحساب: 1180 عرض المشهد، ناقص 88 حشوته، ناقص 300 العمود، ناقص 28 الفجوة،
+ * ناقص 66 حشوة البطاقة وحدّيها. وتجاوزه لا يظهر خطأً بل يقصّ اللوح من حافته
+ * لأن المشهد `overflow: hidden`، فتضيع كلمات كاملة من اللعبة.
+ */
+const ASIDE_W = 300
+const BOX_W = 690
+const BOX_H = 470
 
 export function codenamesScene(s: CodenamesScene): string {
   const cols = Math.max(1, Math.floor(s.cols) || 1)
   const rows = Math.max(1, Math.ceil(s.cells.length / cols))
   const width = Math.floor((BOX_W - GAP * (cols - 1)) / cols)
   const height = Math.min(Math.floor((BOX_H - GAP * (rows - 1)) / rows), Math.round(width * 0.62))
-  const font = fontFor(s.cells, width)
 
   return html`
     <div class="scene">
       ${background()}
 
       <div class="scene__body">
-        <aside class="stack" style="width: 340px">
+        <aside class="stack" style="width: ${ASIDE_W}px">
           <!-- nowrap لازم: «كود نيمز» كلمتان ينكسران في شريط بهذا العرض،
                ومع «لوح السيّد» يصير الشريط أربعة أسطر رأسية غير مقروءة -->
           <div class="bar">
@@ -69,7 +75,7 @@ export function codenamesScene(s: CodenamesScene): string {
         <main class="stack grow" style="align-items: center; justify-content: center">
           <div class="card card--hero" style="flex: none; padding: var(--space-base)">
             <div style="${raw(gridStyle(cols, width, height))}">
-              ${s.cells.map((cell) => square(cell, s.master === true, width, height, font))}
+              ${s.cells.map((cell) => square(cell, s.master === true, width, height, fontFor(cell.word, width)))}
             </div>
           </div>
         </main>
@@ -79,16 +85,22 @@ export function codenamesScene(s: CodenamesScene): string {
 }
 
 /**
- * أكبر خط لا تتجاوز عنده أطول كلمة عرضَ الخانة.
+ * خط كل كلمة يُحسب من طولها هي، لا من أطول كلمة في اللوح.
  *
- * التقدير بعرض الحرف لا بقياس فعلي: القالب نصّ لا متصفّح، والقياس الحقيقي
- * يحتاج جولة رندر ثانية. ومعامل 0.52 مقيس على خط المشروع للعربية، وهو أكرم
- * من الحقيقة قليلًا فيميل الخطأ إلى الصغر لا إلى القصّ.
+ * كان المقاس واحدًا يُشتقّ من أطول كلمة، فتنزل «باب» و«نار» معها إلى مقاس
+ * «مستشفى» بلا سبب. والاتساق هنا يكلّف أكثر مما يعطي: اللوح يُقرأ كلمةً كلمةً
+ * لا سطرًا واحدًا، فتفاوت المقاس فيه لا يُلحظ، أما الكلمة الصغيرة بلا داعٍ
+ * فتُلحظ.
+ *
+ * والتقدير بعرض الحرف لا بقياس فعلي: القالب نصّ لا متصفّح. ومعامل 0.72 مقيس
+ * على أعرض حروف الخط: «مستشفى» بالسين والشين والفاء أعرض بكثير من «باب» بنفس
+ * عدد الحروف، والمعامل المتوسّط كان يمرّرها ثم يقصّها المتصفّح بثلاث نقاط —
+ * وكلمة نصفها مقصوص تخرج صاحبها من الجولة.
  */
-function fontFor(cells: CodenamesScene['cells'], width: number): number {
-  const longest = cells.reduce((most, cell) => Math.max(most, cell.word.length), 1)
+function fontFor(word: string, width: number): number {
+  const letters = Math.max(1, [...word.trim()].length)
   const padded = width - 24
-  return Math.max(17, Math.min(34, Math.floor(padded / (longest * 0.52))))
+  return Math.max(16, Math.min(34, Math.floor(padded / (letters * 0.72))))
 }
 
 function gridStyle(cols: number, width: number, height: number): string {

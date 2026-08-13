@@ -238,6 +238,7 @@ async function draw(
 
 export default defineGame({
   key: 'eshbek',
+  mode: 'event',
   name: 'اشبك',
   aliases: ['أشبك', 'اربعة في صف', 'وصلها'],
   tagline: 'أربعة أقراص في صف واحد',

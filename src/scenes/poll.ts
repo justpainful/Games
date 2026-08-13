@@ -45,7 +45,7 @@ export function pollScene(s: PollScene): string {
           </h1>
         </div>
 
-        <div class="card grow stack stack--lg" style="justify-content: center">
+        <div class="card grow stack" style="justify-content: center">
           ${rows.length > 0 ? rows.map((r) => optionRow(r, total)) : emptyNote('لا خيارات في هذا التصويت')}
         </div>
 
@@ -80,39 +80,26 @@ function tally(s: PollScene): Row[] {
   })
 }
 
+/**
+ * الخيار والشريط جسم واحد لا سطران.
+ *
+ * كانا سطرين: اسم فوق ومجرى تحته، وذلك يعني نحو مئتي بكسل للخيار الواحد. وفي
+ * تصويت مافيا بثمانية أحياء تصير الصورة أطول من عرضها بضعفين، فيصغّرها
+ * ديسكورد حتى لا يُقرأ اسم. والاسم داخل المجرى يبقي القراءتين معًا: الطول
+ * يُرى أولًا كما كان، والاسم فوقه لا بعيدًا عنه.
+ *
+ * والتعبئة تخفّ لونًا لأنها صارت تحمل نصًا: الأحمر الكامل يحتاج نصًا كريميًا،
+ * ونصف الاسم يقع خارج التعبئة على ورقٍ فاتح — فلونان لنصّ واحد. والمخفّف يبقي
+ * الحبر مقروءًا على الطرفين (DESIGN §3).
+ */
 function optionRow(r: Row, total: number): Html {
-  return html`
-    <div class="stack" style="gap: 8px">
-      <div class="row" style="gap: var(--space-sm)">
-        ${r.player ? avatarOf(r.player) : ''}
-        <!--
-          الـ bdi داخل غلاف يتمدد بدل أن يتمدد هو: لو تمدّد بنفسه لتبعت محاذاته
-          اتجاهه المُستنتج، فانزاح الخيار اللاتيني إلى يسار السطر بينما يبقى
-          العربي يمينه. الغلاف يثبّت المحاذاة، والعزل يبقى داخل الـ bdi.
-        -->
-        <span class="grow" style="min-width: 0; overflow: hidden">
-          <bdi
-            style="display: inline-block; max-width: 100%; overflow: hidden;
-                   text-overflow: ellipsis; white-space: nowrap; vertical-align: bottom;
-                   font-family: var(--font-display), sans-serif; font-weight: var(--weight-bold);
-                   font-size: 30px"
-          >
-            ${r.label}
-          </bdi>
-        </span>
-        <span class="meta" style="flex: none">${r.votes} ${votesWord(r.votes)}</span>
-        ${percentChip(r)}
-      </div>
-      ${bar(r, total)}
-    </div>
-  `
-}
-
-/** مجرى الشريط بحدّ ثابت: يبقى الخيار الصفري مرئيًا كخيار لا كفراغ. */
-function bar(r: Row, total: number): Html {
   const track = [
     'position: relative',
-    'height: 36px',
+    'display: flex',
+    'align-items: center',
+    'gap: var(--space-sm)',
+    'padding: 0 var(--space-sm)',
+    'min-height: 76px',
     'border-radius: var(--radius-pill)',
     'background: var(--color-paper-tint)',
     'border: var(--stroke-thin) solid var(--color-ink)',
@@ -120,19 +107,44 @@ function bar(r: Row, total: number): Html {
   ].join('; ')
 
   const fill = [
-    'height: 100%',
+    'position: absolute',
+    'inset-block: 0',
+    'inset-inline-start: 0',
     `width: ${total > 0 ? (r.votes / total) * 100 : 0}%`,
-    'border-radius: var(--radius-pill)',
-    r.leading ? 'background: var(--color-yellow)' : 'background: var(--color-red)',
+    r.leading
+      ? 'background: var(--color-yellow)'
+      : 'background: color-mix(in srgb, var(--color-red) 32%, transparent)',
   ].join('; ')
 
-  return html`<div style="${raw(track)}">
-    <div style="${raw(fill)}"></div>
-  </div>`
+  return html`
+    <div style="${raw(track)}">
+      <div style="${raw(fill)}"></div>
+      ${r.player ? avatarOf(r.player) : ''}
+      <!--
+        الـ bdi داخل غلاف يتمدد بدل أن يتمدد هو: لو تمدّد بنفسه لتبعت محاذاته
+        اتجاهه المُستنتج، فانزاح الخيار اللاتيني إلى يسار السطر بينما يبقى
+        العربي يمينه. الغلاف يثبّت المحاذاة، والعزل يبقى داخل الـ bdi.
+      -->
+      <span class="grow" style="position: relative; min-width: 0; overflow: hidden">
+        <bdi
+          style="display: inline-block; max-width: 100%; overflow: hidden;
+                 text-overflow: ellipsis; white-space: nowrap; vertical-align: bottom;
+                 font-family: var(--font-display), sans-serif; font-weight: var(--weight-bold);
+                 font-size: 32px"
+        >
+          ${r.label}
+        </bdi>
+      </span>
+      <span class="meta" style="position: relative; flex: none">${r.votes} ${votesWord(r.votes)}</span>
+      ${percentChip(r)}
+    </div>
+  `
 }
 
 function percentChip(r: Row): Html {
   const style = [
+    // فوق تعبئة الشريط لا تحتها: المطلق يعلو الساكن مهما كان ترتيب DOM
+    'position: relative',
     'flex: none',
     'min-width: 96px',
     'text-align: center',
@@ -175,6 +187,7 @@ function questionSize(question: string): number {
 
 function avatarOf(p: PlayerView): Html {
   const style = [
+    'position: relative',
     'width: 52px',
     'height: 52px',
     'flex: none',

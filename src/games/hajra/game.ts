@@ -254,6 +254,7 @@ async function finish(
 
 export default defineGame({
   key: 'hajra',
+  mode: 'event',
   name: 'حجرة',
   aliases: ['حجرة ورقة مقص', 'حجره'],
   tagline: 'حجرة ورقة مقص — والاختيار سرّ',

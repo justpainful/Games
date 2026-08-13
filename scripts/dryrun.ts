@@ -54,6 +54,11 @@ function fakeTable(game: GameDef, log: Report): Table {
     async update(scene) {
       seen(scene)
     },
+    // التشغيل الجاف يفحص مسار الفعالية: اللعبة المفتوحة جولة واحدة بلا انتظار،
+    // فلا تكشف التعليقات التي بُني هذا السكربت لكشفها
+    open: false,
+    // التشغيل الجاف لا يكتب أحد فيه، فالعدّاد صفر ثابت
+    attempts: 0,
     async say() {},
     async whisper() {
       return true // نفترض أن الخاص مفتوح؛ مسار الرفض يُختبر يدويًا

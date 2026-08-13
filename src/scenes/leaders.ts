@@ -11,7 +11,25 @@ import type { LeadersScene, PlayerView } from './scene.ts'
  * التمييز بثقل القصاصة لا بلون جديد (DESIGN §5): الأول قصاصة صفراء بظل أحمر،
  * الثاني ورقية مرفوعة بظل حبر، الثالث ملتصقة بحدّ رفيع، وما بعدهم صفوف عارية.
  */
+/**
+ * فوق هذا العدد تنقسم اللوحة عمودين.
+ *
+ * عشرة صفوف في عمود واحد تصنع صورة أطول من عرضها، وديسكورد يصغّر الصورة حتى
+ * تدخل رسالته فيصغر معها كل اسم فيها. والعمودان يجعلان اللوحة عريضة قصيرة،
+ * فتُعرض بعرضها الكامل ويكبر ما فيها. الترتيب يبقى نازلًا في العمود الأول ثم
+ * يستأنف في الثاني، لأن القارئ يتتبّع المراكز رأسيًا لا زجزاجًا.
+ */
+const SPLIT_AT = 5
+
 export function leadersScene(s: LeadersScene): string {
+  const split = s.rows.length > SPLIT_AT
+  const perColumn = Math.ceil(s.rows.length / 2)
+  const list = split
+    ? `display: grid; grid-auto-flow: column; grid-template-rows: repeat(${perColumn}, auto);` +
+      ' grid-template-columns: repeat(2, 1fr); gap: var(--space-xs) var(--space-base);' +
+      ' align-content: center'
+    : 'display: flex; flex-direction: column; gap: var(--space-sm); justify-content: center'
+
   return html`
     <div class="scene">
       ${background()}
@@ -26,7 +44,7 @@ export function leadersScene(s: LeadersScene): string {
           الصفوف تتوسّط البطاقة رأسيًا: مع صف واحد تبقى البطاقة كتلة مقصودة
           لا صندوقًا نصفه خاوٍ، ومع عشرة صفوف تمتلئ وحدها.
         -->
-        <div class="card grow stack" style="justify-content: center">
+        <div class="card grow" style="${raw(list)}">
           ${s.rows.length > 0
             ? s.rows.map((r, i) => leaderRow(r.player, r.points, i + 1))
             : emptyNote()}
@@ -53,13 +71,18 @@ function leaderRow(player: PlayerView, points: number, place: number): Html {
 
   return html`
     <div class="row" style="${raw(t.row)}">
-      ${placeBadge(place, t.badge)} ${avatar(player.avatar, 'avatar--sm')}
+      ${placeBadge(place, t.badge)} ${avatar(player.avatar)}
       <!--
         bdi: أسماء ديسكورد تخلط اللاتيني بالعربي وتبدأ بمحارف محايدة،
         فتنقلب أطرافها داخل RTL بلا عزل ثنائي الاتجاه.
         max-width من .player__name يُلغى — الصف أعرض من عمود اللوبي.
       -->
-      <bdi class="player__name grow" style="max-width: none; min-width: 0">${player.name}</bdi>
+      <!--
+        الحجم صريح لا موروث: هذه اللوحة تُقرأ من بعيد في قناة، بينما اسم اللاعب
+        في اللوبي يُقرأ عن قرب. ونفس الصنف يخدم الموضعين فيخرج أحدهما صغيرًا.
+      -->
+      <bdi class="player__name" style="max-width: none; min-width: 0; font-size: 36px">${player.name}</bdi>
+      <span class="grow"></span>
       ${pointsChip(points)}
     </div>
   `
@@ -78,14 +101,14 @@ function pointsChip(points: number): Html {
     'align-items: center',
     'gap: 8px',
     'flex: none',
-    'padding: 2px var(--space-sm)',
+    'padding: 6px var(--space-base)',
     'background: var(--color-cream)',
     'color: var(--color-ink)',
     'border: var(--stroke-thin) solid var(--color-ink)',
     'border-radius: var(--radius-pill)',
     'font-family: var(--font-display), sans-serif',
     'font-weight: var(--weight-bold)',
-    'font-size: var(--size-label)',
+    'font-size: 30px',
     'letter-spacing: 0',
     'line-height: 1.7',
   ].join('; ')
@@ -101,12 +124,12 @@ const BADGE_BASE = [
   'display: grid',
   'place-items: center',
   'flex: none',
-  'width: 66px',
-  'height: 66px',
+  'width: 74px',
+  'height: 74px',
   'border-radius: var(--radius-pill)',
   'font-family: var(--font-display), sans-serif',
   'font-weight: var(--weight-black)',
-  'font-size: 30px',
+  'font-size: 34px',
   'line-height: 1.7',
   'letter-spacing: 0',
 ].join('; ')

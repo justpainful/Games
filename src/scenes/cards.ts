@@ -32,10 +32,17 @@ const FACES: Record<CardFace, { text: string; tone: 'red' | 'ink' | 'yellow' }> 
   joker: { text: '★', tone: 'yellow' },
 }
 
+/**
+ * أسماء الورق كما تُقال على الطاولة لا كما تُترجم.
+ *
+ * كانت «الآس» و«الملك» و«الملكة»، وهي ترجمة حرفية لا يقولها أحد وهو يلعب.
+ * والمألوف في ورق اللعب عربيًا: «أص» و«شايب» و«بنت»، والحرف على الورقة يبقى
+ * لاتينيًا لأنه مرسوم على الورقة نفسها في كل مجموعة ورق في العالم.
+ */
 const DEMAND_NAME: Record<CardFace, string> = {
-  ace: 'الآس',
-  king: 'الملك',
-  queen: 'الملكة',
+  ace: 'الأص',
+  king: 'الشايب',
+  queen: 'البنت',
   joker: 'الجوكر',
 }
 
@@ -142,9 +149,11 @@ function card(face: CardFace, matches: boolean): Html {
         ? 'var(--color-yellow)'
         : 'var(--color-ink)'
 
+  // 96×134 كان صغيرًا: الصورة تُعرض في ديسكورد بعرضٍ أقلّ من نصف مقاسها،
+  // فورقة بهذا الحجم تنزل تحت خمسين بكسلًا على شاشة الجوال
   const box = [
-    'width: 96px',
-    'height: 134px',
+    'width: 132px',
+    'height: 184px',
     'border-radius: var(--radius-sm)',
     'border: var(--stroke-base) solid var(--color-ink)',
     'background: var(--color-surface)',
@@ -163,7 +172,7 @@ function card(face: CardFace, matches: boolean): Html {
         ></span>`
       : ''}
     <span
-      style="font-size: 62px; font-weight: 800; font-family: var(--font-display);
+      style="font-size: 86px; font-weight: 800; font-family: var(--font-display);
              color: ${raw(color)}; line-height: 1"
       >${paint.text}</span
     >
@@ -173,8 +182,8 @@ function card(face: CardFace, matches: boolean): Html {
 /** ظهر الورقة: نقش لا فراغ، فالفراغ يُقرأ نقصًا في الرسم لا سرًّا. */
 function back(): Html {
   const box = [
-    'width: 96px',
-    'height: 134px',
+    'width: 132px',
+    'height: 184px',
     'border-radius: var(--radius-sm)',
     'border: var(--stroke-base) solid var(--color-ink)',
     'background: var(--color-red)',
@@ -186,8 +195,8 @@ function back(): Html {
   // إطار ومعيّن مسطّحان لا نقش متدرّج: DESIGN.md §7 يمنع التدرّجات، وحتى
   // التدرّج ذو الوقفات الحادّة يفتح بابًا لا داعي له في لوحة مسطّحة أصلًا
   const frame = [
-    'width: 62px',
-    'height: 100px',
+    'width: 86px',
+    'height: 138px',
     'border-radius: 8px',
     'border: 3px solid var(--on-red)',
     'opacity: 0.65',
@@ -196,8 +205,8 @@ function back(): Html {
   ].join(';')
 
   const lozenge = [
-    'width: 26px',
-    'height: 26px',
+    'width: 36px',
+    'height: 36px',
     'background: var(--on-red)',
     'transform: rotate(45deg)',
     'border-radius: 4px',
@@ -225,7 +234,7 @@ function seatRow(seat: CardsScene['seats'][number]): Html {
   return html`<div style="${raw(row)}">
     ${avatar(seat.player.avatar)}
     <div class="stack grow" style="gap:4px">
-      <span style="font-weight:800">${seat.player.name}</span>
+      <span style="font-weight:800; font-size:22px">${seat.player.name}</span>
       ${seat.chambers === undefined ? '' : chambers(seat.chambers)}
     </div>
     <!-- بلا أيقونة: أقرب أيقونة في الطقم هي النرد، وهي لعبة أخرى في نفس البوت.

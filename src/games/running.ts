@@ -24,6 +24,15 @@ export type Session = {
   aborted: boolean
   chatListeners: Set<Listener<ChatInput>>
   pressListeners: Set<Listener<Press>>
+  /**
+   * كم رسالة شات وصلت هذه الجلسة، مطابقةً كانت أو خاطئة.
+   *
+   * الفعالية تتوقّف حين **لا يحاول أحد**، والمحاولة الخاطئة لا تصل إلى طبقة
+   * الفعالية أبدًا: اللعبة لا تُبلّغ إلا بمن أصاب، والنقاط لا تُسجّل إلا له.
+   * فقياس النشاط بالنقاط يوقف فعالية وعشرة يكتبون إجابات خاطئة، وذلك أنشط ما
+   * تكون. وهذا العدّاد هو الشيء الوحيد الذي يرى المحاولة قبل أن تُحكم.
+   */
+  attempts: number
   /** معرّف آخر رسالة تحمل أزرارًا في **ديسكورد** — الضغطات على غيرها تُتجاهل */
   liveMessageId: string | null
   /**
@@ -43,8 +52,29 @@ export function open(session: Session): void {
   sessions.set(session.channelId, session)
 }
 
+/**
+ * اسم ثانٍ للجلسة نفسها.
+ *
+ * الغرفة التي تبدأ من التطبيق مفتاحها `room:xxx` لا معرّف قناة، بينما مدخلات
+ * ديسكورد كلّها تُوجَّه بمعرّف القناة: `deliverPress` و`deliverChat` يبحثان
+ * بـ`channelId` فلا يجدان شيئًا. فتظهر الغرفة معكوسة في القناة ولا يستطيع من
+ * فيها ضغطًا ولا إجابة، وهو ما وقع فعلًا أول ما رُكّبت المرآة.
+ *
+ * والاسم الثاني يحلّها بلا لمس `session.channelId`، وذلك مقصود: تغييره يغيّر
+ * هوية الغرفة في قائمة الغرف وفي كل ما يُبنى عليها.
+ */
+export function alias(key: string, session: Session): void {
+  sessions.set(key, session)
+}
+
 export function close(channelId: string): void {
+  const session = sessions.get(channelId)
   sessions.delete(channelId)
+  // الأسماء الثانية تُمسح مع صاحبها، وإلا بقيت قناة تشير إلى جلسة منتهية
+  if (!session) return
+  for (const [key, value] of sessions) {
+    if (value === session) sessions.delete(key)
+  }
 }
 
 /** كل الجلسات الجارية — تبني عليها `src/api/rooms.ts` قائمة الغرف. */
@@ -73,6 +103,8 @@ export function countRunning(): number {
  */
 export function feedChat(session: Session, input: ChatInput): void {
   if (session.aborted) return
+  // يُعدّ قبل التوزيع: المستمع الأول يبتلع الرسالة، فما بعده لا يراها أحد
+  session.attempts += 1
   for (const listener of [...session.chatListeners]) {
     if (!listener.test || listener.test(input)) {
       listener.deliver(input)

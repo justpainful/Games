@@ -177,6 +177,7 @@ async function finish(
 
 export default defineGame({
   key: 'bomb',
+  mode: 'event',
   name: 'بومب',
   aliases: ['قنبلة', 'بومب بارتي'],
   tagline: 'اكتب كلمة تحوي المقطع قبل أن تنفجر',

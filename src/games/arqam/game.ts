@@ -67,6 +67,7 @@ function next(): Problem {
 
 export default defineGame({
   key: 'arqam',
+  mode: 'game',
   name: 'ارقام',
   aliases: ['أرقام'],
   tagline: 'مسألة تظهر، وأول ناتج صحيح يفوز',

@@ -13,6 +13,7 @@ function next(): Row {
 
 export default defineGame({
   key: 'awasim',
+  mode: 'game',
   name: 'عواصم',
   tagline: 'دولة تظهر، وعاصمتها تُكتب',
   howTo:

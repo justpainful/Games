@@ -10,7 +10,7 @@ import type { Session } from '../games/running.ts'
 import type { Surface } from '../games/surface.ts'
 import { renderScene } from '../images/render.ts'
 import type { Scene } from '../scenes/scene.ts'
-import { AttachmentBuilder } from 'discord.js'
+import { AttachmentBuilder, MessageFlags } from 'discord.js'
 import { editScene, sendScene } from './reply.ts'
 import { takeInteraction } from './tickets.ts'
 
@@ -142,8 +142,17 @@ export function makeDiscordSurface(args: {
 
     present: (scene, opts, replace) => send(scene, opts, replace),
 
-    async say(text) {
-      if (channel.isSendable()) await channel.send(text).catch(() => {})
+    /**
+     * الأزرار هنا لا تُسجَّل في `liveMessageId`.
+     *
+     * ذلك المعرّف هو ما يميّز «آخر مشهد» فتُقبل ضغطاته وتُرفض ضغطات ما قبله،
+     * ونقله إلى رسالة نصّية يُبطل أزرار المشهد القائم. وأزرار `say` معطّلة
+     * بطبيعتها — تعرض ولا تُضغط — فلا تحتاج أن تُسجَّل.
+     */
+    async say(text, opts) {
+      if (!channel.isSendable()) return
+      const components = opts?.buttons ? rows(opts.buttons) : []
+      await channel.send({ content: text, ...(components.length > 0 ? { components } : {}) }).catch(() => {})
     },
 
     /**
@@ -155,20 +164,28 @@ export function makeDiscordSurface(args: {
      */
     async reveal(press, scene, opts) {
       const interaction = takeInteraction(press.ticket)
-      if (!interaction) return false
-      if (interaction.channelId !== session.channelId) return false
+      if (!interaction) {
+        // كان يُبتلع صامتًا، فيظهر للاعب زرٌّ لا يفعل شيئًا ولا أثر في السجل
+        console.error(`[reveal] لا تفاعل للتذكرة ${press.ticket ?? 'غائبة'} · الزر ${press.id}`)
+        return false
+      }
+      if (interaction.channelId !== session.channelId) {
+        console.error(`[reveal] قناة مختلفة: ${interaction.channelId} ضد ${session.channelId}`)
+        return false
+      }
 
       try {
         const png = await renderScene(scene)
         await interaction.followUp({
-          ephemeral: true,
+          // `flags` لا `ephemeral`: الثانية مهجورة في discord.js 14.27 وتُزال بعدها
+          flags: MessageFlags.Ephemeral,
           ...(opts?.text ? { content: opts.text } : {}),
           files: [new AttachmentBuilder(png, { name: 'scene.png' })],
           ...(opts?.buttons ? { components: rows(opts.buttons) } : {}),
         })
         return true
-      } catch {
-        // تفاعل منتهٍ أو قناة فقدنا صلاحيتها — الفشل يعود false ليجرّب غيرنا
+      } catch (err) {
+        console.error('[reveal] فشل الإرسال:', err)
         return false
       }
     },

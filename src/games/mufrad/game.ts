@@ -2,7 +2,8 @@ import { dealer, loadData } from '../data.ts'
 import { defineGame } from '../define.ts'
 import { typing } from '../typing.ts'
 
-type Pair = { singular: string; plural: string }
+/** `accept` مفردات أخرى صحيحة للجمع نفسه: «بنات» مفردها بنت وابنة. */
+type Pair = { singular: string; plural: string; accept?: string[] }
 
 /** التحميل مؤجّل إلى أول جولة — انظر التعليق نفسه في «جمع». */
 let deal: (() => Pair) | undefined
@@ -13,6 +14,7 @@ function next(): Pair {
 
 export default defineGame({
   key: 'mufrad',
+  mode: 'game',
   name: 'مفرد',
   tagline: 'الجمع أمامك، ردّه إلى أصله',
   howTo:
@@ -25,7 +27,12 @@ export default defineGame({
     roundMs: 20_000,
     pick: () => {
       const pair = next()
-      return { prompt: pair.plural, answer: pair.singular, hint: 'اكتب مفرد هذه الكلمة' }
+      return {
+        prompt: pair.plural,
+        answer: pair.singular,
+        ...(pair.accept ? { accept: pair.accept } : {}),
+        hint: 'اكتب مفرد هذه الكلمة',
+      }
     },
   }),
 })

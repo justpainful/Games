@@ -161,6 +161,15 @@ async function play(table: Table): Promise<GameResult> {
 
   let winner: Side | null = null
   let loser: Side | null = null
+  /**
+   * دوران بلا نهاية: صمت السيّدين معًا ينهي اللعبة.
+   *
+   * كان الدور ينتقل عند كل صمت ولا شيء غير ذلك، واللوح لا ينكشف منه شيء إلا
+   * بتلميح. فسيّدان خرجا من القناة يعنيان حلقة أبدية: دقيقة انتظار، ثم سطر
+   * «ما أعطى تلميحًا»، ثم الدور للآخر، إلى ما لا نهاية — تبقى القناة محجوزة
+   * وتمتلئ بالسطر نفسه حتى يوقفها أحد يدويًا.
+   */
+  let silent = 0
 
   while (!table.aborted && winner === null) {
     const master = masters[turn]
@@ -169,10 +178,16 @@ async function play(table: Table): Promise<GameResult> {
     const clue = await askClue(table, board, turn, master, masters)
     if (table.aborted) break
     if (!clue) {
+      silent += 1
+      if (silent >= 2) {
+        await table.say(`${EMOJI.st_timer} السيّدان ما أعطيا تلميحًا، وانتهت اللعبة.`)
+        break
+      }
       await table.say(`${EMOJI.time_low} سيّد ${label(turn)} ما أعطى تلميحًا، والدور ينتقل.`)
       turn = other(turn)
       continue
     }
+    silent = 0
 
     const outcome = await runGuesses(table, board, turn, clue, masters)
     if (table.aborted) break
@@ -373,8 +388,9 @@ async function finish(
 
 export default defineGame({
   key: 'codenames',
+  mode: 'event',
   name: 'كود نيمز',
-  aliases: ['كودنيمز', 'كود', 'codenames'],
+  aliases: ['كودنيمز', 'كود', 'code names', 'codenames'],
   tagline: 'كلمة ورقم، وفريقك يفهم عليك',
   howTo:
     'فريقان، ولكل فريق سيّد يرى هوية كل كلمة على اللوح. السيّد يكتب في الشات تلميحًا من كلمة واحدة ورقم، ' +

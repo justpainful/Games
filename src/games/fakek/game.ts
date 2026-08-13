@@ -39,6 +39,7 @@ function splitCorrectly(raw: string, word: string): boolean {
 
 export default defineGame({
   key: 'fakek',
+  mode: 'game',
   name: 'فكك',
   tagline: 'كلمة واحدة، حرفًا حرفًا',
   howTo:

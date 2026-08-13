@@ -13,6 +13,7 @@ function next(): Row {
 
 export default defineGame({
   key: 'qara',
+  mode: 'game',
   name: 'قارة',
   aliases: ['قاره'],
   tagline: 'دولة تظهر، وقارتها تُكتب',

@@ -148,6 +148,27 @@ export function cancelRoom(roomId: string, userId: string): boolean {
   return activeIn(roomId)?.join?.cancel(userId) ?? false
 }
 
+/**
+ * جسر اختياري يمنح غرف الجوال سطحًا إضافيًا — عمليًا: قناة ديسكورد تعكسها.
+ *
+ * ————————————————— لماذا حقنٌ لا استيراد —————————————————
+ *
+ * هذه الطبقة لا تعرف ديسكورد ولا يجوز أن تعرفه: هي تتكلّم `Surface` وحدها،
+ * وذلك ما يجعل نفس الغرفة تعمل على أي سطح. فلو استوردت `makeDiscordSurface`
+ * هنا لانقلبت العلاقة وصار الـAPI تابعًا لسطح بعينه.
+ *
+ * فالجسر يُسجَّل من طبقة ديسكورد عند الإقلاع، وهذه الطبقة تناديه ولا تعرف
+ * ما وراءه. ومن لا يسجّله تعمل غرفه كما كانت.
+ */
+export type RoomMirror = (session: Session) => Promise<Surface | null>
+
+let mirror: RoomMirror | null = null
+
+/** يُنادى مرة عند الإقلاع من طبقة ديسكورد. */
+export function setRoomMirror(next: RoomMirror | null): void {
+  mirror = next
+}
+
 // ————————————————————— غرفة يبدأها الجوال وحده —————————————————————
 
 /**
@@ -180,6 +201,7 @@ export function createRoom(args: {
     get aborted() {
       return aborted
     },
+    attempts: 0,
     chatListeners: new Set(),
     pressListeners: new Set(),
     liveMessageId: null,
@@ -234,6 +256,21 @@ export function createRoom(args: {
     control: LobbyControl
     setPhase: (phase: 'lobby' | 'playing') => void
   }): Promise<void> {
+    /**
+     * المرآة تُركَّب قبل اللوبي لا بعده.
+     *
+     * أول مشهد يرسمه اللوبي هو ما يراه الناس في القناة، فلو رُكّبت بعده لظهرت
+     * الغرفة في ديسكورد وقد فاتها إعلان فتحها. وفشل التركيب لا يُسقط الغرفة:
+     * صاحبها على الجوال يلعب سواء عكسناها أم لا.
+     */
+    if (mirror) {
+      const extra = await mirror(inner.session).catch(() => null)
+      if (extra) {
+        inner.surfaces.add(extra)
+        extra.attach(hubFor(inner.session))
+      }
+    }
+
     const players = await runLobby(inner)
     if (!players) {
       announce([...inner.surfaces], { type: 'cancelled', reason: 'أُلغي اللوبي' })

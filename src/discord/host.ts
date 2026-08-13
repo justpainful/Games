@@ -92,6 +92,7 @@ export async function startGame(args: {
     get aborted() {
       return aborted
     },
+    attempts: 0,
     chatListeners: new Set(),
     pressListeners: new Set(),
     liveMessageId: null,
@@ -144,7 +145,18 @@ export async function startGame(args: {
   try {
     joined.set(starter.id, await playerView(starter))
 
-    const players = await runLobby({ session, game, starter, discord, joined, sockets, control })
+    /**
+     * اللعبة تتجاوز اللوبي، والفعالية تمرّ به.
+     *
+     * اللوبي عقدٌ مع الفعالية: تحتاج عددًا لا تبدأ دونه، وأدوارًا تعرف أصحابها.
+     * أما اللعبة فتُفتح لمن في القناة بلا انضمام، وانتظار زرّ فيها تأخيرٌ محض:
+     * من كتب أمرها يريدها الآن، ومن أراد اللعب يكتب الجواب.
+     */
+    const open = game.mode === 'game'
+    const players = open
+      ? [joined.get(starter.id)!]
+      : await runLobby({ session, game, starter, discord, joined, sockets, control })
+
     if (!players) {
       announce([...sockets], { type: 'cancelled', reason: 'أُلغي اللوبي' })
       return
@@ -152,7 +164,7 @@ export async function startGame(args: {
 
     phase = 'playing'
     const host = players[0]!
-    table = fanout([discord, ...sockets], { brief: brief(game), players, host, session })
+    table = fanout([discord, ...sockets], { brief: brief(game), players, host, session, open })
     announce(table.surfaces(), { type: 'started', players })
 
     const matchId = await openMatch(guildId, game.key, players.length)

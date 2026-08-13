@@ -2,7 +2,8 @@ import { dealer, loadData } from '../data.ts'
 import { defineGame } from '../define.ts'
 import { typing } from '../typing.ts'
 
-type Pair = { singular: string; plural: string }
+/** `accept` جموع أخرى صحيحة للكلمة نفسها: «كريم» تُجمع كرامًا وكرماء. */
+type Pair = { singular: string; plural: string; accept?: string[] }
 
 /**
  * التحميل مؤجّل إلى أول جولة لا إلى لحظة اكتشاف اللعبة: ملف الكلمات لا يُقرأ
@@ -16,6 +17,7 @@ function next(): Pair {
 
 export default defineGame({
   key: 'jam3',
+  mode: 'game',
   name: 'جمع',
   tagline: 'المفرد أمامك، والجمع عليك',
   howTo:
@@ -28,7 +30,12 @@ export default defineGame({
     roundMs: 20_000,
     pick: () => {
       const pair = next()
-      return { prompt: pair.singular, answer: pair.plural, hint: 'اكتب جمع هذه الكلمة' }
+      return {
+        prompt: pair.singular,
+        answer: pair.plural,
+        ...(pair.accept ? { accept: pair.accept } : {}),
+        hint: 'اكتب جمع هذه الكلمة',
+      }
     },
   }),
 })

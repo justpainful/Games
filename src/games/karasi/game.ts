@@ -19,6 +19,7 @@ const BREATH_MS = 2_500
 
 export default defineGame({
   key: 'karasi',
+  mode: 'event',
   name: 'كراسي',
   aliases: ['الكراسي', 'كراسي موسيقية'],
   tagline: 'الكراسي أقل منكم بواحد — من يتأخّر يقف',

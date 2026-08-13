@@ -1,303 +1,2518 @@
 [
-  { "word": "كبير", "opposite": "صغير" },
-  { "word": "طويل", "opposite": "قصير" },
-  { "word": "واسع", "opposite": "ضيق" },
-  { "word": "سميك", "opposite": "رفيع" },
-  { "word": "ثقيل", "opposite": "خفيف" },
-  { "word": "قوي", "opposite": "ضعيف" },
-  { "word": "سريع", "opposite": "بطيء" },
-  { "word": "جديد", "opposite": "قديم" },
-  { "word": "نظيف", "opposite": "متسخ" },
-  { "word": "جميل", "opposite": "قبيح" },
-  { "word": "سهل", "opposite": "صعب" },
-  { "word": "غني", "opposite": "فقير" },
-  { "word": "ذكي", "opposite": "غبي" },
-  { "word": "شجاع", "opposite": "جبان" },
-  { "word": "كريم", "opposite": "بخيل" },
-  { "word": "صادق", "opposite": "كاذب" },
-  { "word": "مفيد", "opposite": "ضار" },
-  { "word": "حلو", "opposite": "مر" },
-  { "word": "حار", "opposite": "بارد" },
-  { "word": "دافئ", "opposite": "بارد" },
-  { "word": "مبلل", "opposite": "جاف" },
-  { "word": "ناعم", "opposite": "خشن" },
-  { "word": "لين", "opposite": "صلب" },
-  { "word": "ممتلئ", "opposite": "فارغ" },
-  { "word": "عميق", "opposite": "ضحل" },
-  { "word": "مرتفع", "opposite": "منخفض" },
-  { "word": "قريب", "opposite": "بعيد" },
-  { "word": "مبكر", "opposite": "متأخر" },
-  { "word": "كثير", "opposite": "قليل" },
-  { "word": "غالي", "opposite": "رخيص" },
-  { "word": "مشهور", "opposite": "مجهول" },
-  { "word": "واضح", "opposite": "غامض" },
-  { "word": "مستقيم", "opposite": "معوج" },
-  { "word": "حي", "opposite": "ميت" },
-  { "word": "صحيح", "opposite": "خاطئ" },
-  { "word": "حقيقي", "opposite": "وهمي" },
-  { "word": "طبيعي", "opposite": "صناعي" },
-  { "word": "داخلي", "opposite": "خارجي" },
-  { "word": "أمامي", "opposite": "خلفي" },
-  { "word": "علوي", "opposite": "سفلي" },
-  { "word": "مفتوح", "opposite": "مغلق" },
-  { "word": "مضيء", "opposite": "مظلم" },
-  { "word": "ساكن", "opposite": "متحرك" },
-  { "word": "ثابت", "opposite": "متغير" },
-  { "word": "دائم", "opposite": "مؤقت" },
-  { "word": "حاضر", "opposite": "غائب" },
-  { "word": "موجود", "opposite": "مفقود" },
-  { "word": "ممكن", "opposite": "مستحيل" },
-  { "word": "مسموح", "opposite": "ممنوع" },
-  { "word": "معلن", "opposite": "سري" },
-  { "word": "عام", "opposite": "خاص" },
-  { "word": "مألوف", "opposite": "غريب" },
-  { "word": "مشغول", "opposite": "متفرغ" },
-  { "word": "نشيط", "opposite": "كسول" },
-  { "word": "مجتهد", "opposite": "مهمل" },
-  { "word": "مؤدب", "opposite": "وقح" },
-  { "word": "لطيف", "opposite": "فظ" },
-  { "word": "هادئ", "opposite": "عصبي" },
-  { "word": "سعيد", "opposite": "حزين" },
-  { "word": "مسرور", "opposite": "مهموم" },
-  { "word": "مرتاح", "opposite": "متعب" },
-  { "word": "متفائل", "opposite": "متشائم" },
-  { "word": "نادر", "opposite": "شائع" },
-  { "word": "كامل", "opposite": "ناقص" },
-  { "word": "زوجي", "opposite": "فردي" },
-  { "word": "موجب", "opposite": "سالب" },
-  { "word": "فاتح", "opposite": "غامق" },
-  { "word": "حلال", "opposite": "حرام" },
-  { "word": "عادل", "opposite": "ظالم" },
-  { "word": "مذنب", "opposite": "بريء" },
-  { "word": "حر", "opposite": "أسير" },
-  { "word": "غالب", "opposite": "مغلوب" },
-  { "word": "رابح", "opposite": "خاسر" },
-  { "word": "جامد", "opposite": "سائل" },
-  { "word": "رحيم", "opposite": "قاس" },
-  { "word": "صبور", "opposite": "عجول" },
-  { "word": "متواضع", "opposite": "متكبر" },
-  { "word": "أمين", "opposite": "خائن" },
-  { "word": "مطيع", "opposite": "عاصي" },
-  { "word": "يقظ", "opposite": "نائم" },
-  { "word": "جائع", "opposite": "شبعان" },
-  { "word": "ضخم", "opposite": "ضئيل" },
-  { "word": "سمين", "opposite": "نحيف" },
-  { "word": "مبتدئ", "opposite": "محترف" },
-  { "word": "رطب", "opposite": "يابس" },
-  { "word": "خصب", "opposite": "قاحل" },
-  { "word": "مالح", "opposite": "عذب" },
-  { "word": "فوق", "opposite": "تحت" },
-  { "word": "أمام", "opposite": "خلف" },
-  { "word": "داخل", "opposite": "خارج" },
-  { "word": "قبل", "opposite": "بعد" },
-  { "word": "هنا", "opposite": "هناك" },
-  { "word": "يمين", "opposite": "يسار" },
-  { "word": "شمال", "opposite": "جنوب" },
-  { "word": "شرق", "opposite": "غرب" },
-  { "word": "أول", "opposite": "أخير" },
-  { "word": "أعلى", "opposite": "أدنى" },
-  { "word": "وسط", "opposite": "طرف" },
-  { "word": "قمة", "opposite": "قاع" },
-  { "word": "سطح", "opposite": "عمق" },
-  { "word": "بداية", "opposite": "نهاية" },
-  { "word": "أمس", "opposite": "غد" },
-  { "word": "نور", "opposite": "ظلام" },
-  { "word": "ضوء", "opposite": "عتمة" },
-  { "word": "نهار", "opposite": "ليل" },
-  { "word": "صباح", "opposite": "مساء" },
-  { "word": "شروق", "opposite": "غروب" },
-  { "word": "صيف", "opposite": "شتاء" },
-  { "word": "ربيع", "opposite": "خريف" },
-  { "word": "حرب", "opposite": "سلام" },
-  { "word": "حب", "opposite": "كره" },
-  { "word": "فرح", "opposite": "حزن" },
-  { "word": "ضحك", "opposite": "بكاء" },
-  { "word": "أمل", "opposite": "يأس" },
-  { "word": "خير", "opposite": "شر" },
-  { "word": "صدق", "opposite": "كذب" },
-  { "word": "عدل", "opposite": "ظلم" },
-  { "word": "حق", "opposite": "باطل" },
-  { "word": "نجاح", "opposite": "فشل" },
-  { "word": "فوز", "opposite": "هزيمة" },
-  { "word": "ربح", "opposite": "خسارة" },
-  { "word": "قوة", "opposite": "ضعف" },
-  { "word": "غنى", "opposite": "فقر" },
-  { "word": "علم", "opposite": "جهل" },
-  { "word": "حياة", "opposite": "موت" },
-  { "word": "صحة", "opposite": "مرض" },
-  { "word": "يقظة", "opposite": "نوم" },
-  { "word": "جوع", "opposite": "شبع" },
-  { "word": "حرارة", "opposite": "برودة" },
-  { "word": "جفاف", "opposite": "رطوبة" },
-  { "word": "سرعة", "opposite": "بطء" },
-  { "word": "طول", "opposite": "قصر" },
-  { "word": "كرم", "opposite": "بخل" },
-  { "word": "شجاعة", "opposite": "جبن" },
-  { "word": "صبر", "opposite": "جزع" },
-  { "word": "تواضع", "opposite": "تكبر" },
-  { "word": "نظام", "opposite": "فوضى" },
-  { "word": "بناء", "opposite": "هدم" },
-  { "word": "زيادة", "opposite": "نقصان" },
-  { "word": "ارتفاع", "opposite": "انخفاض" },
-  { "word": "تقدم", "opposite": "تأخر" },
-  { "word": "اقتراب", "opposite": "ابتعاد" },
-  { "word": "اجتماع", "opposite": "افتراق" },
-  { "word": "لقاء", "opposite": "وداع" },
-  { "word": "سؤال", "opposite": "جواب" },
-  { "word": "بيع", "opposite": "شراء" },
-  { "word": "أخذ", "opposite": "عطاء" },
-  { "word": "مدح", "opposite": "ذم" },
-  { "word": "تذكر", "opposite": "نسيان" },
-  { "word": "صمت", "opposite": "كلام" },
-  { "word": "سكون", "opposite": "حركة" },
-  { "word": "هدوء", "opposite": "ضجيج" },
-  { "word": "ثواب", "opposite": "عقاب" },
-  { "word": "مكافأة", "opposite": "عقوبة" },
-  { "word": "طاعة", "opposite": "عصيان" },
-  { "word": "صعوبة", "opposite": "سهولة" },
-  { "word": "كثرة", "opposite": "قلة" },
-  { "word": "يقين", "opposite": "شك" },
-  { "word": "حقيقة", "opposite": "خيال" },
-  { "word": "واقع", "opposite": "وهم" },
-  { "word": "نفع", "opposite": "ضرر" },
-  { "word": "وفرة", "opposite": "ندرة" },
-  { "word": "يسر", "opposite": "عسر" },
-  { "word": "راحة", "opposite": "تعب" },
-  { "word": "هزل", "opposite": "جد" },
-  { "word": "بياض", "opposite": "سواد" },
-  { "word": "نشاط", "opposite": "كسل" },
-  { "word": "طفولة", "opposite": "شيخوخة" },
-  { "word": "هجوم", "opposite": "دفاع" },
-  { "word": "نصر", "opposite": "هزيمة" },
-  { "word": "هبوط", "opposite": "إقلاع" },
-  { "word": "تصدير", "opposite": "استيراد" },
-  { "word": "هجرة", "opposite": "عودة" },
-  { "word": "غياب", "opposite": "حضور" },
-  { "word": "سماء", "opposite": "أرض" },
-  { "word": "بر", "opposite": "بحر" },
-  { "word": "حرية", "opposite": "أسر" },
-  { "word": "ذكر", "opposite": "أنثى" },
-  { "word": "رجل", "opposite": "امرأة" },
-  { "word": "صبي", "opposite": "فتاة" },
-  { "word": "أب", "opposite": "أم" },
-  { "word": "ابن", "opposite": "بنت" },
-  { "word": "أخ", "opposite": "أخت" },
-  { "word": "جد", "opposite": "جدة" },
-  { "word": "زوج", "opposite": "زوجة" },
-  { "word": "معلم", "opposite": "طالب" },
-  { "word": "صديق", "opposite": "عدو" },
-  { "word": "قائد", "opposite": "تابع" },
-  { "word": "شيخ", "opposite": "شاب" },
-  { "word": "رئيس", "opposite": "مرؤوس" },
-  { "word": "بائع", "opposite": "مشتري" },
-  { "word": "مرسل", "opposite": "مستقبل" },
-  { "word": "عالم", "opposite": "جاهل" },
-  { "word": "حكيم", "opposite": "أحمق" },
-  { "word": "سلبي", "opposite": "إيجابي" },
-  { "word": "أبيض", "opposite": "أسود" },
-  { "word": "مشكلة", "opposite": "حل" },
-  { "word": "سفر", "opposite": "إقامة" },
-  { "word": "دخول", "opposite": "خروج" },
-  { "word": "صعود", "opposite": "نزول" },
-  { "word": "وصول", "opposite": "رحيل" },
-  { "word": "ذهاب", "opposite": "إياب" },
-  { "word": "استيقاظ", "opposite": "نوم" },
-  { "word": "قيام", "opposite": "قعود" },
-  { "word": "ظهور", "opposite": "اختفاء" },
-  { "word": "أكثر", "opposite": "أقل" },
-  { "word": "أفضل", "opposite": "أسوأ" },
-  { "word": "أقوى", "opposite": "أضعف" },
-  { "word": "أكبر", "opposite": "أصغر" },
-  { "word": "أطول", "opposite": "أقصر" },
-  { "word": "أسرع", "opposite": "أبطأ" },
-  { "word": "أغلى", "opposite": "أرخص" },
-  { "word": "أقرب", "opposite": "أبعد" },
-  { "word": "أثقل", "opposite": "أخف" },
-  { "word": "فتح", "opposite": "أغلق" },
-  { "word": "دخل", "opposite": "خرج" },
-  { "word": "صعد", "opposite": "نزل" },
-  { "word": "ذهب", "opposite": "عاد" },
-  { "word": "جاء", "opposite": "رحل" },
-  { "word": "وصل", "opposite": "غادر" },
-  { "word": "بدأ", "opposite": "انتهى" },
-  { "word": "نام", "opposite": "استيقظ" },
-  { "word": "جلس", "opposite": "وقف" },
-  { "word": "قام", "opposite": "قعد" },
-  { "word": "ابتسم", "opposite": "عبس" },
-  { "word": "أعطى", "opposite": "أخذ" },
-  { "word": "اشترى", "opposite": "باع" },
-  { "word": "كسب", "opposite": "خسر" },
-  { "word": "نجح", "opposite": "رسب" },
-  { "word": "زاد", "opposite": "نقص" },
-  { "word": "كبر", "opposite": "صغر" },
-  { "word": "طال", "opposite": "قصر" },
-  { "word": "حضر", "opposite": "غاب" },
-  { "word": "ظهر", "opposite": "اختفى" },
-  { "word": "أضاء", "opposite": "أطفأ" },
-  { "word": "ملأ", "opposite": "أفرغ" },
-  { "word": "رفع", "opposite": "خفض" },
-  { "word": "بنى", "opposite": "هدم" },
-  { "word": "ربط", "opposite": "فك" },
-  { "word": "جمع", "opposite": "فرق" },
-  { "word": "أضاف", "opposite": "حذف" },
-  { "word": "تكلم", "opposite": "سكت" },
-  { "word": "سأل", "opposite": "أجاب" },
-  { "word": "نسي", "opposite": "تذكر" },
-  { "word": "عرف", "opposite": "جهل" },
-  { "word": "أحب", "opposite": "كره" },
-  { "word": "خاف", "opposite": "اطمأن" },
-  { "word": "قبول", "opposite": "رفض" },
-  { "word": "وافق", "opposite": "عارض" },
-  { "word": "سمح", "opposite": "منع" },
-  { "word": "أرسل", "opposite": "استقبل" },
-  { "word": "أخفى", "opposite": "أظهر" },
-  { "word": "كسر", "opposite": "أصلح" },
-  { "word": "لبس", "opposite": "خلع" },
-  { "word": "دفع", "opposite": "سحب" },
-  { "word": "عاش", "opposite": "مات" },
-  { "word": "ولد", "opposite": "توفي" },
-  { "word": "فاز", "opposite": "خسر" },
-  { "word": "صام", "opposite": "أفطر" },
-  { "word": "غرق", "opposite": "طفا" },
-  { "word": "سقط", "opposite": "نهض" },
-  { "word": "نجا", "opposite": "هلك" },
-  { "word": "شد", "opposite": "أرخى" },
-  { "word": "أشعل", "opposite": "أطفأ" },
-  { "word": "اقترب", "opposite": "ابتعد" },
-  { "word": "نظف", "opposite": "وسخ" },
-  { "word": "وجد", "opposite": "فقد" },
-  { "word": "هدأ", "opposite": "ثار" },
-  { "word": "امتلأ", "opposite": "فرغ" },
-  { "word": "استمر", "opposite": "توقف" },
-  { "word": "أفاد", "opposite": "أضر" },
-  { "word": "قدم", "opposite": "أخر" },
-  { "word": "نطق", "opposite": "سكت" },
-  { "word": "أحسن", "opposite": "أساء" },
-  { "word": "اجتهد", "opposite": "تكاسل" },
-  { "word": "عاقب", "opposite": "كافأ" },
-  { "word": "أقبل", "opposite": "أدبر" },
-  { "word": "أقلع", "opposite": "هبط" },
-  { "word": "صرخ", "opposite": "همس" },
-  { "word": "تعب", "opposite": "ارتاح" },
-  { "word": "برد", "opposite": "سخن" },
-  { "word": "أسرف", "opposite": "اقتصد" },
-  { "word": "متزوج", "opposite": "أعزب" },
-  { "word": "شكر", "opposite": "جحد" },
-  { "word": "أنكر", "opposite": "اعترف" },
-  { "word": "خسر", "opposite": "ربح" },
-  { "word": "أخطأ", "opposite": "أصاب" },
-  { "word": "زرع", "opposite": "حصد" },
-  { "word": "أحيا", "opposite": "أمات" },
-  { "word": "استعجل", "opposite": "تمهل" },
-  { "word": "أطال", "opposite": "اختصر" },
-  { "word": "وسع", "opposite": "ضيق" },
-  { "word": "رحب", "opposite": "طرد" },
-  { "word": "أهان", "opposite": "أكرم" },
-  { "word": "أظلم", "opposite": "أنار" },
-  { "word": "هبط", "opposite": "ارتفع" },
-  { "word": "مبتهج", "opposite": "كئيب" },
-  { "word": "افترق", "opposite": "التقى" },
-  { "word": "احترم", "opposite": "احتقر" },
-  { "word": "ممل", "opposite": "ممتع" },
-  { "word": "عزيز", "opposite": "ذليل" }
+  {
+    "word": "كبير",
+    "opposite": "صغير"
+  },
+  {
+    "word": "طويل",
+    "opposite": "قصير"
+  },
+  {
+    "word": "واسع",
+    "opposite": "ضيق"
+  },
+  {
+    "word": "سميك",
+    "opposite": "رفيع"
+  },
+  {
+    "word": "ثقيل",
+    "opposite": "خفيف"
+  },
+  {
+    "word": "قوي",
+    "opposite": "ضعيف"
+  },
+  {
+    "word": "سريع",
+    "opposite": "بطيء"
+  },
+  {
+    "word": "جديد",
+    "opposite": "قديم"
+  },
+  {
+    "word": "نظيف",
+    "opposite": "متسخ"
+  },
+  {
+    "word": "جميل",
+    "opposite": "قبيح"
+  },
+  {
+    "word": "سهل",
+    "opposite": "صعب"
+  },
+  {
+    "word": "غني",
+    "opposite": "فقير"
+  },
+  {
+    "word": "ذكي",
+    "opposite": "غبي"
+  },
+  {
+    "word": "شجاع",
+    "opposite": "جبان"
+  },
+  {
+    "word": "كريم",
+    "opposite": "بخيل"
+  },
+  {
+    "word": "صادق",
+    "opposite": "كاذب"
+  },
+  {
+    "word": "مفيد",
+    "opposite": "ضار"
+  },
+  {
+    "word": "حلو",
+    "opposite": "مر"
+  },
+  {
+    "word": "حار",
+    "opposite": "بارد"
+  },
+  {
+    "word": "دافئ",
+    "opposite": "بارد"
+  },
+  {
+    "word": "مبلل",
+    "opposite": "جاف"
+  },
+  {
+    "word": "ناعم",
+    "opposite": "خشن"
+  },
+  {
+    "word": "لين",
+    "opposite": "صلب"
+  },
+  {
+    "word": "ممتلئ",
+    "opposite": "فارغ"
+  },
+  {
+    "word": "عميق",
+    "opposite": "ضحل"
+  },
+  {
+    "word": "مرتفع",
+    "opposite": "منخفض"
+  },
+  {
+    "word": "قريب",
+    "opposite": "بعيد"
+  },
+  {
+    "word": "مبكر",
+    "opposite": "متأخر"
+  },
+  {
+    "word": "كثير",
+    "opposite": "قليل"
+  },
+  {
+    "word": "غالي",
+    "opposite": "رخيص"
+  },
+  {
+    "word": "مشهور",
+    "opposite": "مجهول"
+  },
+  {
+    "word": "واضح",
+    "opposite": "غامض"
+  },
+  {
+    "word": "مستقيم",
+    "opposite": "معوج"
+  },
+  {
+    "word": "حي",
+    "opposite": "ميت"
+  },
+  {
+    "word": "صحيح",
+    "opposite": "خاطئ"
+  },
+  {
+    "word": "حقيقي",
+    "opposite": "وهمي"
+  },
+  {
+    "word": "طبيعي",
+    "opposite": "صناعي"
+  },
+  {
+    "word": "داخلي",
+    "opposite": "خارجي"
+  },
+  {
+    "word": "أمامي",
+    "opposite": "خلفي"
+  },
+  {
+    "word": "علوي",
+    "opposite": "سفلي"
+  },
+  {
+    "word": "مفتوح",
+    "opposite": "مغلق"
+  },
+  {
+    "word": "مضيء",
+    "opposite": "مظلم"
+  },
+  {
+    "word": "ساكن",
+    "opposite": "متحرك"
+  },
+  {
+    "word": "ثابت",
+    "opposite": "متغير"
+  },
+  {
+    "word": "دائم",
+    "opposite": "مؤقت"
+  },
+  {
+    "word": "حاضر",
+    "opposite": "غائب"
+  },
+  {
+    "word": "موجود",
+    "opposite": "مفقود"
+  },
+  {
+    "word": "ممكن",
+    "opposite": "مستحيل"
+  },
+  {
+    "word": "مسموح",
+    "opposite": "ممنوع"
+  },
+  {
+    "word": "معلن",
+    "opposite": "سري"
+  },
+  {
+    "word": "عام",
+    "opposite": "خاص"
+  },
+  {
+    "word": "مألوف",
+    "opposite": "غريب"
+  },
+  {
+    "word": "مشغول",
+    "opposite": "متفرغ"
+  },
+  {
+    "word": "نشيط",
+    "opposite": "كسول"
+  },
+  {
+    "word": "مجتهد",
+    "opposite": "مهمل"
+  },
+  {
+    "word": "مؤدب",
+    "opposite": "وقح"
+  },
+  {
+    "word": "لطيف",
+    "opposite": "فظ"
+  },
+  {
+    "word": "هادئ",
+    "opposite": "عصبي"
+  },
+  {
+    "word": "سعيد",
+    "opposite": "حزين"
+  },
+  {
+    "word": "مسرور",
+    "opposite": "مهموم"
+  },
+  {
+    "word": "مرتاح",
+    "opposite": "متعب"
+  },
+  {
+    "word": "متفائل",
+    "opposite": "متشائم"
+  },
+  {
+    "word": "نادر",
+    "opposite": "شائع"
+  },
+  {
+    "word": "كامل",
+    "opposite": "ناقص"
+  },
+  {
+    "word": "زوجي",
+    "opposite": "فردي"
+  },
+  {
+    "word": "موجب",
+    "opposite": "سالب"
+  },
+  {
+    "word": "فاتح",
+    "opposite": "غامق"
+  },
+  {
+    "word": "حلال",
+    "opposite": "حرام"
+  },
+  {
+    "word": "عادل",
+    "opposite": "ظالم"
+  },
+  {
+    "word": "مذنب",
+    "opposite": "بريء"
+  },
+  {
+    "word": "حر",
+    "opposite": "أسير"
+  },
+  {
+    "word": "غالب",
+    "opposite": "مغلوب"
+  },
+  {
+    "word": "رابح",
+    "opposite": "خاسر"
+  },
+  {
+    "word": "جامد",
+    "opposite": "سائل"
+  },
+  {
+    "word": "رحيم",
+    "opposite": "قاس"
+  },
+  {
+    "word": "صبور",
+    "opposite": "عجول"
+  },
+  {
+    "word": "متواضع",
+    "opposite": "متكبر"
+  },
+  {
+    "word": "أمين",
+    "opposite": "خائن"
+  },
+  {
+    "word": "مطيع",
+    "opposite": "عاصي"
+  },
+  {
+    "word": "يقظ",
+    "opposite": "نائم"
+  },
+  {
+    "word": "جائع",
+    "opposite": "شبعان"
+  },
+  {
+    "word": "ضخم",
+    "opposite": "ضئيل"
+  },
+  {
+    "word": "سمين",
+    "opposite": "نحيف"
+  },
+  {
+    "word": "مبتدئ",
+    "opposite": "محترف"
+  },
+  {
+    "word": "رطب",
+    "opposite": "يابس"
+  },
+  {
+    "word": "خصب",
+    "opposite": "قاحل"
+  },
+  {
+    "word": "مالح",
+    "opposite": "عذب"
+  },
+  {
+    "word": "فوق",
+    "opposite": "تحت"
+  },
+  {
+    "word": "أمام",
+    "opposite": "خلف"
+  },
+  {
+    "word": "داخل",
+    "opposite": "خارج"
+  },
+  {
+    "word": "قبل",
+    "opposite": "بعد"
+  },
+  {
+    "word": "هنا",
+    "opposite": "هناك"
+  },
+  {
+    "word": "يمين",
+    "opposite": "يسار"
+  },
+  {
+    "word": "شمال",
+    "opposite": "جنوب"
+  },
+  {
+    "word": "شرق",
+    "opposite": "غرب"
+  },
+  {
+    "word": "أول",
+    "opposite": "أخير"
+  },
+  {
+    "word": "أعلى",
+    "opposite": "أدنى"
+  },
+  {
+    "word": "وسط",
+    "opposite": "طرف"
+  },
+  {
+    "word": "قمة",
+    "opposite": "قاع"
+  },
+  {
+    "word": "سطح",
+    "opposite": "عمق"
+  },
+  {
+    "word": "بداية",
+    "opposite": "نهاية"
+  },
+  {
+    "word": "أمس",
+    "opposite": "غد"
+  },
+  {
+    "word": "نور",
+    "opposite": "ظلام"
+  },
+  {
+    "word": "ضوء",
+    "opposite": "عتمة"
+  },
+  {
+    "word": "نهار",
+    "opposite": "ليل"
+  },
+  {
+    "word": "صباح",
+    "opposite": "مساء"
+  },
+  {
+    "word": "شروق",
+    "opposite": "غروب"
+  },
+  {
+    "word": "صيف",
+    "opposite": "شتاء"
+  },
+  {
+    "word": "ربيع",
+    "opposite": "خريف"
+  },
+  {
+    "word": "حرب",
+    "opposite": "سلام"
+  },
+  {
+    "word": "حب",
+    "opposite": "كره"
+  },
+  {
+    "word": "فرح",
+    "opposite": "حزن"
+  },
+  {
+    "word": "ضحك",
+    "opposite": "بكاء"
+  },
+  {
+    "word": "أمل",
+    "opposite": "يأس"
+  },
+  {
+    "word": "خير",
+    "opposite": "شر"
+  },
+  {
+    "word": "صدق",
+    "opposite": "كذب"
+  },
+  {
+    "word": "عدل",
+    "opposite": "ظلم"
+  },
+  {
+    "word": "حق",
+    "opposite": "باطل"
+  },
+  {
+    "word": "نجاح",
+    "opposite": "فشل"
+  },
+  {
+    "word": "فوز",
+    "opposite": "هزيمة"
+  },
+  {
+    "word": "ربح",
+    "opposite": "خسارة",
+    "accept": [
+      "خسر"
+    ]
+  },
+  {
+    "word": "قوة",
+    "opposite": "ضعف"
+  },
+  {
+    "word": "غنى",
+    "opposite": "فقر"
+  },
+  {
+    "word": "علم",
+    "opposite": "جهل"
+  },
+  {
+    "word": "حياة",
+    "opposite": "موت"
+  },
+  {
+    "word": "صحة",
+    "opposite": "مرض"
+  },
+  {
+    "word": "يقظة",
+    "opposite": "نوم"
+  },
+  {
+    "word": "جوع",
+    "opposite": "شبع"
+  },
+  {
+    "word": "حرارة",
+    "opposite": "برودة"
+  },
+  {
+    "word": "جفاف",
+    "opposite": "رطوبة"
+  },
+  {
+    "word": "سرعة",
+    "opposite": "بطء"
+  },
+  {
+    "word": "طول",
+    "opposite": "قصر"
+  },
+  {
+    "word": "كرم",
+    "opposite": "بخل"
+  },
+  {
+    "word": "شجاعة",
+    "opposite": "جبن"
+  },
+  {
+    "word": "صبر",
+    "opposite": "جزع"
+  },
+  {
+    "word": "تواضع",
+    "opposite": "تكبر"
+  },
+  {
+    "word": "نظام",
+    "opposite": "فوضى"
+  },
+  {
+    "word": "بناء",
+    "opposite": "هدم"
+  },
+  {
+    "word": "زيادة",
+    "opposite": "نقصان"
+  },
+  {
+    "word": "ارتفاع",
+    "opposite": "انخفاض"
+  },
+  {
+    "word": "تقدم",
+    "opposite": "تأخر"
+  },
+  {
+    "word": "اقتراب",
+    "opposite": "ابتعاد"
+  },
+  {
+    "word": "اجتماع",
+    "opposite": "افتراق"
+  },
+  {
+    "word": "لقاء",
+    "opposite": "وداع"
+  },
+  {
+    "word": "سؤال",
+    "opposite": "جواب"
+  },
+  {
+    "word": "بيع",
+    "opposite": "شراء"
+  },
+  {
+    "word": "أخذ",
+    "opposite": "عطاء",
+    "accept": [
+      "أعطى"
+    ]
+  },
+  {
+    "word": "مدح",
+    "opposite": "ذم"
+  },
+  {
+    "word": "تذكر",
+    "opposite": "نسيان",
+    "accept": [
+      "نسي"
+    ]
+  },
+  {
+    "word": "صمت",
+    "opposite": "كلام"
+  },
+  {
+    "word": "سكون",
+    "opposite": "حركة"
+  },
+  {
+    "word": "هدوء",
+    "opposite": "ضجيج"
+  },
+  {
+    "word": "ثواب",
+    "opposite": "عقاب"
+  },
+  {
+    "word": "مكافأة",
+    "opposite": "عقوبة"
+  },
+  {
+    "word": "طاعة",
+    "opposite": "عصيان"
+  },
+  {
+    "word": "صعوبة",
+    "opposite": "سهولة"
+  },
+  {
+    "word": "كثرة",
+    "opposite": "قلة"
+  },
+  {
+    "word": "يقين",
+    "opposite": "شك"
+  },
+  {
+    "word": "حقيقة",
+    "opposite": "خيال"
+  },
+  {
+    "word": "واقع",
+    "opposite": "وهم"
+  },
+  {
+    "word": "نفع",
+    "opposite": "ضرر"
+  },
+  {
+    "word": "وفرة",
+    "opposite": "ندرة"
+  },
+  {
+    "word": "يسر",
+    "opposite": "عسر"
+  },
+  {
+    "word": "راحة",
+    "opposite": "تعب"
+  },
+  {
+    "word": "هزل",
+    "opposite": "جد"
+  },
+  {
+    "word": "بياض",
+    "opposite": "سواد"
+  },
+  {
+    "word": "نشاط",
+    "opposite": "كسل"
+  },
+  {
+    "word": "طفولة",
+    "opposite": "شيخوخة"
+  },
+  {
+    "word": "هجوم",
+    "opposite": "دفاع"
+  },
+  {
+    "word": "نصر",
+    "opposite": "هزيمة"
+  },
+  {
+    "word": "هبوط",
+    "opposite": "إقلاع"
+  },
+  {
+    "word": "تصدير",
+    "opposite": "استيراد"
+  },
+  {
+    "word": "هجرة",
+    "opposite": "عودة"
+  },
+  {
+    "word": "غياب",
+    "opposite": "حضور"
+  },
+  {
+    "word": "سماء",
+    "opposite": "أرض"
+  },
+  {
+    "word": "بر",
+    "opposite": "بحر"
+  },
+  {
+    "word": "حرية",
+    "opposite": "أسر"
+  },
+  {
+    "word": "ذكر",
+    "opposite": "أنثى"
+  },
+  {
+    "word": "رجل",
+    "opposite": "امرأة"
+  },
+  {
+    "word": "صبي",
+    "opposite": "فتاة"
+  },
+  {
+    "word": "أب",
+    "opposite": "أم"
+  },
+  {
+    "word": "ابن",
+    "opposite": "بنت"
+  },
+  {
+    "word": "أخ",
+    "opposite": "أخت"
+  },
+  {
+    "word": "جد",
+    "opposite": "جدة",
+    "accept": [
+      "هزل"
+    ]
+  },
+  {
+    "word": "زوج",
+    "opposite": "زوجة"
+  },
+  {
+    "word": "معلم",
+    "opposite": "طالب"
+  },
+  {
+    "word": "صديق",
+    "opposite": "عدو"
+  },
+  {
+    "word": "قائد",
+    "opposite": "تابع"
+  },
+  {
+    "word": "شيخ",
+    "opposite": "شاب"
+  },
+  {
+    "word": "رئيس",
+    "opposite": "مرؤوس"
+  },
+  {
+    "word": "بائع",
+    "opposite": "مشتري"
+  },
+  {
+    "word": "مرسل",
+    "opposite": "مستقبل"
+  },
+  {
+    "word": "عالم",
+    "opposite": "جاهل"
+  },
+  {
+    "word": "حكيم",
+    "opposite": "أحمق"
+  },
+  {
+    "word": "سلبي",
+    "opposite": "إيجابي"
+  },
+  {
+    "word": "أبيض",
+    "opposite": "أسود"
+  },
+  {
+    "word": "مشكلة",
+    "opposite": "حل"
+  },
+  {
+    "word": "سفر",
+    "opposite": "إقامة"
+  },
+  {
+    "word": "دخول",
+    "opposite": "خروج"
+  },
+  {
+    "word": "صعود",
+    "opposite": "نزول"
+  },
+  {
+    "word": "وصول",
+    "opposite": "رحيل"
+  },
+  {
+    "word": "ذهاب",
+    "opposite": "إياب"
+  },
+  {
+    "word": "استيقاظ",
+    "opposite": "نوم"
+  },
+  {
+    "word": "قيام",
+    "opposite": "قعود"
+  },
+  {
+    "word": "ظهور",
+    "opposite": "اختفاء"
+  },
+  {
+    "word": "أكثر",
+    "opposite": "أقل"
+  },
+  {
+    "word": "أفضل",
+    "opposite": "أسوأ"
+  },
+  {
+    "word": "أقوى",
+    "opposite": "أضعف"
+  },
+  {
+    "word": "أكبر",
+    "opposite": "أصغر"
+  },
+  {
+    "word": "أطول",
+    "opposite": "أقصر"
+  },
+  {
+    "word": "أسرع",
+    "opposite": "أبطأ"
+  },
+  {
+    "word": "أغلى",
+    "opposite": "أرخص"
+  },
+  {
+    "word": "أقرب",
+    "opposite": "أبعد"
+  },
+  {
+    "word": "أثقل",
+    "opposite": "أخف"
+  },
+  {
+    "word": "فتح",
+    "opposite": "أغلق"
+  },
+  {
+    "word": "دخل",
+    "opposite": "خرج"
+  },
+  {
+    "word": "صعد",
+    "opposite": "نزل"
+  },
+  {
+    "word": "ذهب",
+    "opposite": "عاد"
+  },
+  {
+    "word": "جاء",
+    "opposite": "رحل"
+  },
+  {
+    "word": "وصل",
+    "opposite": "غادر"
+  },
+  {
+    "word": "بدأ",
+    "opposite": "انتهى"
+  },
+  {
+    "word": "نام",
+    "opposite": "استيقظ"
+  },
+  {
+    "word": "جلس",
+    "opposite": "وقف"
+  },
+  {
+    "word": "قام",
+    "opposite": "قعد"
+  },
+  {
+    "word": "ابتسم",
+    "opposite": "عبس"
+  },
+  {
+    "word": "أعطى",
+    "opposite": "أخذ"
+  },
+  {
+    "word": "اشترى",
+    "opposite": "باع"
+  },
+  {
+    "word": "كسب",
+    "opposite": "خسر"
+  },
+  {
+    "word": "نجح",
+    "opposite": "رسب"
+  },
+  {
+    "word": "زاد",
+    "opposite": "نقص"
+  },
+  {
+    "word": "كبر",
+    "opposite": "صغر"
+  },
+  {
+    "word": "طال",
+    "opposite": "قصر"
+  },
+  {
+    "word": "حضر",
+    "opposite": "غاب"
+  },
+  {
+    "word": "ظهر",
+    "opposite": "اختفى"
+  },
+  {
+    "word": "أضاء",
+    "opposite": "أطفأ"
+  },
+  {
+    "word": "ملأ",
+    "opposite": "أفرغ"
+  },
+  {
+    "word": "رفع",
+    "opposite": "خفض"
+  },
+  {
+    "word": "بنى",
+    "opposite": "هدم"
+  },
+  {
+    "word": "ربط",
+    "opposite": "فك"
+  },
+  {
+    "word": "جمع",
+    "opposite": "فرق"
+  },
+  {
+    "word": "أضاف",
+    "opposite": "حذف"
+  },
+  {
+    "word": "تكلم",
+    "opposite": "سكت"
+  },
+  {
+    "word": "سأل",
+    "opposite": "أجاب"
+  },
+  {
+    "word": "نسي",
+    "opposite": "تذكر"
+  },
+  {
+    "word": "عرف",
+    "opposite": "جهل"
+  },
+  {
+    "word": "أحب",
+    "opposite": "كره"
+  },
+  {
+    "word": "خاف",
+    "opposite": "اطمأن"
+  },
+  {
+    "word": "قبول",
+    "opposite": "رفض"
+  },
+  {
+    "word": "وافق",
+    "opposite": "عارض"
+  },
+  {
+    "word": "سمح",
+    "opposite": "منع"
+  },
+  {
+    "word": "أرسل",
+    "opposite": "استقبل"
+  },
+  {
+    "word": "أخفى",
+    "opposite": "أظهر"
+  },
+  {
+    "word": "كسر",
+    "opposite": "أصلح"
+  },
+  {
+    "word": "لبس",
+    "opposite": "خلع"
+  },
+  {
+    "word": "دفع",
+    "opposite": "سحب"
+  },
+  {
+    "word": "عاش",
+    "opposite": "مات"
+  },
+  {
+    "word": "ولد",
+    "opposite": "توفي"
+  },
+  {
+    "word": "فاز",
+    "opposite": "خسر"
+  },
+  {
+    "word": "صام",
+    "opposite": "أفطر"
+  },
+  {
+    "word": "غرق",
+    "opposite": "طفا"
+  },
+  {
+    "word": "سقط",
+    "opposite": "نهض"
+  },
+  {
+    "word": "نجا",
+    "opposite": "هلك"
+  },
+  {
+    "word": "شد",
+    "opposite": "أرخى"
+  },
+  {
+    "word": "أشعل",
+    "opposite": "أطفأ"
+  },
+  {
+    "word": "اقترب",
+    "opposite": "ابتعد"
+  },
+  {
+    "word": "نظف",
+    "opposite": "وسخ"
+  },
+  {
+    "word": "وجد",
+    "opposite": "فقد"
+  },
+  {
+    "word": "هدأ",
+    "opposite": "ثار"
+  },
+  {
+    "word": "امتلأ",
+    "opposite": "فرغ"
+  },
+  {
+    "word": "استمر",
+    "opposite": "توقف"
+  },
+  {
+    "word": "أفاد",
+    "opposite": "أضر"
+  },
+  {
+    "word": "قدم",
+    "opposite": "أخر"
+  },
+  {
+    "word": "نطق",
+    "opposite": "سكت"
+  },
+  {
+    "word": "أحسن",
+    "opposite": "أساء"
+  },
+  {
+    "word": "اجتهد",
+    "opposite": "تكاسل"
+  },
+  {
+    "word": "عاقب",
+    "opposite": "كافأ"
+  },
+  {
+    "word": "أقبل",
+    "opposite": "أدبر"
+  },
+  {
+    "word": "أقلع",
+    "opposite": "هبط"
+  },
+  {
+    "word": "صرخ",
+    "opposite": "همس"
+  },
+  {
+    "word": "تعب",
+    "opposite": "ارتاح",
+    "accept": [
+      "راحة"
+    ]
+  },
+  {
+    "word": "برد",
+    "opposite": "سخن"
+  },
+  {
+    "word": "أسرف",
+    "opposite": "اقتصد"
+  },
+  {
+    "word": "متزوج",
+    "opposite": "أعزب"
+  },
+  {
+    "word": "شكر",
+    "opposite": "جحد"
+  },
+  {
+    "word": "أنكر",
+    "opposite": "اعترف"
+  },
+  {
+    "word": "خسر",
+    "opposite": "ربح",
+    "accept": [
+      "كسب",
+      "فاز"
+    ]
+  },
+  {
+    "word": "أخطأ",
+    "opposite": "أصاب"
+  },
+  {
+    "word": "زرع",
+    "opposite": "حصد"
+  },
+  {
+    "word": "أحيا",
+    "opposite": "أمات"
+  },
+  {
+    "word": "استعجل",
+    "opposite": "تمهل"
+  },
+  {
+    "word": "أطال",
+    "opposite": "اختصر"
+  },
+  {
+    "word": "وسع",
+    "opposite": "ضيق"
+  },
+  {
+    "word": "رحب",
+    "opposite": "طرد"
+  },
+  {
+    "word": "أهان",
+    "opposite": "أكرم"
+  },
+  {
+    "word": "أظلم",
+    "opposite": "أنار"
+  },
+  {
+    "word": "هبط",
+    "opposite": "ارتفع",
+    "accept": [
+      "أقلع"
+    ]
+  },
+  {
+    "word": "مبتهج",
+    "opposite": "كئيب"
+  },
+  {
+    "word": "افترق",
+    "opposite": "التقى"
+  },
+  {
+    "word": "احترم",
+    "opposite": "احتقر"
+  },
+  {
+    "word": "ممل",
+    "opposite": "ممتع"
+  },
+  {
+    "word": "عزيز",
+    "opposite": "ذليل"
+  },
+  {
+    "word": "صغير",
+    "opposite": "كبير"
+  },
+  {
+    "word": "قصير",
+    "opposite": "طويل"
+  },
+  {
+    "word": "ضيق",
+    "opposite": "واسع",
+    "accept": [
+      "وسع"
+    ]
+  },
+  {
+    "word": "رفيع",
+    "opposite": "سميك"
+  },
+  {
+    "word": "خفيف",
+    "opposite": "ثقيل"
+  },
+  {
+    "word": "ضعيف",
+    "opposite": "قوي"
+  },
+  {
+    "word": "بطيء",
+    "opposite": "سريع"
+  },
+  {
+    "word": "قديم",
+    "opposite": "جديد"
+  },
+  {
+    "word": "متسخ",
+    "opposite": "نظيف"
+  },
+  {
+    "word": "قبيح",
+    "opposite": "جميل"
+  },
+  {
+    "word": "صعب",
+    "opposite": "سهل"
+  },
+  {
+    "word": "فقير",
+    "opposite": "غني"
+  },
+  {
+    "word": "غبي",
+    "opposite": "ذكي"
+  },
+  {
+    "word": "جبان",
+    "opposite": "شجاع"
+  },
+  {
+    "word": "بخيل",
+    "opposite": "كريم"
+  },
+  {
+    "word": "كاذب",
+    "opposite": "صادق"
+  },
+  {
+    "word": "ضار",
+    "opposite": "مفيد"
+  },
+  {
+    "word": "مر",
+    "opposite": "حلو"
+  },
+  {
+    "word": "بارد",
+    "opposite": "حار",
+    "accept": [
+      "دافئ"
+    ]
+  },
+  {
+    "word": "بارد",
+    "opposite": "دافئ",
+    "accept": [
+      "حار"
+    ]
+  },
+  {
+    "word": "جاف",
+    "opposite": "مبلل"
+  },
+  {
+    "word": "خشن",
+    "opposite": "ناعم"
+  },
+  {
+    "word": "صلب",
+    "opposite": "لين"
+  },
+  {
+    "word": "فارغ",
+    "opposite": "ممتلئ"
+  },
+  {
+    "word": "ضحل",
+    "opposite": "عميق"
+  },
+  {
+    "word": "منخفض",
+    "opposite": "مرتفع"
+  },
+  {
+    "word": "بعيد",
+    "opposite": "قريب"
+  },
+  {
+    "word": "متأخر",
+    "opposite": "مبكر"
+  },
+  {
+    "word": "قليل",
+    "opposite": "كثير"
+  },
+  {
+    "word": "رخيص",
+    "opposite": "غالي"
+  },
+  {
+    "word": "مجهول",
+    "opposite": "مشهور"
+  },
+  {
+    "word": "غامض",
+    "opposite": "واضح"
+  },
+  {
+    "word": "معوج",
+    "opposite": "مستقيم"
+  },
+  {
+    "word": "ميت",
+    "opposite": "حي"
+  },
+  {
+    "word": "خاطئ",
+    "opposite": "صحيح"
+  },
+  {
+    "word": "وهمي",
+    "opposite": "حقيقي"
+  },
+  {
+    "word": "صناعي",
+    "opposite": "طبيعي"
+  },
+  {
+    "word": "خارجي",
+    "opposite": "داخلي"
+  },
+  {
+    "word": "خلفي",
+    "opposite": "أمامي"
+  },
+  {
+    "word": "سفلي",
+    "opposite": "علوي"
+  },
+  {
+    "word": "مغلق",
+    "opposite": "مفتوح"
+  },
+  {
+    "word": "مظلم",
+    "opposite": "مضيء"
+  },
+  {
+    "word": "متحرك",
+    "opposite": "ساكن"
+  },
+  {
+    "word": "متغير",
+    "opposite": "ثابت"
+  },
+  {
+    "word": "مؤقت",
+    "opposite": "دائم"
+  },
+  {
+    "word": "غائب",
+    "opposite": "حاضر"
+  },
+  {
+    "word": "مفقود",
+    "opposite": "موجود"
+  },
+  {
+    "word": "مستحيل",
+    "opposite": "ممكن"
+  },
+  {
+    "word": "ممنوع",
+    "opposite": "مسموح"
+  },
+  {
+    "word": "سري",
+    "opposite": "معلن"
+  },
+  {
+    "word": "خاص",
+    "opposite": "عام"
+  },
+  {
+    "word": "غريب",
+    "opposite": "مألوف"
+  },
+  {
+    "word": "متفرغ",
+    "opposite": "مشغول"
+  },
+  {
+    "word": "كسول",
+    "opposite": "نشيط"
+  },
+  {
+    "word": "مهمل",
+    "opposite": "مجتهد"
+  },
+  {
+    "word": "وقح",
+    "opposite": "مؤدب"
+  },
+  {
+    "word": "فظ",
+    "opposite": "لطيف"
+  },
+  {
+    "word": "عصبي",
+    "opposite": "هادئ"
+  },
+  {
+    "word": "حزين",
+    "opposite": "سعيد"
+  },
+  {
+    "word": "مهموم",
+    "opposite": "مسرور"
+  },
+  {
+    "word": "متعب",
+    "opposite": "مرتاح"
+  },
+  {
+    "word": "متشائم",
+    "opposite": "متفائل"
+  },
+  {
+    "word": "شائع",
+    "opposite": "نادر"
+  },
+  {
+    "word": "ناقص",
+    "opposite": "كامل"
+  },
+  {
+    "word": "فردي",
+    "opposite": "زوجي"
+  },
+  {
+    "word": "سالب",
+    "opposite": "موجب"
+  },
+  {
+    "word": "غامق",
+    "opposite": "فاتح"
+  },
+  {
+    "word": "حرام",
+    "opposite": "حلال"
+  },
+  {
+    "word": "ظالم",
+    "opposite": "عادل"
+  },
+  {
+    "word": "بريء",
+    "opposite": "مذنب"
+  },
+  {
+    "word": "أسير",
+    "opposite": "حر"
+  },
+  {
+    "word": "مغلوب",
+    "opposite": "غالب"
+  },
+  {
+    "word": "خاسر",
+    "opposite": "رابح"
+  },
+  {
+    "word": "سائل",
+    "opposite": "جامد"
+  },
+  {
+    "word": "قاس",
+    "opposite": "رحيم"
+  },
+  {
+    "word": "عجول",
+    "opposite": "صبور"
+  },
+  {
+    "word": "متكبر",
+    "opposite": "متواضع"
+  },
+  {
+    "word": "خائن",
+    "opposite": "أمين"
+  },
+  {
+    "word": "عاصي",
+    "opposite": "مطيع"
+  },
+  {
+    "word": "نائم",
+    "opposite": "يقظ"
+  },
+  {
+    "word": "شبعان",
+    "opposite": "جائع"
+  },
+  {
+    "word": "ضئيل",
+    "opposite": "ضخم"
+  },
+  {
+    "word": "نحيف",
+    "opposite": "سمين"
+  },
+  {
+    "word": "محترف",
+    "opposite": "مبتدئ"
+  },
+  {
+    "word": "يابس",
+    "opposite": "رطب"
+  },
+  {
+    "word": "قاحل",
+    "opposite": "خصب"
+  },
+  {
+    "word": "عذب",
+    "opposite": "مالح"
+  },
+  {
+    "word": "تحت",
+    "opposite": "فوق"
+  },
+  {
+    "word": "خلف",
+    "opposite": "أمام"
+  },
+  {
+    "word": "خارج",
+    "opposite": "داخل"
+  },
+  {
+    "word": "بعد",
+    "opposite": "قبل"
+  },
+  {
+    "word": "هناك",
+    "opposite": "هنا"
+  },
+  {
+    "word": "يسار",
+    "opposite": "يمين"
+  },
+  {
+    "word": "جنوب",
+    "opposite": "شمال"
+  },
+  {
+    "word": "غرب",
+    "opposite": "شرق"
+  },
+  {
+    "word": "أخير",
+    "opposite": "أول"
+  },
+  {
+    "word": "أدنى",
+    "opposite": "أعلى"
+  },
+  {
+    "word": "طرف",
+    "opposite": "وسط"
+  },
+  {
+    "word": "قاع",
+    "opposite": "قمة"
+  },
+  {
+    "word": "عمق",
+    "opposite": "سطح"
+  },
+  {
+    "word": "نهاية",
+    "opposite": "بداية"
+  },
+  {
+    "word": "غد",
+    "opposite": "أمس"
+  },
+  {
+    "word": "ظلام",
+    "opposite": "نور"
+  },
+  {
+    "word": "عتمة",
+    "opposite": "ضوء"
+  },
+  {
+    "word": "ليل",
+    "opposite": "نهار"
+  },
+  {
+    "word": "مساء",
+    "opposite": "صباح"
+  },
+  {
+    "word": "غروب",
+    "opposite": "شروق"
+  },
+  {
+    "word": "شتاء",
+    "opposite": "صيف"
+  },
+  {
+    "word": "خريف",
+    "opposite": "ربيع"
+  },
+  {
+    "word": "سلام",
+    "opposite": "حرب"
+  },
+  {
+    "word": "كره",
+    "opposite": "حب",
+    "accept": [
+      "أحب"
+    ]
+  },
+  {
+    "word": "حزن",
+    "opposite": "فرح"
+  },
+  {
+    "word": "بكاء",
+    "opposite": "ضحك"
+  },
+  {
+    "word": "يأس",
+    "opposite": "أمل"
+  },
+  {
+    "word": "شر",
+    "opposite": "خير"
+  },
+  {
+    "word": "كذب",
+    "opposite": "صدق"
+  },
+  {
+    "word": "ظلم",
+    "opposite": "عدل"
+  },
+  {
+    "word": "باطل",
+    "opposite": "حق"
+  },
+  {
+    "word": "فشل",
+    "opposite": "نجاح"
+  },
+  {
+    "word": "هزيمة",
+    "opposite": "فوز",
+    "accept": [
+      "نصر"
+    ]
+  },
+  {
+    "word": "خسارة",
+    "opposite": "ربح"
+  },
+  {
+    "word": "ضعف",
+    "opposite": "قوة"
+  },
+  {
+    "word": "فقر",
+    "opposite": "غنى"
+  },
+  {
+    "word": "جهل",
+    "opposite": "علم",
+    "accept": [
+      "عرف"
+    ]
+  },
+  {
+    "word": "موت",
+    "opposite": "حياة"
+  },
+  {
+    "word": "مرض",
+    "opposite": "صحة"
+  },
+  {
+    "word": "نوم",
+    "opposite": "يقظة",
+    "accept": [
+      "استيقاظ"
+    ]
+  },
+  {
+    "word": "شبع",
+    "opposite": "جوع"
+  },
+  {
+    "word": "برودة",
+    "opposite": "حرارة"
+  },
+  {
+    "word": "رطوبة",
+    "opposite": "جفاف"
+  },
+  {
+    "word": "بطء",
+    "opposite": "سرعة"
+  },
+  {
+    "word": "قصر",
+    "opposite": "طول",
+    "accept": [
+      "طال"
+    ]
+  },
+  {
+    "word": "بخل",
+    "opposite": "كرم"
+  },
+  {
+    "word": "جبن",
+    "opposite": "شجاعة"
+  },
+  {
+    "word": "جزع",
+    "opposite": "صبر"
+  },
+  {
+    "word": "تكبر",
+    "opposite": "تواضع"
+  },
+  {
+    "word": "فوضى",
+    "opposite": "نظام"
+  },
+  {
+    "word": "هدم",
+    "opposite": "بناء",
+    "accept": [
+      "بنى"
+    ]
+  },
+  {
+    "word": "نقصان",
+    "opposite": "زيادة"
+  },
+  {
+    "word": "انخفاض",
+    "opposite": "ارتفاع"
+  },
+  {
+    "word": "تأخر",
+    "opposite": "تقدم"
+  },
+  {
+    "word": "ابتعاد",
+    "opposite": "اقتراب"
+  },
+  {
+    "word": "افتراق",
+    "opposite": "اجتماع"
+  },
+  {
+    "word": "وداع",
+    "opposite": "لقاء"
+  },
+  {
+    "word": "جواب",
+    "opposite": "سؤال"
+  },
+  {
+    "word": "شراء",
+    "opposite": "بيع"
+  },
+  {
+    "word": "عطاء",
+    "opposite": "أخذ"
+  },
+  {
+    "word": "ذم",
+    "opposite": "مدح"
+  },
+  {
+    "word": "نسيان",
+    "opposite": "تذكر"
+  },
+  {
+    "word": "كلام",
+    "opposite": "صمت"
+  },
+  {
+    "word": "حركة",
+    "opposite": "سكون"
+  },
+  {
+    "word": "ضجيج",
+    "opposite": "هدوء"
+  },
+  {
+    "word": "عقاب",
+    "opposite": "ثواب"
+  },
+  {
+    "word": "عقوبة",
+    "opposite": "مكافأة"
+  },
+  {
+    "word": "عصيان",
+    "opposite": "طاعة"
+  },
+  {
+    "word": "سهولة",
+    "opposite": "صعوبة"
+  },
+  {
+    "word": "قلة",
+    "opposite": "كثرة"
+  },
+  {
+    "word": "شك",
+    "opposite": "يقين"
+  },
+  {
+    "word": "خيال",
+    "opposite": "حقيقة"
+  },
+  {
+    "word": "وهم",
+    "opposite": "واقع"
+  },
+  {
+    "word": "ضرر",
+    "opposite": "نفع"
+  },
+  {
+    "word": "ندرة",
+    "opposite": "وفرة"
+  },
+  {
+    "word": "عسر",
+    "opposite": "يسر"
+  },
+  {
+    "word": "تعب",
+    "opposite": "راحة",
+    "accept": [
+      "ارتاح"
+    ]
+  },
+  {
+    "word": "جد",
+    "opposite": "هزل",
+    "accept": [
+      "جدة"
+    ]
+  },
+  {
+    "word": "سواد",
+    "opposite": "بياض"
+  },
+  {
+    "word": "كسل",
+    "opposite": "نشاط"
+  },
+  {
+    "word": "شيخوخة",
+    "opposite": "طفولة"
+  },
+  {
+    "word": "دفاع",
+    "opposite": "هجوم"
+  },
+  {
+    "word": "هزيمة",
+    "opposite": "نصر",
+    "accept": [
+      "فوز"
+    ]
+  },
+  {
+    "word": "إقلاع",
+    "opposite": "هبوط"
+  },
+  {
+    "word": "استيراد",
+    "opposite": "تصدير"
+  },
+  {
+    "word": "عودة",
+    "opposite": "هجرة"
+  },
+  {
+    "word": "حضور",
+    "opposite": "غياب"
+  },
+  {
+    "word": "أرض",
+    "opposite": "سماء"
+  },
+  {
+    "word": "بحر",
+    "opposite": "بر"
+  },
+  {
+    "word": "أسر",
+    "opposite": "حرية"
+  },
+  {
+    "word": "أنثى",
+    "opposite": "ذكر"
+  },
+  {
+    "word": "امرأة",
+    "opposite": "رجل"
+  },
+  {
+    "word": "فتاة",
+    "opposite": "صبي"
+  },
+  {
+    "word": "أم",
+    "opposite": "أب"
+  },
+  {
+    "word": "بنت",
+    "opposite": "ابن"
+  },
+  {
+    "word": "أخت",
+    "opposite": "أخ"
+  },
+  {
+    "word": "جدة",
+    "opposite": "جد"
+  },
+  {
+    "word": "زوجة",
+    "opposite": "زوج"
+  },
+  {
+    "word": "طالب",
+    "opposite": "معلم"
+  },
+  {
+    "word": "عدو",
+    "opposite": "صديق"
+  },
+  {
+    "word": "تابع",
+    "opposite": "قائد"
+  },
+  {
+    "word": "شاب",
+    "opposite": "شيخ"
+  },
+  {
+    "word": "مرؤوس",
+    "opposite": "رئيس"
+  },
+  {
+    "word": "مشتري",
+    "opposite": "بائع"
+  },
+  {
+    "word": "مستقبل",
+    "opposite": "مرسل"
+  },
+  {
+    "word": "جاهل",
+    "opposite": "عالم"
+  },
+  {
+    "word": "أحمق",
+    "opposite": "حكيم"
+  },
+  {
+    "word": "إيجابي",
+    "opposite": "سلبي"
+  },
+  {
+    "word": "أسود",
+    "opposite": "أبيض"
+  },
+  {
+    "word": "حل",
+    "opposite": "مشكلة"
+  },
+  {
+    "word": "إقامة",
+    "opposite": "سفر"
+  },
+  {
+    "word": "خروج",
+    "opposite": "دخول"
+  },
+  {
+    "word": "نزول",
+    "opposite": "صعود"
+  },
+  {
+    "word": "رحيل",
+    "opposite": "وصول"
+  },
+  {
+    "word": "إياب",
+    "opposite": "ذهاب"
+  },
+  {
+    "word": "نوم",
+    "opposite": "استيقاظ",
+    "accept": [
+      "يقظة"
+    ]
+  },
+  {
+    "word": "قعود",
+    "opposite": "قيام"
+  },
+  {
+    "word": "اختفاء",
+    "opposite": "ظهور"
+  },
+  {
+    "word": "أقل",
+    "opposite": "أكثر"
+  },
+  {
+    "word": "أسوأ",
+    "opposite": "أفضل"
+  },
+  {
+    "word": "أضعف",
+    "opposite": "أقوى"
+  },
+  {
+    "word": "أصغر",
+    "opposite": "أكبر"
+  },
+  {
+    "word": "أقصر",
+    "opposite": "أطول"
+  },
+  {
+    "word": "أبطأ",
+    "opposite": "أسرع"
+  },
+  {
+    "word": "أرخص",
+    "opposite": "أغلى"
+  },
+  {
+    "word": "أبعد",
+    "opposite": "أقرب"
+  },
+  {
+    "word": "أخف",
+    "opposite": "أثقل"
+  },
+  {
+    "word": "أغلق",
+    "opposite": "فتح"
+  },
+  {
+    "word": "خرج",
+    "opposite": "دخل"
+  },
+  {
+    "word": "نزل",
+    "opposite": "صعد"
+  },
+  {
+    "word": "عاد",
+    "opposite": "ذهب"
+  },
+  {
+    "word": "رحل",
+    "opposite": "جاء"
+  },
+  {
+    "word": "غادر",
+    "opposite": "وصل"
+  },
+  {
+    "word": "انتهى",
+    "opposite": "بدأ"
+  },
+  {
+    "word": "استيقظ",
+    "opposite": "نام"
+  },
+  {
+    "word": "وقف",
+    "opposite": "جلس"
+  },
+  {
+    "word": "قعد",
+    "opposite": "قام"
+  },
+  {
+    "word": "عبس",
+    "opposite": "ابتسم"
+  },
+  {
+    "word": "أخذ",
+    "opposite": "أعطى",
+    "accept": [
+      "عطاء"
+    ]
+  },
+  {
+    "word": "باع",
+    "opposite": "اشترى"
+  },
+  {
+    "word": "خسر",
+    "opposite": "كسب",
+    "accept": [
+      "ربح",
+      "فاز"
+    ]
+  },
+  {
+    "word": "رسب",
+    "opposite": "نجح"
+  },
+  {
+    "word": "نقص",
+    "opposite": "زاد"
+  },
+  {
+    "word": "صغر",
+    "opposite": "كبر"
+  },
+  {
+    "word": "قصر",
+    "opposite": "طال",
+    "accept": [
+      "طول"
+    ]
+  },
+  {
+    "word": "غاب",
+    "opposite": "حضر"
+  },
+  {
+    "word": "اختفى",
+    "opposite": "ظهر"
+  },
+  {
+    "word": "أطفأ",
+    "opposite": "أضاء",
+    "accept": [
+      "أشعل"
+    ]
+  },
+  {
+    "word": "أفرغ",
+    "opposite": "ملأ"
+  },
+  {
+    "word": "خفض",
+    "opposite": "رفع"
+  },
+  {
+    "word": "هدم",
+    "opposite": "بنى",
+    "accept": [
+      "بناء"
+    ]
+  },
+  {
+    "word": "فك",
+    "opposite": "ربط"
+  },
+  {
+    "word": "فرق",
+    "opposite": "جمع"
+  },
+  {
+    "word": "حذف",
+    "opposite": "أضاف"
+  },
+  {
+    "word": "سكت",
+    "opposite": "تكلم",
+    "accept": [
+      "نطق"
+    ]
+  },
+  {
+    "word": "أجاب",
+    "opposite": "سأل"
+  },
+  {
+    "word": "تذكر",
+    "opposite": "نسي",
+    "accept": [
+      "نسيان"
+    ]
+  },
+  {
+    "word": "جهل",
+    "opposite": "عرف",
+    "accept": [
+      "علم"
+    ]
+  },
+  {
+    "word": "كره",
+    "opposite": "أحب",
+    "accept": [
+      "حب"
+    ]
+  },
+  {
+    "word": "اطمأن",
+    "opposite": "خاف"
+  },
+  {
+    "word": "رفض",
+    "opposite": "قبول"
+  },
+  {
+    "word": "عارض",
+    "opposite": "وافق"
+  },
+  {
+    "word": "منع",
+    "opposite": "سمح"
+  },
+  {
+    "word": "استقبل",
+    "opposite": "أرسل"
+  },
+  {
+    "word": "أظهر",
+    "opposite": "أخفى"
+  },
+  {
+    "word": "أصلح",
+    "opposite": "كسر"
+  },
+  {
+    "word": "خلع",
+    "opposite": "لبس"
+  },
+  {
+    "word": "سحب",
+    "opposite": "دفع"
+  },
+  {
+    "word": "مات",
+    "opposite": "عاش"
+  },
+  {
+    "word": "توفي",
+    "opposite": "ولد"
+  },
+  {
+    "word": "خسر",
+    "opposite": "فاز",
+    "accept": [
+      "ربح",
+      "كسب"
+    ]
+  },
+  {
+    "word": "أفطر",
+    "opposite": "صام"
+  },
+  {
+    "word": "طفا",
+    "opposite": "غرق"
+  },
+  {
+    "word": "نهض",
+    "opposite": "سقط"
+  },
+  {
+    "word": "هلك",
+    "opposite": "نجا"
+  },
+  {
+    "word": "أرخى",
+    "opposite": "شد"
+  },
+  {
+    "word": "أطفأ",
+    "opposite": "أشعل",
+    "accept": [
+      "أضاء"
+    ]
+  },
+  {
+    "word": "ابتعد",
+    "opposite": "اقترب"
+  },
+  {
+    "word": "وسخ",
+    "opposite": "نظف"
+  },
+  {
+    "word": "فقد",
+    "opposite": "وجد"
+  },
+  {
+    "word": "ثار",
+    "opposite": "هدأ"
+  },
+  {
+    "word": "فرغ",
+    "opposite": "امتلأ"
+  },
+  {
+    "word": "توقف",
+    "opposite": "استمر"
+  },
+  {
+    "word": "أضر",
+    "opposite": "أفاد"
+  },
+  {
+    "word": "أخر",
+    "opposite": "قدم"
+  },
+  {
+    "word": "سكت",
+    "opposite": "نطق",
+    "accept": [
+      "تكلم"
+    ]
+  },
+  {
+    "word": "أساء",
+    "opposite": "أحسن"
+  },
+  {
+    "word": "تكاسل",
+    "opposite": "اجتهد"
+  },
+  {
+    "word": "كافأ",
+    "opposite": "عاقب"
+  },
+  {
+    "word": "أدبر",
+    "opposite": "أقبل"
+  },
+  {
+    "word": "هبط",
+    "opposite": "أقلع",
+    "accept": [
+      "ارتفع"
+    ]
+  },
+  {
+    "word": "همس",
+    "opposite": "صرخ"
+  },
+  {
+    "word": "ارتاح",
+    "opposite": "تعب"
+  },
+  {
+    "word": "سخن",
+    "opposite": "برد"
+  },
+  {
+    "word": "اقتصد",
+    "opposite": "أسرف"
+  },
+  {
+    "word": "أعزب",
+    "opposite": "متزوج"
+  },
+  {
+    "word": "جحد",
+    "opposite": "شكر"
+  },
+  {
+    "word": "اعترف",
+    "opposite": "أنكر"
+  },
+  {
+    "word": "ربح",
+    "opposite": "خسر",
+    "accept": [
+      "خسارة"
+    ]
+  },
+  {
+    "word": "أصاب",
+    "opposite": "أخطأ"
+  },
+  {
+    "word": "حصد",
+    "opposite": "زرع"
+  },
+  {
+    "word": "أمات",
+    "opposite": "أحيا"
+  },
+  {
+    "word": "تمهل",
+    "opposite": "استعجل"
+  },
+  {
+    "word": "اختصر",
+    "opposite": "أطال"
+  },
+  {
+    "word": "ضيق",
+    "opposite": "وسع",
+    "accept": [
+      "واسع"
+    ]
+  },
+  {
+    "word": "طرد",
+    "opposite": "رحب"
+  },
+  {
+    "word": "أكرم",
+    "opposite": "أهان"
+  },
+  {
+    "word": "أنار",
+    "opposite": "أظلم"
+  },
+  {
+    "word": "ارتفع",
+    "opposite": "هبط"
+  },
+  {
+    "word": "كئيب",
+    "opposite": "مبتهج"
+  },
+  {
+    "word": "التقى",
+    "opposite": "افترق"
+  },
+  {
+    "word": "احتقر",
+    "opposite": "احترم"
+  },
+  {
+    "word": "ممتع",
+    "opposite": "ممل"
+  },
+  {
+    "word": "ذليل",
+    "opposite": "عزيز"
+  }
 ]

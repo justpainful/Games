@@ -77,6 +77,7 @@ function pick(): Question {
 
 export default defineGame({
   key: 'hisab',
+  mode: 'game',
   name: 'حساب',
   aliases: ['متتابعة'],
   tagline: 'أكمل المتتابعة قبل الجميع',

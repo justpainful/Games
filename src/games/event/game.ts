@@ -46,6 +46,7 @@ function build(): Source[] {
 
 export default defineGame({
   key: 'event',
+  mode: 'game',
   name: 'ايفنت',
   aliases: ['إيفنت'],
   tagline: 'مسابقة كبيرة تخلط كل أنواع الأسئلة',

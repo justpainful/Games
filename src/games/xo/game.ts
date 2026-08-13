@@ -200,6 +200,7 @@ async function draw(
 
 export default defineGame({
   key: 'xo',
+  mode: 'event',
   name: 'xo',
   aliases: ['اكس او', 'إكس أو', 'إكس-أو'],
   tagline: 'ثلاث خانات في صف واحد',

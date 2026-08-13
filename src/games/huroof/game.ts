@@ -163,6 +163,7 @@ async function play(table: Table): Promise<GameResult> {
 
 export default defineGame({
   key: 'huroof',
+  mode: 'game',
   name: 'حروف',
   tagline: 'صف حروف، وكلمة تبدأ بواحد منها',
   howTo:

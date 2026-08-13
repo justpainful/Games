@@ -23,6 +23,7 @@ const HIDER_POINT = 3
 
 export default defineGame({
   key: 'hide',
+  mode: 'event',
   name: 'هايد',
   aliases: ['هايد اند سيك', 'اختبئ'],
   tagline: 'واحد يختبئ في خانة، والبقية يبحثون بمحاولات معدودة',

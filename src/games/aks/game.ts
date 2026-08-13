@@ -2,7 +2,15 @@ import { dealer, loadData } from '../data.ts'
 import { defineGame } from '../define.ts'
 import { typing } from '../typing.ts'
 
-type Pair = { word: string; opposite: string }
+/**
+ * `accept` بدائل الضدّ الصحيحة.
+ *
+ * الملف يحمل الزوج في اتجاهيه: «كبير ← صغير» و«صغير ← كبير». وبعض الكلمات لها
+ * ضدّان مقبولان — «بارد» ضدّها «حار» وضدّها «دافئ» — فالقلب يجعل الاثنين
+ * إجابتين صحيحتين للسؤال نفسه. وبلا هذا الحقل يُخطَّأ من كتب الثاني، وهو
+ * أسوأ ما يقع في لعبة لغة: أن تقول للاعب «خطأ» وهو مصيب.
+ */
+type Pair = { word: string; opposite: string; accept?: string[] }
 
 /** التحميل مؤجّل إلى أول جولة — انظر التعليق نفسه في «جمع». */
 let deal: (() => Pair) | undefined
@@ -13,6 +21,7 @@ function next(): Pair {
 
 export default defineGame({
   key: 'aks',
+  mode: 'game',
   name: 'عكس',
   tagline: 'كلمة تظهر، وضدّها يفوز',
   howTo:
@@ -25,7 +34,12 @@ export default defineGame({
     roundMs: 18_000,
     pick: () => {
       const pair = next()
-      return { prompt: pair.word, answer: pair.opposite, hint: 'اكتب عكس هذه الكلمة' }
+      return {
+        prompt: pair.word,
+        answer: pair.opposite,
+        ...(pair.accept ? { accept: pair.accept } : {}),
+        hint: 'اكتب عكس هذه الكلمة',
+      }
     },
   }),
 })

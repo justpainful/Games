@@ -18,14 +18,14 @@ export function lobbyScene(s: LobbyScene): string {
 
       <div class="scene__body">
         <!-- عمود اللاعبين — يمينًا -->
-        <aside class="stack" style="width: 400px">
+        <aside class="stack" style="width: 300px">
           <div class="bar">
             <span>اللاعبين</span>
             <span class="bar__count">${s.players.length}/${s.max}</span>
           </div>
 
           <div class="card grow stack stack--lg">
-            ${slots.map((p, i) => playerRow(p, i === 0 && s.host !== null))}
+            ${slots.map((p, i) => playerRow(p, i === 0 && s.host !== null, slots.length > 5))}
             <!-- يملأ فراغ العمود في الألعاب الثنائية بمعلومة بدل أن يتركه خاويًا -->
             <div class="grow"></div>
             ${waitNote(s.players.length, s.min, s.max)}
@@ -42,23 +42,10 @@ export function lobbyScene(s: LobbyScene): string {
             ${marks()}
           </div>
 
-          <div class="card grow stack stack--lg">
-            <div class="row" style="align-items: stretch">
-              ${column(
-                'قائد اللعبة',
-                'إذا جهز جميع اللاعبين، ابدأ اللعبة',
-                'btn--start',
-                'بدء اللعبة',
-              )}
-              <div class="rule--v"></div>
-              ${column(
-                'دخول إلى اللعبة',
-                'ادخل اللعبة وانتظر القائد حتى يبدأ',
-                'btn--join',
-                'الدخول للعبة',
-              )}
-            </div>
-
+          <div class="card grow stack">
+            ${step('btn--start', 'بدء اللعبة', 'للقائد إذا جهز الجميع')}
+            <hr class="rule" />
+            ${step('btn--join', 'الدخول للعبة', 'ادخل وانتظر حتى يبدأ')}
             <hr class="rule" />
 
             <div class="stack" style="gap: 6px">
@@ -111,21 +98,37 @@ function waitNote(count: number, min: number, max: number): Html {
       </div>`
 }
 
-function column(title: string, hint: string, btnClass: string, btnText: string): Html {
+/**
+ * خطوة واحدة: الزر ثم شرحه في سطر واحد.
+ *
+ * كانت الخطوتان عمودين متجاورين بعنوان فوق كل زر، وذلك يعمل على لوحة عريضة.
+ * وحين ضاقت اللوحة إلى 1180 صار العمود أضيق من عنوانه فانكسر «دخول إلى اللعبة»
+ * سطرين وانشقّت علامتا التنصيص بينهما، ثم امتدّت الصورة طولًا حتى صغّرها
+ * ديسكورد. والصفّ يحلّ الأمرين: الزر يقول ما يُضغط والسطر بجانبه يقول متى،
+ * فسقط العنوان لأنه كان يكرّر نصّ الزر.
+ */
+function step(btnClass: string, btnText: string, hint: string): Html {
   return html`
-    <div class="stack stack--lg center grow" style="padding: 0 var(--space-base)">
-      <h2 class="title title--quoted">${title}</h2>
+    <div class="row" style="align-items: center; gap: var(--space-base)">
+      <span class="btn ${raw(btnClass)}" style="flex: none">${btnText}</span>
       <p class="text grow">${hint}</p>
-      <span class="btn ${raw(btnClass)}">${btnText}</span>
     </div>
   `
 }
 
-function playerRow(p: PlayerView | null, isHost: boolean): Html {
+/**
+ * صف لاعب. `compact` يصغّر الأفتار وحده لا الاسم.
+ *
+ * لعبة تتّسع لخمسة وعشرين تعرض قائمة تطول بطول اللوبي، وأفتار 76 بكسل في كل
+ * صف يجعل الصورة أطول من عرضها فيصغّرها ديسكورد ويصغر الاسم معها. والأفتار
+ * صورة صغيرة أصلًا لا تُقرأ، أما الاسم فهو ما يبحث عنه اللاعب — فيُصغَّر
+ * الأول ليبقى الثاني.
+ */
+function playerRow(p: PlayerView | null, isHost: boolean, compact = false): Html {
   return html`
     <div class="player ${raw(isHost ? 'player--host' : '')}">
       <div class="player__slot">
-        ${avatar(p?.avatar ?? null)}${isHost && p
+        ${avatar(p?.avatar ?? null, compact ? 'avatar--sm' : '')}${isHost && p
           ? raw(`<span class="player__crown">${icon('crown', { size: 24, stroke: 2.6 })}</span>`)
           : ''}
       </div>
@@ -148,16 +151,16 @@ function playerRow(p: PlayerView | null, isHost: boolean): Html {
  */
 function marks(): Html {
   return raw(`
-    <div style="position:relative; flex:none; width:196px; height:196px">
+    <div style="position:relative; flex:none; width:150px; height:150px">
       <!-- إطار مربّع بلا preserveAspectRatio=none، وإلا انسحقت الكتلة إلى بيضة -->
-      <svg width="196" height="196" viewBox="-6 -6 214 214" fill="none"
+      <svg width="150" height="150" viewBox="-6 -6 214 214" fill="none"
            style="position:absolute; inset:0">
         <path d="M181 60c13 33 5 76-17 101c-22 25-58 32-90 25c-32-7-60-28-69-58c-9-30 1-69 24-92C71 13 108 6 138 15c30 9 30 12 43 45z"
               fill="var(--color-paper)" stroke="var(--color-ink)" stroke-width="7"
               stroke-linejoin="round"/>
       </svg>
-      <svg width="148" height="85" viewBox="0 0 168 96" fill="none"
-           style="position:absolute; inset-inline-start:24px; top:56px">
+      <svg width="114" height="65" viewBox="0 0 168 96" fill="none"
+           style="position:absolute; inset-inline-start:18px; top:43px">
         <path d="M16 16 L64 80 M64 16 L16 80" stroke="var(--color-red)"
               stroke-width="17" stroke-linecap="round"/>
         <circle cx="124" cy="48" r="29" stroke="var(--color-yellow)" stroke-width="17"/>

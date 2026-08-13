@@ -1,6 +1,6 @@
 import { matches } from '../arabic.ts'
 import { EMOJI } from '../design/emoji.ts'
-import type { Scene } from '../scenes/scene.ts'
+import type { PlayerView, Scene } from '../scenes/scene.ts'
 import type { GameResult, Table } from './define.ts'
 import { zeroScores } from './define.ts'
 
@@ -44,11 +44,34 @@ const DEFAULT_ROUND_MS = 25_000
 const BREATH_MS = 2_500
 
 export function typing(opts: TypingOptions) {
-  const rounds = opts.rounds ?? DEFAULT_ROUNDS
   const roundMs = opts.roundMs ?? DEFAULT_ROUND_MS
 
   return async function play(table: Table): Promise<GameResult> {
+    /**
+     * اللعبة المفتوحة جولة واحدة، والفعالية عدد اللعبة.
+     *
+     * الفرق ليس في الرقم بل في العقد: اللعبة تُفتح لمن في القناة بلا انضمام،
+     * فبقاؤها عشر جولات يحتجز القناة عشر دقائق لمن لم يطلبها. وجولة واحدة
+     * تنتهي بنفسها، ومن أرادها ثانيةً كتب أمرها.
+     *
+     * و`table.open` يعلو على `opts.rounds` ولا يتنازل لها. كل لعبة مفتوحة
+     * تعلن عشر جولات في تعريفها، فلو كان تفضيلها هو الحاكم لما تغيّر شيء
+     * إطلاقًا: تبقى اللعبة عشر جولات، وتصير كل جولة فعالية عشرَ جولات فتنهار
+     * المناوبة التي قامت عليها الفعالية. والعدد المعلن يخدم الفعالية وحدها.
+     */
+    const rounds = table.open ? 1 : (opts.rounds ?? DEFAULT_ROUNDS)
+    const single = rounds === 1
+
+    /**
+     * في اللعبة المفتوحة لا روستر مسبق: من أجاب صحيحًا دخل السجلّ حينها.
+     *
+     * `zeroScores` تبني الخريطة من `table.players`، وهي فارغة هنا لأن أحدًا
+     * لم ينضم. ولو بقي الشرط `scores.has(userId)` كما هو لرُفض كل من كتب،
+     * فتخرج اللعبة صامتة لا يفوز فيها أحد.
+     */
     const scores = zeroScores(table.players)
+    /** من شارك فعلًا: يبدأ بالمنضمّين، ويكبر بمن يجيب في الطاولة المفتوحة. */
+    const roster = new Map(table.players.map((p) => [p.id, p]))
 
     for (let round = 1; round <= rounds; round++) {
       if (table.aborted) break
@@ -73,8 +96,9 @@ export function typing(opts: TypingOptions) {
       })
 
       const hit = await table.waitChat(roundMs, (input) => {
-        // اللاعبون فقط — المتفرّجون لا يسرقون الجولة
-        if (!scores.has(input.userId)) return false
+        // اللاعبون فقط في الفعالية — المتفرّجون لا يسرقون الجولة.
+        // وفي اللعبة المفتوحة لا متفرّجين أصلًا: من في القناة لاعب.
+        if (!table.open && !scores.has(input.userId)) return false
         return opts.check
           ? opts.check(input.text, q)
           : matches(input.text, q.answer, q.accept)
@@ -83,22 +107,98 @@ export function typing(opts: TypingOptions) {
       if (table.aborted) break
 
       if (hit) {
+        if (!roster.has(hit.userId)) {
+          roster.set(hit.userId, {
+            id: hit.userId,
+            name: hit.name ?? 'لاعب',
+            avatar: hit.avatar ?? null,
+          })
+        }
         scores.set(hit.userId, (scores.get(hit.userId) ?? 0) + 1)
-        await table.say(`<@${hit.userId}> جاوب صح — **${q.answer}**`)
+      }
+
+      /**
+       * الجولة الواحدة تُعلن مرة واحدة.
+       *
+       * كانت تُعلن مرتين: سطر «جاوب صح» ثم صورة نتيجة نهائية تقول الشيء نفسه
+       * عن الشخص نفسه بعده بثانيتين. وذلك مقبول في عشر جولات لأن الصورة تلخّص
+       * سباقًا، وثقيل في جولة واحدة لأن لا شيء ليُلخَّص. وفي الفعالية يتضاعف
+       * الثقل: كل جولة صورة.
+       */
+      if (!single) {
+        await table.say(
+          hit
+            ? `<@${hit.userId}> جاوب صح — **${q.answer}**`
+            : `انتهى الوقت. الإجابة كانت **${q.answer}**`,
+        )
       } else {
-        await table.say(`انتهى الوقت. الإجابة كانت **${q.answer}**`)
+        await announce(table, hit?.userId ?? null, q.answer, scores.get(hit?.userId ?? '') ?? 0)
       }
 
       if (round < rounds) await table.sleep(BREATH_MS)
     }
 
-    return finish(table, scores)
+    if (single) return settle(scores)
+    return finish(table, scores, [...roster.values()])
   }
 }
 
+/**
+ * إعلان الجولة الواحدة: سطر واحد وزر معطّل يحمل النقطة.
+ *
+ * بلا صورة عمدًا. الصورة تخدم مقارنة بين لاعبين أو لوحة تتبدّل، وليس هنا أيٌّ
+ * منهما: اسم واحد ورقم واحد. وإرسالها يكلّف رندرًا ورفعًا ونصف شاشة عند من
+ * يقرأ من جواله، مقابل معلومة تسعها كلمتان.
+ *
+ * والنقطة على زر لا داخل النص: الرقم في وسط الجملة يُقرأ مع الكلام ويضيع،
+ * وعلى زرٍّ يقف وحده فيُرى قبل أن يُقرأ.
+ */
+async function announce(
+  table: Table,
+  winnerId: string | null,
+  answer: string,
+  points: number,
+): Promise<void> {
+  if (!winnerId) {
+    await table.say(`${EMOJI.st_timer} خلص الوقت وما جاوب أحد · الجواب **${answer}**`)
+    return
+  }
+
+  await table.say(`${EMOJI.win_check} <@${winnerId}> سبق الجميع · الجواب **${answer}**`, {
+    buttons: [
+      {
+        id: 'points:earned',
+        label: pointsLabel(points),
+        style: 'plain',
+        disabled: true,
+        emoji: EMOJI.win_star,
+      },
+    ],
+  })
+}
+
+/** تمييز العدد: نقطة، نقطتان، ثم نقاط. «1 نقاط» يقرأها العربي خطأً مطبعيًا. */
+function pointsLabel(points: number): string {
+  if (points === 1) return 'نقطة'
+  if (points === 2) return 'نقطتان'
+  return `${points} نقاط`
+}
+
+/** نتيجة الجولة الواحدة بلا مشهد: الإعلان صدر مع الجولة نفسها. */
+function settle(scores: Map<string, number>): GameResult {
+  const best = [...scores.entries()].sort((a, b) => b[1] - a[1])[0]
+  const winnerId = best && best[1] > 0 ? best[0] : null
+  return { winnerId, scores }
+}
+
 /** ترتيب نهائي + مشهد الصدارة. مشترك بين كل ألعاب الكتابة. */
-export async function finish(table: Table, scores: Map<string, number>): Promise<GameResult> {
-  const rows = table.players
+export async function finish(
+  table: Table,
+  scores: Map<string, number>,
+  roster?: PlayerView[],
+): Promise<GameResult> {
+  // الطاولة المفتوحة لا روستر لها في `table.players`، فيُمرَّر من جمعته الجولة
+  const rows = (roster ?? table.players)
     .map((player) => ({ player, score: scores.get(player.id) ?? 0 }))
     .sort((a, b) => b.score - a.score)
 
