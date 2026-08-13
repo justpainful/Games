@@ -40,6 +40,7 @@ export type Scene =
   | PanelScene
   | NoticeScene
   | CodenamesScene
+  | CardsScene
 
 /**
  * بطاقة اللاعب: هويته، وخريطة نشاطه، وأربعة أرقام تلخّصه.
@@ -218,6 +219,40 @@ export type CodenamesScene = {
   clue?: { word: string; count: number } | null
   /** كم بقي لكل فريق */
   left: { red: number; blue: number }
+  note?: string
+}
+
+/** وجه ورقة في «لايرز بار». `joker` يطابق أي مطلب. */
+export type CardFace = 'ace' | 'king' | 'queen' | 'joker'
+
+/**
+ * طاولة أوراق مخفية — «لايرز بار».
+ *
+ * مشهد واحد يخدم ثلاث حالات: الطاولة العامة التي لا يُرى فيها إلا **عدد**
+ * الأوراق، ويد اللاعب في رسالته المخفية، ولحظة الكشف بعد الاتهام. والفرق
+ * بينها حقول تُملأ أو تُترك، لا ثلاثة قوالب: الكشف يجب أن يظهر في نفس
+ * الإطار الذي رأى فيه اللاعبون الادعاء، وإلا انفصلت التهمة عن نتيجتها.
+ */
+export type CardsScene = {
+  kind: 'cards'
+  game: GameBrief
+  /** الوجه المطلوب هذه الجولة — كل ادعاء يزعم أنه هو */
+  demand: CardFace
+  seats: {
+    player: PlayerView
+    /** كم ورقة بيده */
+    cards: number
+    alive: boolean
+    /** ما بقي في مسدّسه من فرص، تظهر بعد أول عقوبة */
+    chambers?: number
+    turn?: boolean
+  }[]
+  /** آخر ادعاء: كم ورقة وضع صاحبه */
+  claim?: { player: PlayerView; count: number } | null
+  /** ما انكشف بعد الاتهام، وهل صدق المدّعي */
+  reveal?: { cards: CardFace[]; truthful: boolean; accuser: PlayerView } | null
+  /** يد صاحب الرسالة المخفية — لا تُملأ في المشهد العام أبدًا */
+  hand?: CardFace[]
   note?: string
 }
 

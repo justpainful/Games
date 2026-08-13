@@ -1,5 +1,6 @@
 import { boardScene } from '../scenes/board.ts'
 import { cardScene } from '../scenes/card.ts'
+import { cardsScene } from '../scenes/cards.ts'
 import { codenamesScene } from '../scenes/codenames.ts'
 import { duelScene } from '../scenes/duel.ts'
 import { huntScene } from '../scenes/hunt.ts'
@@ -52,6 +53,8 @@ export function toHtml(scene: Scene): string {
       return noticeScene(scene)
     case 'codenames':
       return codenamesScene(scene)
+    case 'cards':
+      return cardsScene(scene)
   }
 }
 
