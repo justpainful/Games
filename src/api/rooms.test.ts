@@ -55,6 +55,7 @@ function fakeChannel(): Channel {
     },
     say: () => Promise.resolve(),
     whisper: () => Promise.resolve(true),
+    reveal: () => Promise.resolve(true),
     attach: () => {},
     detach: () => {},
     drop: () => {},

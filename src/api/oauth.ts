@@ -84,8 +84,15 @@ export function authStart(ctx: Ctx): Promise<void> {
   return Promise.resolve()
 }
 
-/** العودة إلى التطبيق برسالة خطأ بدل صفحة بيضاء لا يفهمها المستخدم. */
+/**
+ * العودة إلى التطبيق برسالة خطأ بدل صفحة بيضاء لا يفهمها المستخدم.
+ *
+ * والسبب يُسجَّل هنا لا في التطبيق وحده. التطبيق يعرض «تعذّر تسجيل الدخول»
+ * لأن المستخدم لا ينفعه اسم الطور الذي سقط فيه، لكن ذلك يترك من يصلح العطل
+ * بلا خبر: ثلاثة أطوار مختلفة تخرج برسالة واحدة، فلا يُعرف أيّها وقع.
+ */
 function bounce(ctx: Ctx, redirectTo: string, reason: string): void {
+  console.error(`[auth] فشل تسجيل الدخول: ${reason} · الوجهة ${redirectTo}`)
   const back = new URL(redirectTo)
   back.searchParams.set('error', reason)
   redirect(ctx.res, back.toString())
@@ -119,8 +126,15 @@ export async function authCallback(ctx: Ctx): Promise<void> {
   }
 
   rememberTokens(me.id, tokens)
-  rememberAccount(me)
+  // الحفظ لا يمنع الدخول: قاعدة متعثّرة تُسقط الجلسة كلها بينما التوقيع لا
+  // يحتاجها أصلًا، والرمز صالح بذاته. وسقوط الحفظ يُسجَّل ولا يُبتلع صامتًا.
+  try {
+    rememberAccount(me)
+  } catch (err) {
+    console.error('[auth] حفظ الحساب تعثّر، والدخول يمضي:', err)
+  }
 
+  console.log(`[auth] دخل ${me.id}`)
   const session = signToken(me.id, config.jwt.secret, config.jwt.ttlSeconds)
   const back = new URL(verified.redirectTo)
   back.searchParams.set('token', session)

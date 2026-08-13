@@ -63,6 +63,14 @@ export type Surface = {
   say(text: string): Promise<void>
   whisper(userId: string, text: string): Promise<boolean>
 
+  /**
+   * مشهد خاص بضاغط الزر، داخل هذا السطح نفسه.
+   *
+   * يعود `false` إن لم تكن الضغطة صادرة عنه أو مضى وقت التفاعل، فيجرّب
+   * `fanout` غيره. ولا يمرّ على `owns` كما يمرّ الهمس: الضغطة تحمل سطحها معها.
+   */
+  reveal(press: Press, scene: Scene, opts: ShowOptions | undefined): Promise<boolean>
+
   /** يربط السطح بمصرف الجلسة. الاستدعاء المكرّر بنفس المصرف بلا أثر. */
   attach(hub: InputHub): void
   /** يفكّ الربط — لاعب انقطع أو انتهت اللعبة. */
@@ -214,6 +222,19 @@ export function fanout(surfaces: Surface[], ctx: FanoutContext): MultiTable {
         }),
       )
       return results.some(Boolean)
+    },
+
+    async reveal(press, scene, opts) {
+      // بلا تصفية بـ`owns`: أول سطح يعرف تفاعل هذه الضغطة يعرضه، والباقي يردّ
+      // false. وأي سطح يعرض يكفي، فالمشهد لصاحب الضغطة لا لكل من يملكه.
+      for (const surface of live) {
+        try {
+          if (await surface.reveal(press, scene, opts)) return true
+        } catch {
+          // سطح تعثّر لا يمنع غيره من العرض
+        }
+      }
+      return false
     },
 
     waitChat: (ms, test) => waitFor<ChatInput>(ms, session.chatListeners, test),

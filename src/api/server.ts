@@ -41,6 +41,24 @@ export function buildServer(): Server {
       return
     }
 
+    /**
+     * سطر لكل طلب: الطريق، ورمزُ ردّه، ومن أين جاء.
+     *
+     * بدونه كان الخادم صامتًا عن كل ما لا يرمي استثناءً، فتعذّر التفريق بين
+     * «التطبيق طلب وفشل» و«التطبيق لم يطلب أصلًا». وهما عطلان مختلفان تمامًا
+     * وكانا يظهران للمستخدم برسالة واحدة، فبحثتُ في الطرف الخطأ مرّتين.
+     *
+     * والمصدر مذكور لأن الجهاز يفرق: طلب من 127.0.0.1 هو فحصي أنا، ومن
+     * 100.x هو جهاز حقيقي عبر Tailscale.
+     */
+    const started = Date.now()
+    const from = req.socket.remoteAddress?.replace('::ffff:', '') ?? '?'
+    res.on('finish', () => {
+      console.log(
+        `[req] ${req.method} ${url.pathname} -> ${res.statusCode} · ${from} · ${Date.now() - started}ms`,
+      )
+    })
+
     if (req.method === 'OPTIONS') {
       text(res, 204, '')
       return

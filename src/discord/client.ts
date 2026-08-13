@@ -2,6 +2,7 @@ import { Client, Events, GatewayIntentBits, Partials } from 'discord.js'
 import { deliverChat, deliverPress } from '../games/running.ts'
 import { settings } from '../settings.ts'
 import { handleMessage, handleSlash } from './commands.ts'
+import { holdInteraction } from './tickets.ts'
 
 /**
  * ملاحظة نشر: `MessageContent` نيّة مميّزة (privileged) ويجب تفعيلها يدويًا في
@@ -47,6 +48,7 @@ client.on(Events.InteractionCreate, (interaction) => {
     const taken = deliverPress(interaction.channelId, interaction.message.id, {
       userId: interaction.user.id,
       id: interaction.customId,
+      ticket: holdInteraction(interaction),
     })
     // الرد الصامت يمنع ظهور "فشل التفاعل" عند اللاعب دون إرسال رسالة جديدة
     void interaction.deferUpdate().catch(() => {})

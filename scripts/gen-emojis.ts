@@ -81,14 +81,14 @@ function halo(core: string): string {
  * وحين تسقط اللوحة يسقط معها هامشها، فالرمز يكبر: النسبة 3.6 بدل 3.15.
  */
 function outlined(inner: (stroke: string, width: number) => string, core: string): string {
-  return `${inner(halo(core), 6.4)}${inner(core, 2.4)}`
+  return `${inner(halo(core), 5.2)}${inner(core, 2.9)}`
 }
 
 /** أيقونة من `design/icons.ts`. الأصل شبكة 24 بخط 2.4. */
 function iconFace(name: IconName, core: string): string {
   return outlined(
     (stroke, width) => `
-      <g transform="translate(50 50) scale(3.6) translate(-12 -12)"
+      <g transform="translate(50 50) scale(4.05) translate(-12 -12)"
          fill="none" stroke="${stroke}" stroke-width="${width}"
          stroke-linecap="round" stroke-linejoin="round">
         ${PATHS[name]}
@@ -118,7 +118,7 @@ function glyph(text: string, core: string, size: number): string {
   return `<text x="50" y="54" text-anchor="middle" dominant-baseline="central"
            style="direction:ltr;unicode-bidi:bidi-override"
            font-family="${font.display}" font-size="${size}" font-weight="800"
-           paint-order="stroke" stroke="${halo(core)}" stroke-width="13"
+           paint-order="stroke" stroke="${halo(core)}" stroke-width="16"
            stroke-linejoin="round" fill="${core}">${text}</text>`
 }
 
@@ -126,8 +126,14 @@ function glyph(text: string, core: string, size: number): string {
  * الرقم يحتمل خطًّا أعرض من الحرف العربي، والحرف يحتاج هامشًا لنزوله.
  * ورقمان يضيقان بالمربّع عند 92، فالحجم يتبع عدد الخانات لا الثابت.
  */
-const digit = (n: number, core: string) => glyph(String(n), core, n > 9 ? 68 : 92)
-const letter = (ch: string, core: string) => glyph(ch, core, 76)
+const digit = (n: number, core: string) => glyph(String(n), core, n > 9 ? 88 : 122)
+/**
+ * الحروف العربية تتفاوت عرضًا تفاوتًا كبيرًا: «ا» شرطة و«س» ثلاث أسنان.
+ * فحجم واحد يناسب الضيّق يقصّ الواسع، وقد قُصّت «س» عند 104 فخرجت مشوّهة.
+ * والحجم هنا يتبع أعرضها لا أضيقها، فالقصّ عيب والصِّغَر ليس كذلك.
+ */
+const WIDE = new Set(["س", "ش", "ص", "ض", "ط", "ظ", "ع", "غ", "م", "ه"])
+const letter = (ch: string, core: string) => glyph(ch, core, WIDE.has(ch) ? 84 : 104)
 
 /**
  * وجه نرد بنقاطه لا برقمه.
@@ -175,9 +181,9 @@ const PIPS: Record<number, readonly [number, number][]> = {
  */
 function diceFace(n: number): string {
   const pips = (PIPS[n] ?? [])
-    .map(([x, y]) => `<circle cx="${x}" cy="${y}" r="8.5" fill="${color.cream}"/>`)
+    .map(([x, y]) => `<circle cx="${x}" cy="${y}" r="9.5" fill="${color.cream}"/>`)
     .join('')
-  return `<rect x="8" y="8" width="84" height="84" rx="18"
+  return `<rect x="4" y="4" width="92" height="92" rx="20"
             fill="${color.ink}" stroke="${color.cream}" stroke-width="6"/>${pips}`
 }
 
@@ -185,7 +191,7 @@ function diceFace(n: number): string {
 function turned(name: IconName, deg: number, core: string): string {
   return outlined(
     (stroke, width) => `
-      <g transform="translate(50 50) rotate(${deg}) scale(3.6) translate(-12 -12)"
+      <g transform="translate(50 50) rotate(${deg}) scale(4.05) translate(-12 -12)"
          fill="none" stroke="${stroke}" stroke-width="${width}"
          stroke-linecap="round" stroke-linejoin="round">
         ${PATHS[name]}
@@ -202,12 +208,12 @@ function turned(name: IconName, deg: number, core: string): string {
  * بطول تعبئة متغيّر يبقى مقروءًا لأن العين تقيس نسبة لا تعدّ خانات.
  */
 function bar(filled: number): string {
-  const x = 9
-  const full = 82
+  const x = 4
+  const full = 92
   const width = Math.max((full * filled) / 4, 30)
-  return `<rect x="${x}" y="33" width="${full}" height="34" rx="17"
+  return `<rect x="${x}" y="28" width="${full}" height="44" rx="22"
            fill="${color.ink}" stroke="${color.cream}" stroke-width="6"/>
-     ${filled > 0 ? `<rect x="${x}" y="33" width="${width}" height="34" rx="17"
+     ${filled > 0 ? `<rect x="${x}" y="28" width="${width}" height="44" rx="22"
            fill="${color.yellow}" stroke="${color.cream}" stroke-width="6"/>` : ''}`
 }
 
@@ -316,7 +322,7 @@ const FACES: Face[] = [
     // «ابدأ» مثلّث مصمت لا محيط: هو الفعل الوحيد الذي يُضغط بلا تردّد
     body: outlined(
       (stroke, width) => `
-        <g transform="translate(50 50) scale(3.6) translate(-12 -12)"
+        <g transform="translate(50 50) scale(4.05) translate(-12 -12)"
            fill="${stroke}" stroke="${stroke}" stroke-width="${width}"
            stroke-linejoin="round">${PATHS.play}</g>`,
       color.yellow,
@@ -344,11 +350,11 @@ const FACES: Face[] = [
   // العملة قرص بطبيعتها، فالدائرة هنا هي الشيء نفسه لا أرضية تحته
   ...[1, 5, 10].map((n) => ({
     name: `coin_${n}`,
-    body: `<circle cx="50" cy="50" r="40" fill="${color.yellow}"
+    body: `<circle cx="50" cy="50" r="46" fill="${color.yellow}"
              stroke="${color.ink}" stroke-width="7"/>
        <text x="50" y="53" text-anchor="middle" dominant-baseline="central"
              style="direction:ltr;unicode-bidi:bidi-override"
-             font-family="${font.display}" font-size="${n > 9 ? 46 : 58}" font-weight="800"
+             font-family="${font.display}" font-size="${n > 9 ? 56 : 70}" font-weight="800"
              fill="${color.ink}">${n}</text>`,
   })),
 
@@ -372,7 +378,7 @@ const FACES: Face[] = [
   {
     name: 'dot_off',
     body: `<circle cx="50" cy="50" r="30" fill="none"
-             stroke="${color.cream}" stroke-width="13"/>
+             stroke="${color.cream}" stroke-width="16"/>
            <circle cx="50" cy="50" r="30" fill="none"
              stroke="${color.ink}" stroke-width="7"/>`,
   },

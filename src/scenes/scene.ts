@@ -39,6 +39,7 @@ export type Scene =
   | LeadersScene
   | PanelScene
   | NoticeScene
+  | CodenamesScene
 
 /**
  * بطاقة اللاعب: هويته، وخريطة نشاطه، وأربعة أرقام تلخّصه.
@@ -192,6 +193,32 @@ export type NoticeScene = {
   tone: 'ok' | 'warn' | 'info'
   title: string
   body?: string
+}
+
+/** هوية الكلمة في كودنيمز. */
+export type Codeword = 'red' | 'blue' | 'neutral' | 'assassin'
+
+/**
+ * لوح كودنيمز.
+ *
+ * مشهد واحد يخدم لوحين: العام الذي يراه الجميع، ولوح سيّد التجسّس الذي تظهر
+ * فيه الهويات كلها. والفرق بينهما حقل `master` وحده لا قالب ثانٍ، لأن قالبين
+ * منفصلين يعنيان احتمال اختلاف مواضع الكلمات بينهما، وحينها يفقد لوح السيّد
+ * فائدته كلها: هو خريطة للوح العام، فإن لم يطابقه موضعًا بموضع صار قائمة.
+ */
+export type CodenamesScene = {
+  kind: 'codenames'
+  game: GameBrief
+  cols: number
+  cells: { word: string; side: Codeword; revealed: boolean }[]
+  /** true = لوح السيّد: تظهر هوية كل كلمة ولو لم تُكشف بعد */
+  master?: boolean
+  turn: 'red' | 'blue'
+  /** التلميح الحالي: كلمة واحدة ورقم */
+  clue?: { word: string; count: number } | null
+  /** كم بقي لكل فريق */
+  left: { red: number; blue: number }
+  note?: string
 }
 
 /** كل قالب مشهد هو دالة نقية من المشهد إلى HTML. */

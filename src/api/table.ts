@@ -28,6 +28,13 @@ export type Outgoing =
     }
   | { type: 'say'; text: string }
   | { type: 'whisper'; text: string }
+  /**
+   * مشهد يخصّ صاحب الوصلة وحده: لوح سيّد التجسّس، أو يد اللاعب في لعبة أوراق.
+   *
+   * منفصل عن `scene` لأنه لا يدخل تسلسل المشاهد ولا يُستبدل بما بعده، وعن
+   * `whisper` لأن ذاك نصّ وهذا صورة تُقرأ بجوار اللوح العام.
+   */
+  | { type: 'private'; scene: Scene; text?: string }
   /** قائمة الغرف التي يمكن الانضمام إليها في سيرفر */
   | { type: 'rooms'; guildId: string; rooms: RoomBrief[] }
   /** نجح الانضمام أو الإنشاء — التطبيق يفتح شاشة اللوبي */
@@ -99,6 +106,19 @@ export function makeSocketSurface(args: {
     whisper(userId, text) {
       if (userId !== player.id) return Promise.resolve(false)
       return Promise.resolve(send({ type: 'whisper', text }))
+    },
+
+    /**
+     * وصلة الجوال تخدم لاعبًا واحدًا، فالمشهد الخاص يذهب إليه إن كان الضاغط.
+     *
+     * ولا تلزم هنا تذكرة تفاعل كما في ديسكورد: الوصلة مفتوحة على صاحبها أصلًا،
+     * فخصوصية الرسالة من كونها وصلته لا من كونها ردًّا على ضغطة بعينها.
+     */
+    reveal(press, scene, opts) {
+      if (press.userId !== player.id) return Promise.resolve(false)
+      return Promise.resolve(
+        send({ type: 'private', scene, ...(opts?.text ? { text: opts.text } : {}) }),
+      )
     },
 
     attach(next) {

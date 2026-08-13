@@ -8,8 +8,11 @@ import {
 import type { ButtonDef, ShowOptions } from '../games/define.ts'
 import type { Session } from '../games/running.ts'
 import type { Surface } from '../games/surface.ts'
+import { renderScene } from '../images/render.ts'
 import type { Scene } from '../scenes/scene.ts'
+import { AttachmentBuilder } from 'discord.js'
 import { editScene, sendScene } from './reply.ts'
+import { takeInteraction } from './tickets.ts'
 
 /**
  * ديسكورد بوصفه **سطحًا** لا طاولة كاملة.
@@ -141,6 +144,33 @@ export function makeDiscordSurface(args: {
 
     async say(text) {
       if (channel.isSendable()) await channel.send(text).catch(() => {})
+    },
+
+    /**
+     * رسالة مخفية ردًّا على الضغطة: يراها ضاغطها وحده في نفس القناة.
+     *
+     * `followUp` لا `reply` لأن `client.ts` أجّل التفاعل فور وصوله بـ
+     * `deferUpdate`، وذلك يمنع ظهور «فشل التفاعل» عند كل ضغطة عادية. والمؤجَّل
+     * لا يُردّ عليه مرة ثانية، فالمتابعة هي الباب الباقي.
+     */
+    async reveal(press, scene, opts) {
+      const interaction = takeInteraction(press.ticket)
+      if (!interaction) return false
+      if (interaction.channelId !== session.channelId) return false
+
+      try {
+        const png = await renderScene(scene)
+        await interaction.followUp({
+          ephemeral: true,
+          ...(opts?.text ? { content: opts.text } : {}),
+          files: [new AttachmentBuilder(png, { name: 'scene.png' })],
+          ...(opts?.buttons ? { components: rows(opts.buttons) } : {}),
+        })
+        return true
+      } catch {
+        // تفاعل منتهٍ أو قناة فقدنا صلاحيتها — الفشل يعود false ليجرّب غيرنا
+        return false
+      }
     },
 
     async whisper(userId, text) {

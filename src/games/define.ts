@@ -9,7 +9,18 @@ import type { GameBrief, PlayerView, Scene } from '../scenes/scene.ts'
  */
 
 export type ChatInput = { userId: string; text: string }
-export type Press = { userId: string; id: string }
+export type Press = {
+  userId: string
+  id: string
+  /**
+   * مقبض معتم يمسك بالتفاعل الذي وُلدت منه هذه الضغطة، تستعمله `reveal` وحدها.
+   *
+   * اللعبة لا تفتحه ولا تعرف ما بداخله، وهو موجود لأن الرسالة المخفية داخل
+   * القناة لا تُرسَل ابتداءً في ديسكورد: هي ردّ على تفاعل بعينه، فيلزم الإمساك
+   * به. وعمره قصير، فديسكورد يُبطل التفاعل بعد ربع ساعة.
+   */
+  ticket?: string
+}
 
 export type ButtonStyle = 'start' | 'join' | 'stop' | 'plain'
 export type ButtonDef = {
@@ -50,6 +61,20 @@ export type Table = {
   say(text: string): Promise<void>
   /** رسالة خاصة للاعب — تُستخدم لتوزيع الأدوار في مافيا. */
   whisper(userId: string, text: string): Promise<boolean>
+
+  /**
+   * مشهد يراه ضاغط الزر وحده، **في نفس القناة** لا في الخاص.
+   *
+   * الفرق عن `whisper` ليس في الوجهة بل في ما يصلح له كلٌّ منهما. الهمس نصّ
+   * يُرسل متى شئنا، وهذا صورة تُعرض بجوار المشهد العام فتُقارن به بلا تنقّل.
+   * وهو ما يحتاجه لوح سيّد التجسّس: كلماته هي كلمات اللوح نفسها وقد لُوّنت،
+   * فقراءته في نافذة أخرى تُفقده معناه. وكذلك يد اللاعب في لعبة أوراق.
+   *
+   * ويحلّ عيبًا في الهمس أيضًا: كثيرون يقفلون الخاص، فتسقط رسالة الدور بصمت.
+   *
+   * ويُشترط أن ينبع من ضغطة زر: الرسالة المخفية ردٌّ على تفاعل ولا تُبتدأ.
+   */
+  reveal(press: Press, scene: Scene, opts?: ShowOptions): Promise<boolean>
 
   /** أول رسالة شات تحقق الشرط، أو null عند انتهاء المهلة. */
   waitChat(ms: number, test?: (input: ChatInput) => boolean): Promise<ChatInput | null>

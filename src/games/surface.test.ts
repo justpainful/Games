@@ -42,6 +42,7 @@ function fakeSession(): Session {
 type Recorder = Surface & {
   scenes: Scene[]
   whispers: { userId: string; text: string }[]
+  reveals: { userId: string; scene: Scene }[]
   said: string[]
   events: string[]
   dropped: string[]
@@ -75,6 +76,7 @@ function recorder(config: {
 }): Recorder {
   const scenes: Scene[] = []
   const whispers: { userId: string; text: string }[] = []
+  const reveals: { userId: string; scene: Scene }[] = []
   const said: string[] = []
   const events: string[] = []
   const dropped: string[] = []
@@ -85,6 +87,7 @@ function recorder(config: {
     fallback: config.fallback,
     scenes,
     whispers,
+    reveals,
     said,
     events,
     dropped,
@@ -101,6 +104,10 @@ function recorder(config: {
     },
     whisper(userId, text) {
       whispers.push({ userId, text })
+      return Promise.resolve(true)
+    },
+    reveal(press, scene) {
+      reveals.push({ userId: press.userId, scene })
       return Promise.resolve(true)
     },
     // المدخلات في هذه الاختبارات تُدفع عبر `hubFor(session)` مباشرة، تمامًا

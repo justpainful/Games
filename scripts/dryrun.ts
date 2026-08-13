@@ -58,6 +58,12 @@ function fakeTable(game: GameDef, log: Report): Table {
     async whisper() {
       return true // نفترض أن الخاص مفتوح؛ مسار الرفض يُختبر يدويًا
     },
+    async reveal(_press, scene) {
+      // المشهد الخاص يُحصى مع البقيّة: التشغيل الجاف يرسم كل مشهد تنتجه
+      // اللعبة، ولوح سيّد التجسّس أحوجها إلى الفحص لأنه لا يُرى في القناة.
+      seen(scene)
+      return true
+    },
     // لا أحد يجيب ولا يضغط: يدفع كل لعبة إلى مسار «انتهى الوقت»،
     // وهو المسار الذي يُنسى اختباره عادة وفيه تكمن التعليقات.
     async waitChat(): Promise<ChatInput | null> {
