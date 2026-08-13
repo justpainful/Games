@@ -28,7 +28,7 @@ export function lobbyScene(s: LobbyScene): string {
             ${slots.map((p, i) => playerRow(p, i === 0 && s.host !== null))}
             <!-- يملأ فراغ العمود في الألعاب الثنائية بمعلومة بدل أن يتركه خاويًا -->
             <div class="grow"></div>
-            ${waitNote(s.players.length, s.min)}
+            ${waitNote(s.players.length, s.min, s.max)}
           </div>
         </aside>
 
@@ -84,16 +84,30 @@ function background(): Html {
   `
 }
 
-/** حالة اللوبي بلغة اللاعب: كم ينقص، أو أن اللعبة جاهزة. */
-function waitNote(count: number, min: number): Html {
+/**
+ * حالة اللوبي بلغة اللاعب.
+ *
+ * ثلاث حالات لا اثنتان. كان النص يقول «اكتمل العدد» بمجرد بلوغ الحدّ الأدنى،
+ * وذلك خبر خاطئ في لعبة يتّسع لخمسة وعشرين: اثنان من خمسة وعشرين ليس اكتمالًا،
+ * وقارئه يظنّ الباب أُغلق دونه فلا يضغط دخول. والفرق بين «يكفي للبدء» و«امتلأ»
+ * فرق في المعنى لا في الصياغة، فصار لكلٍّ نصّه.
+ */
+function waitNote(count: number, min: number, max: number): Html {
   const missing = min - count
-  return missing > 0
-    ? html`<div class="note">
-        ${raw(icon('hourglass', { size: 22 }))} ينقص ${missing}
-        ${missing === 1 ? 'لاعب' : 'لاعبين'} للبدء
+  if (missing > 0) {
+    return html`<div class="note">
+      ${raw(icon('hourglass', { size: 22 }))} ينقص ${missing}
+      ${missing === 1 ? 'لاعب' : 'لاعبين'} للبدء
+    </div>`
+  }
+
+  const room = max - count
+  return room > 0
+    ? html`<div class="note note--ready">
+        ${raw(icon('check', { size: 22 }))} جاهزة للبدء · يتّسع لـ ${room} بعد
       </div>`
     : html`<div class="note note--ready">
-        ${raw(icon('check', { size: 22 }))} اكتمل العدد — بانتظار القائد
+        ${raw(icon('check', { size: 22 }))} اكتمل العدد · بانتظار القائد
       </div>`
 }
 

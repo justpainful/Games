@@ -48,13 +48,22 @@ export async function awaitTyped(
 /** شبكة أزرار من خانات لوحة — تخدم إكس أو وأربعة في صف. */
 export function gridButtons(
   cells: (string | null)[],
-  opts: { cols: number; label: (index: number, value: string | null) => string },
+  opts: {
+    cols: number
+    label: (index: number, value: string | null) => string
+    /** وجه الزر حين يكون للعبة إيموجيات خاصة بها. */
+    emoji?: (index: number, value: string | null) => string | undefined
+  },
 ): ButtonDef[] {
   return cells.map((value, index) => ({
     id: `cell:${index}`,
     label: opts.label(index, value),
     style: 'plain' as const,
     disabled: value !== null,
+    // الصف يُقرأ من الشبكة نفسها: ثلاثة أعمدة تعني ثلاثة أزرار في الصف،
+    // فتخرج اللوحة شبكةً كما هي لا شريطين بطول خمسة وأربعة.
+    row: Math.floor(index / opts.cols),
+    ...(opts.emoji?.(index, value) ? { emoji: opts.emoji(index, value) } : {}),
   }))
 }
 

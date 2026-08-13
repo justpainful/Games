@@ -1,5 +1,6 @@
 import { UserSelectMenuBuilder } from 'discord.js'
 import { prisma } from '../../db/prisma.ts'
+import { EMOJI } from '../../design/emoji.ts'
 import { forgetGuild } from '../../guilds/config.ts'
 import type { Command } from '../commands.ts'
 import {
@@ -68,21 +69,26 @@ function view({ config, guild }: PanelArgs): PanelView {
           value: 'prefix',
           label: 'تغيير البريفكس',
           description: 'الحرف الذي يسبق الأوامر النصية',
+          emoji: EMOJI.st_keyboard,
         },
         {
           value: 'prefix-toggle',
           label: config.prefixEnabled ? 'تعطيل أوامر البريفكس' : 'تفعيل أوامر البريفكس',
           description: 'عند التعطيل تبقى أوامر السلاش وحدها',
+          // الوجه يصف ما سيحدث عند الضغط لا ما هو قائم الآن
+          emoji: config.prefixEnabled ? EMOJI.hot_stop : EMOJI.win_check,
         },
         {
           value: 'nickname',
           label: 'تغيير الاسم المستعار في السيرفر',
-          description: 'اسم البوت هنا فقط — لا يمسّ بقية السيرفرات',
+          description: 'اسم البوت هنا فقط، ولا يمسّ بقية السيرفرات',
+          emoji: EMOJI.st_star,
         },
         {
           value: 'nickname-clear',
           label: 'إزالة الاسم المستعار',
           description: 'يرجع البوت لاسمه العام',
+          emoji: EMOJI.st_cross,
         },
       ]),
       authorizedMenu(authorized),

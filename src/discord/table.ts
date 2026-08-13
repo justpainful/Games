@@ -27,23 +27,55 @@ const STYLE: Record<NonNullable<ButtonDef['style']>, ButtonStyle> = {
   plain: ButtonStyle.Secondary,
 }
 
+/**
+ * ديسكورد يسمح بخمسة صفوف في خمسة أزرار.
+ *
+ * الرصّ التلقائي يملأ الصف خمسةً ثم ينتقل، فتسع خانات تخرج 5+4 وتُقرأ شريطين
+ * لا شبكة. الزر الذي يعلن صفّه يُحترم إعلانه، فتخرج لوحة إكس أو ثلاثة في
+ * ثلاثة كما هي. وما لا يعلن يُرصّ كما كان.
+ */
 function rows(buttons: ButtonDef[]): ActionRowBuilder<ButtonBuilder>[] {
-  const out: ActionRowBuilder<ButtonBuilder>[] = []
-  // ديسكورد يسمح بخمسة أزرار في الصف وخمسة صفوف كحد أقصى
-  for (let i = 0; i < buttons.length && out.length < 5; i += 5) {
-    const row = new ActionRowBuilder<ButtonBuilder>()
-    for (const b of buttons.slice(i, i + 5)) {
-      row.addComponents(
-        new ButtonBuilder()
-          .setCustomId(b.id)
-          .setLabel(b.label.slice(0, 80))
-          .setStyle(STYLE[b.style ?? 'plain'])
-          .setDisabled(b.disabled ?? false),
-      )
-    }
-    out.push(row)
+  const build = (b: ButtonDef): ButtonBuilder => {
+    const button = new ButtonBuilder()
+      .setCustomId(b.id)
+      .setStyle(STYLE[b.style ?? 'plain'])
+      .setDisabled(b.disabled ?? false)
+    if (b.emoji) button.setEmoji(b.emoji)
+
+    /**
+     * النص يبقى دائمًا، ولو كان معه إيموجي.
+     *
+     * كان يسقط متى وُجد إيموجي طلبًا لزرٍّ أنظف، وكان ذلك خطأً كلّفنا لوحة
+     * كاملة. معرّف إيموجي التطبيق **يتغيّر مع كل توليد**، لأن الرفع يحذف
+     * القديم وينشئ جديدًا. والرسائل المنشورة تحتفظ بالمعرّف القديم، فتصير
+     * أزرارها بعد أول توليد إيموجيًا محذوفًا بلا نصّ يسنده: مربّعات فارغة
+     * لا تُقرأ، واللاعب يظنّ الأزرار معطّلة.
+     *
+     * وهذا ليس حادثًا عابرًا بل نتيجة حتمية لكل تحديث للطقم. فالنص هنا ليس
+     * زينة تُحذف عند الازدحام، بل الطبقة التي تُبقي الزر مفهومًا حين يسقط ما
+     * فوقه. والازدحام ثمن مقبول مقابل زر لا يختفي.
+     */
+    // ونصّ فارغ يرفضه ديسكورد ويُسقط الرسالة كلّها، فيبقى الإيموجي وحده حينها
+    const label = b.label.trim().slice(0, 80)
+    if (label) button.setLabel(label)
+    else if (!b.emoji) button.setLabel('•')
+    return button
   }
-  return out
+
+  const declared = buttons.some((b) => b.row !== undefined)
+  const groups = new Map<number, ButtonDef[]>()
+
+  buttons.forEach((b, index) => {
+    const key = declared ? (b.row ?? 0) : Math.floor(index / 5)
+    const group = groups.get(key) ?? []
+    if (group.length < 5) group.push(b)
+    groups.set(key, group)
+  })
+
+  return [...groups.entries()]
+    .sort(([a], [b]) => a - b)
+    .slice(0, 5)
+    .map(([, group]) => new ActionRowBuilder<ButtonBuilder>().addComponents(group.map(build)))
 }
 
 export type DiscordSurface = Surface & {

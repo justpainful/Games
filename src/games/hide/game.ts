@@ -1,3 +1,5 @@
+import { EMOJI } from '../../design/emoji.ts'
+import { numberFace, pickFace } from '../../design/faces.ts'
 import type { HuntScene, PlayerView } from '../../scenes/scene.ts'
 import { defineGame, zeroScores, type ButtonDef, type GameResult, type Table } from '../define.ts'
 
@@ -248,6 +250,9 @@ function cellButtons(cells: number, cleared: Set<number>): ButtonDef[] {
     label: String(n),
     style: 'plain' as const,
     disabled: cleared.has(n),
+    // المكشوفة تصفرّ فيُقرأ ما بقي بلمحة، والباقية حبرية. والنص يبقى تحته
+    // احتياطًا لو تعذّر عرض الإيموجي على كلاينت قديم.
+    ...(numberFace(n) ? { emoji: cleared.has(n) ? pickFace(n) : numberFace(n) } : {}),
   }))
 }
 
@@ -296,8 +301,8 @@ async function finish(
     { kind: 'standings', game: table.brief, rows, heading: 'النتيجة النهائية' },
     {
       text: winnerId
-        ? `**الفائز** <@${winnerId}> بـ ${top?.score} نقطة`
-        : 'انتهت اللعبة بلا فائز واضح.',
+        ? `${EMOJI.win_trophy} **الفائز** <@${winnerId}> بـ ${top?.score} نقطة`
+        : `${EMOJI.st_users} انتهت اللعبة بلا فائز واضح.`,
     },
   )
 

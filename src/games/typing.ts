@@ -1,4 +1,5 @@
 import { matches } from '../arabic.ts'
+import { EMOJI } from '../design/emoji.ts'
 import type { Scene } from '../scenes/scene.ts'
 import type { GameResult, Table } from './define.ts'
 import { zeroScores } from './define.ts'
@@ -109,9 +110,10 @@ export async function finish(table: Table, scores: Map<string, number>): Promise
   await table.show(
     { kind: 'standings', game: table.brief, rows, heading: 'النتيجة النهائية' },
     {
+      // هذا السطر يخدم كل ألعاب الكتابة، فوجهه هو وجه الفوز في البوت كلّه
       text: winnerId
-        ? `**الفائز** <@${winnerId}> بـ ${top?.score} نقطة`
-        : 'انتهت اللعبة بلا فائز واضح.',
+        ? `${EMOJI.win_trophy} **الفائز** <@${winnerId}> بـ ${top?.score} نقطة`
+        : `${EMOJI.st_users} انتهت اللعبة بلا فائز واضح.`,
     },
   )
 

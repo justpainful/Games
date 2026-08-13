@@ -1,3 +1,4 @@
+import { EMOJI } from '../../design/emoji.ts'
 import type { PlayerView, RolesScene } from '../../scenes/scene.ts'
 import { defineGame, zeroScores, type GameResult, type Table } from '../define.ts'
 
@@ -55,7 +56,7 @@ async function play(table: Table): Promise<GameResult> {
       scene(table, state, 'day', 'اجلس الآن!', `${chairs} ${chairsWord(chairs)} فقط. الأسرع يجلس.`),
       {
         text: `**اجلسوا!** ${chairs} ${chairsWord(chairs)} لـ ${state.alive.length} لاعبين.`,
-        buttons: [{ id: 'sit', label: 'اجلس', style: 'start' }],
+        buttons: [{ id: 'sit', label: 'اجلس', emoji: EMOJI.st_chair, style: 'start' }],
       },
     )
 
@@ -128,8 +129,8 @@ async function finish(
     ),
     {
       text: champion
-        ? `**الفائز** <@${champion.id}> — آخر من بقي على كرسيه.`
-        : 'انتهت اللعبة بلا فائز.',
+        ? `${EMOJI.win_trophy} **الفائز** <@${champion.id}> · آخر من بقي على كرسيه.`
+        : `${EMOJI.st_users} انتهت اللعبة بلا فائز.`,
     },
   )
 

@@ -1,3 +1,5 @@
+import { EMOJI } from '../../design/emoji.ts'
+import { diceFace } from '../../design/faces.ts'
 import type { DuelScene, PlayerView, StandingsScene } from '../../scenes/scene.ts'
 import type { ButtonDef, GameResult, Table } from '../define.ts'
 import { defineGame } from '../define.ts'
@@ -22,7 +24,7 @@ const ROLL_MS = 25_000
 const BREATH_MS = 2_500
 const FACES = 6
 
-const ROLL_BUTTON: ButtonDef[] = [{ id: 'roll', label: 'ارمِ النرد', style: 'start' }]
+const ROLL_BUTTON: ButtonDef[] = [{ id: 'roll', label: 'ارمِ النرد', emoji: EMOJI.st_dice, style: 'start' }]
 
 const die = (): number => 1 + Math.floor(Math.random() * FACES)
 
@@ -73,9 +75,14 @@ async function play(table: Table): Promise<GameResult> {
           view.round,
         ),
         {
+          // وجها النرد في نصّ الرسالة يقولان ما رُمي قبل قراءة الرقم، والصورة
+          // تبقى هي المرجع. وغياب أحدهما لا يكسر السطر لأن الرقم باقٍ فيه.
           text:
-            (press ? `<@${player.id}> رمى **${sum}**` : `<@${player.id}> تأخّر — سقط النرد عنه **${sum}**`) +
-            ` — مجموعه ${totals.get(player.id) ?? 0}`,
+            `${diceFace(one) ?? ''}${diceFace(two) ?? ''} ` +
+            (press
+              ? `<@${player.id}> رمى **${sum}**`
+              : `<@${player.id}> تأخّر، فسقط النرد عنه **${sum}**`) +
+            ` · مجموعه ${totals.get(player.id) ?? 0}`,
         },
       )
 
@@ -157,8 +164,9 @@ async function finish(
     { kind: 'standings', game: table.brief, rows, heading: 'النتيجة النهائية' },
     {
       text: winner
-        ? `**الفائز** <@${winner.id}> بمجموع ${top}`
-        : `**تعادل على الصدارة** بمجموع ${top} — ${leaders.map((r) => `<@${r.player.id}>`).join(' و')}`,
+        ? `${EMOJI.win_trophy} **الفائز** <@${winner.id}> بمجموع ${top}`
+        : `${EMOJI.st_users} **تعادل على الصدارة** بمجموع ${top} بين ` +
+          `${leaders.map((r) => `<@${r.player.id}>`).join(' و')}`,
     },
   )
 

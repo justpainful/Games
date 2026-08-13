@@ -1,3 +1,5 @@
+import { EMOJI } from '../../design/emoji.ts'
+import { numberFace } from '../../design/faces.ts'
 import type { PlayerView, PollScene } from '../../scenes/scene.ts'
 import { defineGame, zeroScores, type ButtonDef, type GameResult, type Table } from '../define.ts'
 
@@ -194,18 +196,30 @@ function resultText(
   const lines = options.map(
     (label, i) => `• ${label} — ${counts[i] ?? 0} من ${total}`,
   )
-  const head = total === 0 ? 'ما صوّت أحد.' : tied ? '**تعادل** — لا خيار فائز.' : '**انتهى التصويت**'
+  const head =
+    total === 0
+      ? `${EMOJI.st_users} ما صوّت أحد.`
+      : tied
+        ? `${EMOJI.st_users} **تعادل** · لا خيار فائز.`
+        : `${EMOJI.win_vote} **انتهى التصويت**`
   return `${head}\n**${question}**\n${lines.join('\n')}`
 }
 
 /* ————— أدوات ————— */
 
 function buttons(options: string[]): ButtonDef[] {
-  return options.map((label, i) => ({
-    id: `opt:${i}`,
-    label: `${i + 1}. ${label}`.slice(0, 60),
-    style: 'plain' as const,
-  }))
+  return options.map((label, i) => {
+    const face = numberFace(i + 1)
+    return {
+      id: `opt:${i}`,
+      // الرقم ينتقل من النص إلى الوجه حين يوجد وجه، فيتّسع الزر للخيار نفسه.
+      // وبدون وجه يبقى الرقم في النص لأن الصورة تحت الأزرار مرقّمة، والمطابقة
+      // بالرقم لا بالموضع.
+      label: (face ? label : `${i + 1}. ${label}`).slice(0, 60),
+      style: 'plain' as const,
+      ...(face ? { emoji: face } : {}),
+    }
+  })
 }
 
 function poll(

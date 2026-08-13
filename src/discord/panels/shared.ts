@@ -233,7 +233,7 @@ export async function askText(
 export function actionMenu(
   customId: string,
   placeholder: string,
-  options: { value: string; label: string; description?: string }[],
+  options: { value: string; label: string; description?: string; emoji?: string }[],
 ): PanelRow {
   const menu = new StringSelectMenuBuilder()
     .setCustomId(customId)
@@ -246,6 +246,9 @@ export function actionMenu(
         value: o.value,
         label: o.label.slice(0, 100),
         ...(o.description ? { description: o.description.slice(0, 100) } : {}),
+        // بدونه تكون القائمة سطورًا نصّية متشابهة، وسبع وعشرون لعبة في سطور
+        // متشابهة تُقرأ بالبحث لا بالتعرّف. الوجه يسبق الاسم فتُلمح قبل قراءتها.
+        ...(o.emoji ? { emoji: o.emoji } : {}),
       })),
     )
   return row(menu)

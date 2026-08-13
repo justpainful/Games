@@ -11,7 +11,7 @@
 export type IconName = keyof typeof PATHS
 
 /** كل مسار مرسوم داخل شبكة 24×24 بخط 2.4 وأطراف مدوّرة. */
-const PATHS = {
+export const PATHS = {
   /** قائد اللعبة */
   crown: '<path d="M3.5 18.5 2 7l5.5 4L12 3.5 16.5 11 22 7l-1.5 11.5z"/><path d="M3.5 21.5h17"/>',
   /** انتظار */

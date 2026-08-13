@@ -1,4 +1,5 @@
 import { DiscordAPIError, RateLimitError, type ClientUser } from 'discord.js'
+import { EMOJI } from '../../design/emoji.ts'
 import type { Command } from '../commands.ts'
 import {
   ack,
@@ -55,25 +56,30 @@ async function view({ guild }: PanelArgs): Promise<PanelView> {
       `كل ${guild.client.guilds.cache.size} سيرفر، ولا يمكن التراجع فورًا بسبب حدود المعدل.`,
     rows: [
       actionMenu('owner:action', 'اختر ما تغيّره — كل الخيارات عالمية', [
+        // كلها عالمية، فالوجه الأحمر هنا تحذير مقصود لا زينة
         {
           value: 'name',
           label: 'تغيير اسم البوت (عالمي)',
-          description: 'يظهر في كل السيرفرات — مرّتان في الساعة كحد أقصى',
+          description: 'يظهر في كل السيرفرات، ومرّتان في الساعة كحد أقصى',
+          emoji: EMOJI.hot_keyboard,
         },
         {
           value: 'avatar',
           label: 'تغيير صورة البوت (عالمي)',
-          description: 'رابط https لصورة — تظهر في كل السيرفرات',
+          description: 'رابط https لصورة تظهر في كل السيرفرات',
+          emoji: EMOJI.hot_star,
         },
         {
           value: 'banner',
           label: 'تغيير بانر البوت (عالمي)',
           description: 'رابط https لصورة عريضة في ملف البوت',
+          emoji: EMOJI.hot_flag,
         },
         {
           value: 'banner-clear',
           label: 'إزالة بانر البوت (عالمي)',
           description: 'يرجع ملف البوت بلا بانر',
+          emoji: EMOJI.hot_cross,
         },
       ]),
     ],

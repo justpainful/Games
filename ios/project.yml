@@ -29,6 +29,22 @@ targets:
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
         APIBaseURL: $(API_BASE_URL)
+        # ————— لماذا يحتاج التطبيق إذنًا للشبكة المحلية —————
+        #
+        # منذ iOS 14 لا يصل التطبيق إلى عنوان في الشبكة المحلية إلا بإذن صريح
+        # من المستخدم، والإذن لا يُطلب أصلًا ما لم يوجد هذا المفتاح. وبلا
+        # المفتاح يُرفض الاتصال بلا سؤال وبلا رسالة، فيبدو الخادم كأنه مطفأ
+        # ويُبحث عن العطل في الشبكة والجدار الناري بلا طائل.
+        NSLocalNetworkUsageDescription: >-
+          للاتصال بخادم الألعاب على شبكتك المحلية.
+        # ————— ولماذا يُسمح بـ http الصريح —————
+        #
+        # ATS يمنع http بلا تشفير منذ iOS 9، وخادم التطوير هنا على http في شبكة
+        # محلية بلا شهادة. وهذه نسخة تُثبَّت جانبيًا للتجربة لا تدخل المتجر،
+        # فالاستثناء مقبول فيها وحدها. وأي نسخة عامة تحتاج https ويسقط هذا الحقل.
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: true
+          NSAllowsLocalNetworking: true
         CFBundleURLTypes:
           - CFBundleURLName: com.justpainful.games.auth
             CFBundleURLSchemes: [gamesapp]
@@ -48,8 +64,17 @@ targets:
         CODE_SIGN_IDENTITY: ""
         SWIFT_VERSION: "5.9"
         ENABLE_USER_SCRIPT_SANDBOXING: "NO"
-        # عنوان الخادم يأتي من الإعداد لا من الكود — يُبدَّل بلا تعديل مصدر
-        API_BASE_URL: http://localhost:8080
+        # ————— عنوان الخادم —————
+        #
+        # كان `http://localhost:8080`، وهو خطأ من وجهين معًا: المنفذ 8099 لا
+        # 8080، و`localhost` على الجوال يعني الجوالَ نفسه لا الكمبيوتر. فالنسخة
+        # المبنية بهذا العنوان تطلب خادمًا داخل الآيفون، ولا جدارَ ناريّ ولا
+        # إعدادَ شبكة يصلح ذلك.
+        #
+        # والعنوان الآن عبر Tailscale لأنه الوحيد الذي يعمل في الحالتين: داخل
+        # البيت وخارجه. وعنوان الشبكة المحلية `192.168.1.4` يعمل داخل البيت
+        # وحده، ويسقط أيضًا حين يغيّر الراوتر توزيعه.
+        API_BASE_URL: http://100.85.165.37:8099
 
   GamesTests:
     type: bundle.unit-test

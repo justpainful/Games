@@ -1,3 +1,5 @@
+import { EMOJI } from '../../design/emoji.ts'
+import { teamFace } from '../../design/faces.ts'
 import type { PlayerView, WheelScene } from '../../scenes/scene.ts'
 import { defineGame, zeroScores, type GameResult, type Table } from '../define.ts'
 import { pickOne, shuffle } from '../phases.ts'
@@ -48,8 +50,8 @@ async function askMode(table: Table, roster: PlayerView[]): Promise<boolean> {
       `**روليت** — <@${table.host.id}> اختر الوضع من الأزرار. ` +
       `إن لم تختر خلال ${Math.round(MODE_MS / 1000)} ثانية تدور العجلة على الأسماء.`,
     buttons: [
-      { id: 'mode:solo', label: 'عجلة الأسماء', style: 'start' },
-      { id: 'mode:teams', label: 'روليت التيمات', style: 'plain' },
+      { id: 'mode:solo', label: 'عجلة الأسماء', emoji: EMOJI.st_target, style: 'start' },
+      { id: 'mode:teams', label: 'روليت التيمات', emoji: EMOJI.act_join, style: 'plain' },
     ],
   })
 
@@ -101,9 +103,12 @@ async function spinTeams(
   }))
 
   await table.update(wheel(table, faces, null, 'العجلة تدور بين الفريقين'), {
+    // اسم الفريق لونٌ مكتوب، ووجهه يحمل اللون نفسه ومعه حرف. واللاعب الذي
+    // لا يفرق بين الأحمر والأصفر يفرق بين «أ» و«ب».
     text:
-      `**روليت التيمات**\n${TEAM_NAMES[0]}: ${mentions(first)}\n` +
-      `${TEAM_NAMES[1]}: ${mentions(second)}`,
+      `${EMOJI.st_target} **روليت التيمات**\n` +
+      `${teamFace(0) ?? ''} ${TEAM_NAMES[0]}: ${mentions(first)}\n` +
+      `${teamFace(1) ?? ''} ${TEAM_NAMES[1]}: ${mentions(second)}`,
   })
   await table.sleep(SPIN_MS)
   if (table.aborted) return { winnerId: null, scores }
@@ -114,7 +119,9 @@ async function spinTeams(
   for (const p of winners) scores.set(p.id, 1)
 
   await table.update(wheel(table, faces, face ?? null, 'وقفت العجلة'), {
-    text: `وقفت العجلة على **${TEAM_NAMES[index]}** — ${mentions(winners)}`,
+    text:
+      `${EMOJI.win_trophy} وقفت العجلة على ${teamFace(index) ?? ''} ` +
+      `**${TEAM_NAMES[index]}** · ${mentions(winners)}`,
   })
 
   // فوز جماعي: لا فائز أوحد إلا إن كان الفريق لاعبًا واحدًا

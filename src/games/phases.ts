@@ -1,3 +1,4 @@
+import { numberFace } from '../design/faces.ts'
 import type { PlayerView } from '../scenes/scene.ts'
 import type { ButtonDef, Table } from './define.ts'
 
@@ -16,10 +17,12 @@ export type Tally = {
 
 /** أزرار تصويت، زر لكل مرشّح. */
 export function candidateButtons(candidates: PlayerView[]): ButtonDef[] {
-  return candidates.map((p) => ({
+  return candidates.map((p, i) => ({
     id: `vote:${p.id}`,
     label: p.name.slice(0, 40),
     style: 'plain' as const,
+    // الرقم يطابق ترتيب المرشّح في الصورة، فيُصوَّت به حين تتشابه الأسماء
+    ...(numberFace(i + 1) ? { emoji: numberFace(i + 1) } : {}),
   }))
 }
 

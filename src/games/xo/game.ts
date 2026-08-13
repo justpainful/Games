@@ -1,15 +1,13 @@
 import type { BoardScene, PlayerView } from '../../scenes/scene.ts'
 import type { GameResult, Table } from '../define.ts'
+import { EMOJI } from '../../design/emoji.ts'
 import { defineGame, zeroScores } from '../define.ts'
 import { cellIndex, gridButtons, rotate } from '../turns.ts'
 
 /**
  * «xo» — إكس أو على لوحة 3×3.
  *
- * الأزرار تحمل أرقام الخانات لا مواضعها: ديسكورد يرصّ الأزرار خمسة في الصف،
- * فتسع خانات تخرج صفّين (5+4) لا شبكة 3×3، ولو اعتمدنا على الشكل لضغط اللاعب
- * الخانة الخطأ. الرقم في الزر يطابق الرقم المطبوع في الخانة الفارغة، والمطابقة
- * بالرقم لا تنكسر مهما رصّ ديسكورد الأزرار.
+* الأزرار تخرج شبكة 3×3 حقيقية: ديسكورد يسمح بخمسة صفوف في خمسة أزرار، والزر * يعلن صفّه في `gridButtons`. كان الرصّ التلقائي يخرجها 5+4 فتُقرأ شريطين لا * شبكة، وهو ما دفع اللعبة إلى الاعتماد على الرقم وحده.
  */
 
 const MARKS = ['X', 'O'] as const
@@ -30,22 +28,26 @@ const MAX_MISSES = 2
 const BREATH_MS = 400
 
 /**
- * وجه الزر: علامة اللاعب رمزًا لا حرفًا لاتينيًا.
+ * وجوه الأزرار: إيموجيات مرفوعة إلى التطبيق نفسه ومرسومة بألوان الهوية.
  *
- * كان الزر يحمل «X» و«O» نصًّا، وهما حرفان لاتينيان وسط واجهة عربية ويتشابهان
- * عند الرصّ. الرمز يُقرأ من مسافة أبعد وبلمحة واحدة.
+ * مرّت هذه الأزرار بثلاثة أشكال. حملت «X» و«O» نصًّا، وهما حرفان لاتينيان وسط
+ * واجهة عربية. ثم صارت أسهم اتجاه قياسية، وتلك يرسمها كل نظام تشغيل بأسلوبه
+ * فيخرج الزر بثلاثة أشكال عند ثلاثة لاعبين — وهو ما يمنعه `design/icons.ts`
+ * داخل المشاهد، والأزرار كانت الثغرة الباقية.
+ *
+ * والآن إيموجيات التطبيق: تُرفع مرة بـ`npm run gen:emojis` فتعمل في كل سيرفر
+ * يدخله البوت بلا إعداد، وتُرسم بأحمر الهوية وأصفرها من `tokens.ts`.
+ *
+ * والأرقام بقيت وجه الخانة الفارغة لأن اللوحة في الصورة مرقّمة، فالمطابقة
+ * بالرقم لا بالموضع. وصار الرقم مرسومًا بخط المشروع لا بخط النظام.
  */
-const FACE: Record<string, string> = { X: '❌', O: '⭕' }
+const FACE: Record<string, string> = { X: EMOJI.xo_x, O: EMOJI.xo_o }
 
-/**
- * وجه الخانة الفارغة: موضعها في الشبكة لا رقمها.
- *
- * ديسكورد يرصّ الأزرار خمسة في الصف، فتسع خانات تخرج صفّين (5+4) لا شبكة
- * 3×3، وهذا سبب اختيار الأرقام أصلًا. لكن الرقم يجبر اللاعب على الترجمة بين
- * لوحة مرقّمة وزرّ مرقّم. السهم يقول الموضع مباشرة: الزاوية زاوية والوسط
- * وسط، مهما رصّ ديسكورد الصفوف.
- */
-const SEATS = ['↖️', '⬆️', '↗️', '⬅️', '⏺️', '➡️', '↙️', '⬇️', '↘️'] as const
+const SEATS = [
+  EMOJI.num_1, EMOJI.num_2, EMOJI.num_3,
+  EMOJI.num_4, EMOJI.num_5, EMOJI.num_6,
+  EMOJI.num_7, EMOJI.num_8, EMOJI.num_9,
+] as const
 
 const LINES: readonly (readonly number[])[] = [
   [0, 1, 2],
@@ -99,7 +101,9 @@ async function play(table: Table): Promise<GameResult> {
       text: `<@${current.id}> دورك. اضغط الخانة.`,
       buttons: gridButtons(cells, {
         cols: 3,
-        label: (i, value) => FACE[value ?? ''] ?? SEATS[i] ?? String(i + 1),
+        // الإيموجي هو الوجه، والنص يبقى احتياطًا لو تعذّر عرضه
+        emoji: (i, value) => FACE[value ?? ''] ?? SEATS[i],
+        label: (i, value) => value ?? String(i + 1),
       }),
     })
 
@@ -118,7 +122,7 @@ async function play(table: Table): Promise<GameResult> {
         quitter = current
         break
       }
-      await table.say(`<@${current.id}> ما لعب في وقته — الدور ينتقل للخصم.`)
+      await table.say(`${EMOJI.time_low} <@${current.id}> ما لعب في وقته، فالدور ينتقل للخصم.`)
       continue
     }
 
@@ -177,7 +181,7 @@ async function over(
       ...(line ? { winning: line } : {}),
       note: reason ?? `فاز ${winner.name} بصفّ من ثلاث`,
     }),
-    { text: `**الفائز** <@${winner.id}>${reason ? ` — ${reason}` : ''}` },
+    { text: `${EMOJI.win_trophy} **الفائز** <@${winner.id}>${reason ? ` · ${reason}` : ''}` },
   )
 
   return { winnerId: winner.id, scores }
@@ -189,7 +193,7 @@ async function draw(
   sides: BoardScene['sides'],
 ): Promise<GameResult> {
   await table.show(board(table, cells, sides, null, { note: 'تعادل — امتلأت اللوحة بلا صفّ' }), {
-    text: '**تعادل** — امتلأت اللوحة بلا فائز.',
+    text: `${EMOJI.st_users} **تعادل** · امتلأت اللوحة بلا فائز.`,
   })
   return { winnerId: null, scores: zeroScores(table.players) }
 }

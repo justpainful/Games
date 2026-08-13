@@ -1,5 +1,7 @@
 import { ChannelSelectMenuBuilder, ChannelType } from 'discord.js'
 import { prisma } from '../../db/prisma.ts'
+import { EMOJI } from '../../design/emoji.ts'
+import { gameFace } from '../../design/faces.ts'
 import { loadGames } from '../../games/all.ts'
 import type { GameDef } from '../../games/define.ts'
 import { forgetGuild, isGameEnabled, type GuildConfig } from '../../guilds/config.ts'
@@ -175,23 +177,33 @@ function detailView({ config }: PanelArgs, game: GameDef): PanelView {
           value: 'toggle',
           label: on ? 'تعطيل اللعبة' : 'تفعيل اللعبة',
           description: on ? 'ما عاد أحد يقدر يبدأها هنا' : 'ترجع متاحة للجميع',
+          // الوجه يتبع أثر الفعل لا اسمه: التعطيل أحمر والتفعيل أصفر
+          emoji: on ? EMOJI.hot_stop : EMOJI.win_play,
         },
         {
           value: 'image',
           label: 'تغيير صورة اللعبة',
           description: 'رابط https لصورة تحلّ محل الصورة الافتراضية',
+          emoji: EMOJI.st_star,
         },
         {
           value: 'image-clear',
           label: 'إرجاع الصورة الافتراضية',
           description: 'يمسح الرابط المخصّص',
+          emoji: EMOJI.st_shuffle,
         },
         {
           value: 'settings',
           label: 'إعدادات اللعبة',
           description: 'أسطر بصيغة: مفتاح = قيمة',
+          emoji: EMOJI.st_gear,
         },
-        { value: 'back', label: 'رجوع لقائمة الألعاب', description: 'يعرض كل الألعاب من جديد' },
+        {
+          value: 'back',
+          label: 'رجوع لقائمة الألعاب',
+          description: 'يعرض كل الألعاب من جديد',
+          emoji: EMOJI.nav_prev,
+        },
       ]),
     ],
   }
@@ -226,7 +238,9 @@ function pickerMenus(config: GuildConfig, games: GameDef[]): PanelView['rows'] {
         part.map((g) => ({
           value: g.key,
           label: g.name,
-          description: `${isGameEnabled(config, g.key) ? 'مفعّلة' : 'معطّلة'} — ${g.tagline}`,
+          description: `${isGameEnabled(config, g.key) ? 'مفعّلة' : 'معطّلة'} · ${g.tagline}`,
+          // اللعبة بلا وجه هنا لا تعطّل القائمة، فالحقل يسقط ويبقى الاسم
+          ...(gameFace(g.key) ? { emoji: gameFace(g.key) } : {}),
         })),
       ),
     )

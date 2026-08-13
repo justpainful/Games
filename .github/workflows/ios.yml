@@ -37,9 +37,19 @@ jobs:
           xcrun simctl list runtimes | grep -i ios || true
 
       - name: توليد مشروع Xcode
+        # عنوان الخادم يُحقن من متغيّر المستودع إن وُجد، وإلا فمن project.yml.
+        # هذا يسمح بتبديل العنوان بلا commit حين يتغيّر، ويمنع في الوقت نفسه
+        # بناءَ نسخة بعنوان فارغ لو نُسي المتغيّر.
+        env:
+          API_BASE_URL: ${{ vars.API_BASE_URL }}
         run: |
           brew install xcodegen
-          cd ios && xcodegen generate
+          cd ios
+          if [ -n "$API_BASE_URL" ]; then
+            sed -i '' "s|^        API_BASE_URL: .*|        API_BASE_URL: $API_BASE_URL|" project.yml
+          fi
+          grep -n 'API_BASE_URL:' project.yml
+          xcodegen generate
           # إثبات أن أهداف الاختبار دخلت المشروع فعلًا — هدف مفقود يمرّ بصمت
           # ويعطي "نجح البناء" بينما لم يُشغَّل أي اختبار وحدة.
           xcodebuild -project Games.xcodeproj -list

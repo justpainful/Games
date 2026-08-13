@@ -1,3 +1,4 @@
+import { letterFace } from '../../design/faces.ts'
 import type { Scene } from '../../scenes/scene.ts'
 import type { ChatInput, GameResult, Table } from '../define.ts'
 import { defineGame, zeroScores } from '../define.ts'
@@ -133,7 +134,11 @@ async function play(table: Table): Promise<GameResult> {
 
     const at = Math.floor(Date.now() / 1000) + Math.round(ROUND_MS / 1000)
     await table.show(scene, {
-      text: `**الجولة ${round}/${ROUNDS}** — كلمة تبدأ بحرف **${target}**. ينتهي <t:${at}:R>`,
+      // حرف الجولة هو الشرط كلّه، فيسبق نصَّه وجهُه المرسوم بخط المشروع. وهو
+      // يبقى في النص أيضًا لأن اللاعب يكتب كلمة تبدأ به فيحتاجه مقروءًا منسوخًا.
+      text:
+        `${letterFace(target) ?? ''} **الجولة ${round}/${ROUNDS}** · ` +
+        `كلمة تبدأ بحرف **${target}**. ينتهي <t:${at}:R>`,
     })
 
     const hit: ChatInput | null = await table.waitChat(ROUND_MS, (input) => {

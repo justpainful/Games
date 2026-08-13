@@ -1,3 +1,4 @@
+import { EMOJI } from '../design/emoji.ts'
 import type { GuildMember, TextBasedChannel } from 'discord.js'
 import type { ButtonDef, GameDef, Press } from '../games/define.ts'
 import { activeIn, close, open, type Session } from '../games/running.ts'
@@ -26,10 +27,10 @@ import { makeDiscordSurface, type DiscordSurface } from './table.ts'
  */
 
 const LOBBY_BUTTONS: ButtonDef[] = [
-  { id: 'lobby:join', label: 'دخول', style: 'join' },
-  { id: 'lobby:leave', label: 'خروج', style: 'plain' },
-  { id: 'lobby:start', label: 'بدء اللعبة', style: 'start' },
-  { id: 'lobby:cancel', label: 'إلغاء', style: 'stop' },
+  { id: 'lobby:join', label: 'دخول', style: 'join', emoji: EMOJI.act_join },
+  { id: 'lobby:leave', label: 'خروج', style: 'plain', emoji: EMOJI.act_leave },
+  { id: 'lobby:start', label: 'بدء اللعبة', style: 'start', emoji: EMOJI.act_start },
+  { id: 'lobby:cancel', label: 'إلغاء', style: 'stop', emoji: EMOJI.act_cancel },
 ]
 
 /**
@@ -39,7 +40,12 @@ const LOBBY_BUTTONS: ButtonDef[] = [
  * التفاعلات تأتي من المستخدمين وحدهم، فلا سبيل لبوت أن يدخل لوبيًا بنفسه
  * مهما أُذن له. فيُقعده إنسان بضغطة، ويلعب بعدها بالكتابة.
  */
-const SEAT_BOT: ButtonDef = { id: 'lobby:seatbot', label: 'أضف بوتًا', style: 'plain' }
+const SEAT_BOT: ButtonDef = {
+  id: 'lobby:seatbot',
+  label: 'أضف بوتًا',
+  style: 'plain',
+  emoji: EMOJI.act_bot,
+}
 
 /** أزرار اللوبي، مع زر إقعاد البوت حين يوجد بوت مأذون لم يجلس بعد. */
 function lobbyButtons(seatable: boolean): ButtonDef[] {

@@ -1,3 +1,4 @@
+import { EMOJI } from '../../design/emoji.ts'
 import type { PlayerView, RolesScene } from '../../scenes/scene.ts'
 import { defineGame, zeroScores, type GameResult, type Table } from '../define.ts'
 import { candidateButtons, collectVotes, shuffle } from '../phases.ts'
@@ -404,17 +405,17 @@ async function dayVote(table: Table, state: State, round: number): Promise<Playe
   if (table.aborted) return null
   if (first.kind === 'chosen') return first.player
   if (first.kind === 'none') {
-    await table.say('ما صوّت أحد — لا إعدام اليوم.')
+    await table.say(`${EMOJI.st_vote} ما صوّت أحد، فلا إعدام اليوم.`)
     return null
   }
 
   // التعادل يُعلن ولا يُكسر بقرعة: إعدام بالحظ يفقد اللاعبين الثقة باللعبة
-  await table.say('**تعادل** في الأصوات — يعاد التصويت مرة واحدة.')
-  const second = await runVote(table, state, 'تعادل — التصويت الأخير')
+  await table.say(`${EMOJI.st_vote} **تعادل** في الأصوات، فيُعاد التصويت مرة واحدة.`)
+  const second = await runVote(table, state, 'تعادل · التصويت الأخير')
   if (table.aborted) return null
   if (second.kind === 'chosen') return second.player
 
-  await table.say('تعادل مرة ثانية — لا إعدام اليوم، وتبدأ الليلة.')
+  await table.say(`${EMOJI.hot_vote} تعادل مرة ثانية، فلا إعدام اليوم وتبدأ الليلة.`)
   return null
 }
 

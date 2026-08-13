@@ -1,3 +1,4 @@
+import { numberFace } from '../../design/faces.ts'
 import type { PanelScene, PlayerView } from '../../scenes/scene.ts'
 import { defineGame, zeroScores, type ButtonDef, type GameResult, type Table } from '../define.ts'
 import { shuffle } from '../phases.ts'
@@ -76,6 +77,7 @@ function roomButtons(max: number): ButtonDef[] {
     id: `rooms:${i + 2}`,
     label: `${i + 2}`,
     style: i === 0 ? ('start' as const) : ('plain' as const),
+    ...(numberFace(i + 2) ? { emoji: numberFace(i + 2) } : {}),
   }))
 }
 

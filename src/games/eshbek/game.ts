@@ -1,3 +1,4 @@
+import { EMOJI } from '../../design/emoji.ts'
 import type { BoardScene, PlayerView } from '../../scenes/scene.ts'
 import type { ButtonDef, GameResult, Table } from '../define.ts'
 import { defineGame, zeroScores } from '../define.ts'
@@ -82,12 +83,24 @@ function winningLine(cells: (string | null)[]): number[] | null {
   return null
 }
 
+/** الأرقام نفسها التي تحملها خانات إكس أو: طقم واحد لا طقمان. */
+const NUMBERS = [
+  EMOJI.num_1,
+  EMOJI.num_2,
+  EMOJI.num_3,
+  EMOJI.num_4,
+  EMOJI.num_5,
+  EMOJI.num_6,
+  EMOJI.num_7,
+] as const
+
 function columnButtons(cells: (string | null)[]): ButtonDef[] {
   return Array.from({ length: COLS }, (_, col) => ({
     id: `col:${col}`,
     label: String(col + 1),
     style: 'plain' as const,
     disabled: landing(cells, col) === null,
+    ...(NUMBERS[col] ? { emoji: NUMBERS[col] } : {}),
   }))
 }
 
@@ -144,7 +157,9 @@ async function play(table: Table): Promise<GameResult> {
         quitter = current
         break
       }
-      await table.say(`<@${current.id}> ما أسقط قرصه في وقته — الدور ينتقل للخصم.`)
+      await table.say(
+        `${EMOJI.time_low} <@${current.id}> ما أسقط قرصه في وقته، فالدور ينتقل للخصم.`,
+      )
       continue
     }
 
@@ -204,7 +219,7 @@ async function over(
       ...(line ? { winning: line } : {}),
       note: reason ?? `فاز ${winner.name} بأربعة في صف`,
     }),
-    { text: `**الفائز** <@${winner.id}>${reason ? ` — ${reason}` : ''}` },
+    { text: `${EMOJI.win_trophy} **الفائز** <@${winner.id}>${reason ? ` · ${reason}` : ''}` },
   )
 
   return { winnerId: winner.id, scores }
@@ -216,7 +231,7 @@ async function draw(
   sides: BoardScene['sides'],
 ): Promise<GameResult> {
   await table.show(board(table, cells, sides, null, { note: 'تعادل — امتلأت اللوحة' }), {
-    text: '**تعادل** — امتلأت اللوحة بلا أربعة.',
+    text: `${EMOJI.st_users} **تعادل** · امتلأت اللوحة بلا أربعة.`,
   })
   return { winnerId: null, scores: zeroScores(table.players) }
 }

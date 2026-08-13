@@ -12,7 +12,22 @@ export type ChatInput = { userId: string; text: string }
 export type Press = { userId: string; id: string }
 
 export type ButtonStyle = 'start' | 'join' | 'stop' | 'plain'
-export type ButtonDef = { id: string; label: string; style?: ButtonStyle; disabled?: boolean }
+export type ButtonDef = {
+  id: string
+  label: string
+  style?: ButtonStyle
+  disabled?: boolean
+  /**
+   * أي صف يجلس فيه الزر. بلا هذا تُرصّ الأزرار خمسة في الصف.
+   *
+   * ديسكورد يسمح بخمسة صفوف في خمسة أزرار، فشبكة 3×3 ممكنة تمامًا. لكن الرصّ
+   * التلقائي يخرج التسعة صفّين (5+4) فتُقرأ شريطين لا شبكة، وهو ما دفع اللعبة
+   * إلى ترقيم الخانات أصلًا. هذا الحقل يجعل اللعبة تقول شكل شبكتها.
+   */
+  row?: number
+  /** إيموجي مخصّص بصيغة `<:name:id>`، يظهر على الزر بدل النص أو معه. */
+  emoji?: string
+}
 
 export type ShowOptions = {
   /** نص يرافق الصورة — إلزامي للحالات الحرجة (DESIGN.md §6) */
