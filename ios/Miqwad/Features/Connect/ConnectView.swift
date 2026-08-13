@@ -1,3 +1,7 @@
+// `webAuthenticationSession` تعيش في AuthenticationServices لا في SwiftUI،
+// وبلا هذا الاستيراد يفشل البناء عند `@Environment` برسالة عن مسار مفتاح لا
+// يُستنتج نوعه — وهي رسالة لا تذكر الاستيراد الناقص إطلاقًا.
+import AuthenticationServices
 import SwiftUI
 
 /// شاشة الوصل: يجد الجهاز، ثم يقترن به.
