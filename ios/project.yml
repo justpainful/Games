@@ -85,6 +85,74 @@ targets:
         # وحده، ويسقط أيضًا حين يغيّر الراوتر توزيعه.
         API_BASE_URL: http://100.85.165.37:8099
 
+  # ————————————————————————— مِقود —————————————————————————
+  #
+  # تطبيق ثانٍ في نفس المشروع لا مشروع مستقل: يتقاسم مع الألعاب نظام التصميم
+  # والخطوط، وفصلهما يعني نسختين من `Tokens.swift` تتفرّقان عند أول تعديل لون.
+  #
+  # وهدفه غير هدف الألعاب تمامًا: ذاك للاعبين وهذا لصاحب البوت، فلا يشتركان في
+  # شاشة ولا في مصادقة ولا في عنوان خادم.
+  Miqwad:
+    type: application
+    platform: iOS
+    sources:
+      - path: Miqwad
+      # نظام التصميم مشترك — لون واحد وخط واحد للسطحين
+      - path: Games/Design
+      - path: Games/Resources
+    info:
+      path: Miqwad/Info.plist
+      properties:
+        CFBundleDisplayName: مِقود
+        CFBundleDevelopmentRegion: ar
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        # ————— لماذا يحتاج إذن الشبكة المحلية واسم الخدمة معًا —————
+        #
+        # منذ iOS 14 لا يبحث `NWBrowser` عن خدمة لم تُعلَن هنا، ولا يصل التطبيق
+        # إلى عنوان في الشبكة المحلية بلا إذن صريح. ونقص أيّ من المفتاحين يعطي
+        # العطل نفسه: بحث لا ينتهي بلا رسالة ولا سؤال، فيبدو أن الخادم مطفأ.
+        NSLocalNetworkUsageDescription: >-
+          للعثور على بوت الألعاب على جهازك والاتصال به مباشرة، بلا خادم في الإنترنت.
+        NSBonjourServices:
+          - _miqwad._tcp
+        # الخادم على الشبكة المحلية بلا شهادة TLS، وهذه نسخة تُثبَّت جانبيًا لا
+        # تدخل المتجر. التفصيل في تعليق هدف Games أعلاه — ومفتاح واحد لا اثنان.
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: true
+        CFBundleURLTypes:
+          - CFBundleURLName: com.justpainful.miqwad.auth
+            CFBundleURLSchemes: [miqwad]
+        UIAppFonts:
+          - Cairo-Regular.ttf
+          - Cairo-Bold.ttf
+          - Baloo-Bold.ttf
+          - Baloo-ExtraBold.ttf
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.justpainful.miqwad
+        MARKETING_VERSION: "0.1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        CODE_SIGNING_REQUIRED: "NO"
+        CODE_SIGNING_ALLOWED: "NO"
+        CODE_SIGN_IDENTITY: ""
+        SWIFT_VERSION: "5.9"
+        ENABLE_USER_SCRIPT_SANDBOXING: "NO"
+        # لا `API_BASE_URL` هنا عمدًا: عنوان الخادم يُكتشف على الشبكة وقت
+        # التشغيل، وتثبيته في الحزمة هو بالضبط ما جعل النسخة السابقة تعتمد على
+        # Tailscale.
+
+  MiqwadTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [MiqwadTests]
+    dependencies:
+      - target: Miqwad
+    settings:
+      base:
+        CODE_SIGNING_ALLOWED: "NO"
+
   GamesTests:
     type: bundle.unit-test
     platform: iOS
@@ -114,4 +182,13 @@ schemes:
         GamesUITests: [test]
     test:
       targets: [GamesTests, GamesUITests]
+      gatherCoverageData: false
+
+  Miqwad:
+    build:
+      targets:
+        Miqwad: all
+        MiqwadTests: [test]
+    test:
+      targets: [MiqwadTests]
       gatherCoverageData: false

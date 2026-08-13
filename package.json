@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.2.1",
+    "bonjour-service": "^1.4.4",
     "discord.js": "^14.17.3",
     "dotenv": "^16.4.7",
     "playwright": "^1.49.1",

@@ -1,0 +1,139 @@
+name: مِقود
+
+# التطوير يجري على ويندوز حيث لا Xcode، فهذا الـworkflow هو حلقة التحقق
+# الوحيدة لتطبيق التحكّم: كل بناء وكل اختبار وكل نسخة قابلة للتثبيت تخرج من هنا.
+#
+# مفصول عن `ios.yml` لا مضاف إليه: تطبيق الألعاب يُبنى ويُختبر ويُصوَّر في أربعين
+# دقيقة، وربط مِقود به يعني أن تعديل زرّ واحد فيه ينتظر ذلك كلّه. والاثنان
+# يشتركان في `project.yml` وحده، فيُولَّد المشروع نفسه ويُبنى منه هدف آخر.
+
+on:
+  push:
+    paths:
+      - 'ios/Miqwad/**'
+      - 'ios/MiqwadTests/**'
+      - 'ios/Games/Design/**'
+      - 'ios/project.yml'
+      - '.github/workflows/miqwad.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    # macos-26 حصرًا: نظام التصميم المشترك يستعمل `glassEffect` الأصلي، وهو
+    # غير موجود في SDK الخاص بـXcode 16 على الصور الأقدم.
+    runs-on: macos-26
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: منع المواد القديمة
+        run: |
+          # الفحص هنا لا في المراجعة: مادة ضبابية واحدة تتسلّل تكفي لجعل سطحين
+          # يبدوان مختلفين، ولن يظهر ذلك في أي خطأ ترجمة.
+          if grep -rnE "ultraThinMaterial|thinMaterial|regularMaterial|thickMaterial|ultraThickMaterial|\.blur\(radius" ios/Miqwad --include='*.swift'; then
+            echo "::error::مادة ضبابية قديمة في مِقود — استخدم glassEffect وحده"
+            exit 1
+          fi
+          echo "نظيف"
+
+      - name: منع تثبيت عنوان الخادم
+        run: |
+          # مِقود يكتشف الجهاز على الشبكة. أي عنوان IP مكتوب في المصدر يعني
+          # عودةً إلى ما بُني هذا التطبيق للتخلّص منه: نسخة تعمل على شبكة واحدة
+          # وتموت حين يبدّل الراوتر توزيعه.
+          if grep -rnE "https?://([0-9]{1,3}\.){3}[0-9]{1,3}" ios/Miqwad --include='*.swift'; then
+            echo "::error::عنوان خادم ثابت في المصدر — العنوان يأتي من الاكتشاف أو من المستخدم"
+            exit 1
+          fi
+          echo "لا عنوان مثبّت"
+
+      - name: توليد مشروع Xcode
+        run: |
+          brew install xcodegen
+          cd ios
+          xcodegen generate
+          # إثبات أن الهدفين دخلا المشروع فعلًا — هدف مفقود يمرّ بصمت ويعطي
+          # «نجح البناء» بينما لم يُبنَ شيء ولم يُشغَّل أي اختبار
+          xcodebuild -project Games.xcodeproj -list
+
+      - name: اختيار المحاكي
+        id: sim
+        run: |
+          # ديناميكي: أسماء الأجهزة تتغيّر بين صور الرَنَر، وتثبيت اسم بعينه
+          # يكسر البناء بصمت عند أول تحديث للصورة.
+          UDID=$(xcrun simctl list devices available -j | python3 -c "
+          import json,sys
+          for runtime, devices in json.load(sys.stdin)['devices'].items():
+              if 'iOS' in runtime:
+                  for d in devices:
+                      if 'iPhone' in d['name']:
+                          print(d['udid']); sys.exit(0)
+          sys.exit('لا يوجد محاكي iPhone')
+          ")
+          echo "udid=$UDID" >> "$GITHUB_OUTPUT"
+
+      - name: بناء واختبار
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -project ios/Games.xcodeproj \
+            -scheme Miqwad \
+            -configuration Debug \
+            -destination "id=${{ steps.sim.outputs.udid }}" \
+            -derivedDataPath ios/build \
+            -resultBundlePath ios/Miqwad.xcresult \
+            CODE_SIGNING_ALLOWED=NO \
+            test 2>&1 | tail -80
+
+      # ————————————————————————— IPA غير موقّعة —————————————————————————
+      #
+      # بلا توقيع عمدًا: التوقيع يحتاج شهادة من حساب مطوّر أبل، وهي سرّ لا
+      # يُودَع في CI عام. الناتج يُثبَّت بـAltStore أو Sideloadly، ويوقّعه جهازك
+      # بشهادة مجانية تنتهي كل سبعة أيام فتُعاد.
+      #
+      # `generic/platform=iOS` لا محاكيًا: بناء المحاكي يخرج لمعمارية الماك ولا
+      # يعمل على جهاز إطلاقًا، وهو ما تبنيه خطوة الاختبار أعلاه.
+      - name: أرشفة بلا توقيع
+        run: |
+          set -o pipefail
+          xcodebuild archive \
+            -project ios/Games.xcodeproj \
+            -scheme Miqwad \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath ios/build/Miqwad.xcarchive \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            2>&1 | tail -40
+
+      # التغليف يدويًا لا بـ`exportArchive`: ذاك يطلب خطة تصدير بهوية توقيع،
+      # وIPA غير الموقّعة ليست إلا مجلّد Payload مضغوطًا.
+      - name: تغليف IPA
+        run: |
+          APP=$(ls -d ios/build/Miqwad.xcarchive/Products/Applications/*.app | head -1)
+          mkdir -p ios/build/Payload
+          cp -R "$APP" ios/build/Payload/
+          (cd ios/build && zip -qry Miqwad-unsigned.ipa Payload)
+          ls -lh ios/build/Miqwad-unsigned.ipa
+
+      - name: رفع الـIPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: miqwad-ipa-unsigned
+          path: ios/build/Miqwad-unsigned.ipa
+          retention-days: 30
+
+      - name: ملخّص الاختبارات
+        if: always()
+        run: |
+          xcrun xcresulttool get test-results summary \
+            --path ios/Miqwad.xcresult 2>/dev/null | head -40 || true
+
+      - name: رفع نتيجة الاختبار عند الفشل
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: miqwad-xcresult
+          path: ios/Miqwad.xcresult
