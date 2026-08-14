@@ -1,7 +1,8 @@
-import type { RoleKind } from '@prisma/client'
+import type { Prisma, RoleKind } from '@prisma/client'
 import { prisma } from '../db/prisma.ts'
 import { loadGames } from '../games/all.ts'
 import { forgetGuild, guildConfig } from '../guilds/config.ts'
+import { tuningView } from '../games/tunables.ts'
 
 /**
  * إعدادات السيرفرات لمِقود.
@@ -24,6 +25,16 @@ export type GuildBrief = {
   members: number
 }
 
+export type Knob = {
+  key: string
+  name: string
+  about: string
+  min: number
+  max: number
+  unit: string
+  value: number
+}
+
 export type GameSetting = {
   key: string
   name: string
@@ -31,6 +42,8 @@ export type GameSetting = {
   enabled: boolean
   minPlayers: number
   maxPlayers: number
+  /** ما تقبل هذه اللعبة ضبطه. الفارغ يعني لعبة بلا مقابض، فلا تُعرض لها شاشة. */
+  tuning: Knob[]
 }
 
 export type GuildView = {
@@ -133,6 +146,7 @@ export async function guildView(guildId: string): Promise<GuildView | null> {
       enabled: saved.games.get(def.key)?.enabled ?? true,
       minPlayers: def.players.min,
       maxPlayers: def.players.max,
+      tuning: tuningView(def, saved),
     })),
     allRoles: lists.roles,
     allChannels: lists.channels,
@@ -151,6 +165,7 @@ export type Change =
   | { kind: 'role'; role: RoleKind; roleId: string; value: boolean }
   | { kind: 'authorized'; userId: string; value: boolean }
   | { kind: 'game'; gameKey: string; value: boolean }
+  | { kind: 'knob'; gameKey: string; field: string; value: number }
 
 const KINDS: readonly RoleKind[] = ['ADMIN', 'GAMES', 'POINTS']
 const SNOWFLAKE = /^\d{15,25}$/
@@ -217,6 +232,21 @@ export async function readChange(body: unknown): Promise<Change | null> {
       if (typeof gameKey !== 'string' || flag === null) return null
       const known = new Set((await loadGames()).map((game) => game.key))
       return known.has(gameKey) ? { kind: 'game', gameKey, value: flag } : null
+    }
+    case 'knob': {
+      // المقبض يُطابق ما تعلنه اللعبة نفسها، لا ما يُرسل. وبدون ذلك يصير عمود
+      // الإعدادات مكبًّا لحقول لا يقرؤها أحد — وهو بالضبط ما كان عليه قبل هذا.
+      const gameKey = row['gameKey']
+      const field = row['field']
+      if (typeof gameKey !== 'string' || typeof field !== 'string') return null
+      if (typeof value !== 'number' || !Number.isFinite(value)) return null
+
+      const game = (await loadGames()).find((one) => one.key === gameKey)
+      const knob = game?.tunables?.find((one) => one.key === field)
+      if (!knob) return null
+
+      const clamped = Math.min(knob.max, Math.max(knob.min, Math.round(value)))
+      return { kind: 'knob', gameKey, field, value: clamped }
     }
     default:
       return null
@@ -291,6 +321,24 @@ export async function applyChange(guildId: string, change: Change): Promise<stri
       }
       forgetGuild(guildId)
       return change.value ? 'صار مصرَّحًا له' : 'أُلغي تصريحه'
+    }
+
+    case 'knob': {
+      // دمج لا استبدال: كل مقبض يُرسل وحده، وكتابة الكائن كاملًا تمحو أخواته
+      const current = (await guildConfig(guildId)).games.get(change.gameKey)?.settings
+      const before =
+        typeof current === 'object' && current !== null && !Array.isArray(current)
+          ? (current as Prisma.JsonObject)
+          : {}
+      const merged = { ...before, [change.field]: change.value } satisfies Prisma.InputJsonObject
+
+      await prisma.gameConfig.upsert({
+        where: { guildId_gameKey: { guildId, gameKey: change.gameKey } },
+        create: { guildId, gameKey: change.gameKey, settings: merged },
+        update: { settings: merged },
+      })
+      forgetGuild(guildId)
+      return 'انضبط'
     }
 
     case 'game': {

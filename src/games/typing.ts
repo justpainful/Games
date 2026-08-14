@@ -1,7 +1,7 @@
 import { matches } from '../arabic.ts'
 import { EMOJI } from '../design/emoji.ts'
 import type { PlayerView, Scene } from '../scenes/scene.ts'
-import type { GameResult, Table } from './define.ts'
+import type { GameResult, Table, Tunable } from './define.ts'
 import { zeroScores } from './define.ts'
 
 /**
@@ -43,8 +43,35 @@ const DEFAULT_ROUNDS = 10
 const DEFAULT_ROUND_MS = 25_000
 const BREATH_MS = 2_500
 
+/**
+ * مقابض ألعاب الكتابة.
+ *
+ * واحدة مشتركة لا نسخة لكل لعبة: العقد نفسه في كلّها — جولات ومهلة — وتكرارها
+ * ثلاث عشرة مرّة يعني ثلاثة عشر مدًى تتفرّق عند أول تعديل.
+ */
+export const TYPING_KNOBS: readonly Tunable[] = [
+  {
+    key: 'rounds',
+    name: 'عدد الجولات',
+    about: 'كم جولة في الفعالية. اللعبة المفتوحة جولة واحدة دائمًا مهما ضُبط هذا.',
+    min: 1,
+    max: 30,
+    unit: 'جولة',
+    fallback: DEFAULT_ROUNDS,
+  },
+  {
+    key: 'roundSeconds',
+    name: 'مدة الجولة',
+    about: 'كم ثانية للإجابة قبل أن تنتهي الجولة.',
+    min: 5,
+    max: 180,
+    unit: 'ثانية',
+    fallback: DEFAULT_ROUND_MS / 1000,
+  },
+]
+
+
 export function typing(opts: TypingOptions) {
-  const roundMs = opts.roundMs ?? DEFAULT_ROUND_MS
 
   return async function play(table: Table): Promise<GameResult> {
     /**
@@ -59,7 +86,16 @@ export function typing(opts: TypingOptions) {
      * إطلاقًا: تبقى اللعبة عشر جولات، وتصير كل جولة فعالية عشرَ جولات فتنهار
      * المناوبة التي قامت عليها الفعالية. والعدد المعلن يخدم الفعالية وحدها.
      */
-    const rounds = table.open ? 1 : (opts.rounds ?? DEFAULT_ROUNDS)
+    /**
+     * ما ضبطه السيرفر يعلو على ما كتبته اللعبة، وكلاهما يخضع لـ`table.open`.
+     *
+     * و`tune` تعيد صفرًا حين لا يضبط السيرفر شيئًا، والصفر خارج مدى المقبض،
+     * فالسقوط إلى الافتراضيّ لا يحتاج نوعًا اختياريًّا ولا فحصًا لوجوده.
+     */
+    const asked = table.tune('rounds')
+    const rounds = table.open ? 1 : asked > 0 ? asked : (opts.rounds ?? DEFAULT_ROUNDS)
+    const askedSeconds = table.tune('roundSeconds')
+    const roundMs = askedSeconds > 0 ? askedSeconds * 1000 : (opts.roundMs ?? DEFAULT_ROUND_MS)
     const single = rounds === 1
 
     /**

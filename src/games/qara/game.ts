@@ -1,6 +1,6 @@
 import { dealer, loadData } from '../data.ts'
 import { defineGame } from '../define.ts'
-import { typing } from '../typing.ts'
+import { typing , TYPING_KNOBS } from '../typing.ts'
 
 type Row = { country: string; continent: string }
 
@@ -22,6 +22,7 @@ export default defineGame({
     'الجولة قصيرة لأن الخيارات قليلة، وأول إجابة صحيحة تأخذ النقطة.',
   players: { min: 2, max: 25 },
   wallet: 'solo',
+  tunables: TYPING_KNOBS,
   play: typing({
     rounds: 10,
     roundMs: 15_000,

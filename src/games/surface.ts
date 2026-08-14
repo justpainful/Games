@@ -118,6 +118,13 @@ export type FanoutContext = {
   host: PlayerView
   /** طاولة مفتوحة بلا لوبي — انظر `Table.open` */
   open?: boolean
+  /**
+   * قارئ مقابض هذه اللعبة في هذا السيرفر.
+   *
+   * اختياري لأن الاختبارات تبني طاولات بلا سيرفر، وغيابه يعني «لا مقبض مضبوط»
+   * فتعمل كل لعبة بافتراضيّاتها المكتوبة في تعريفها.
+   */
+  tune?: (key: string) => number
   /** مصدر `aborted` ومجمّع المستمعين — واحد لكل لعبة جارية */
   session: Session
 }
@@ -240,6 +247,9 @@ export function fanout(surfaces: Surface[], ctx: FanoutContext): MultiTable {
     },
 
     open: ctx.open === true,
+
+    // صفر يعني «لا مقبض مضبوط»، وهو خارج مدى كل مقبض حقيقي
+    tune: ctx.tune ?? (() => 0),
 
     waitChat: (ms, test) => waitFor<ChatInput>(ms, session.chatListeners, test),
     waitPress: (ms, test) => waitFor<Press>(ms, session.pressListeners, test),

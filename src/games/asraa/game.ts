@@ -1,6 +1,6 @@
 import { dealer, loadData } from '../data.ts'
 import { defineGame } from '../define.ts'
-import { typing } from '../typing.ts'
+import { typing , TYPING_KNOBS } from '../typing.ts'
 
 /**
  * القائمة صارت ملفًا بعد أن كانت في هذا المصدر.
@@ -31,6 +31,7 @@ export default defineGame({
     'لا سؤال ولا حلّ، أول من يكتبه صحيحًا يأخذ النقطة، ومن يجمع أكثر النقاط يفوز.',
   players: { min: 2, max: 25 },
   wallet: 'solo',
+  tunables: TYPING_KNOBS,
   play: typing({
     rounds: 10,
     roundMs: 12_000,

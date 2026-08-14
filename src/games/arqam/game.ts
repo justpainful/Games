@@ -1,5 +1,5 @@
 import { defineGame } from '../define.ts'
-import { typing } from '../typing.ts'
+import { typing , TYPING_KNOBS } from '../typing.ts'
 
 /**
  * لا ملف بيانات: المسائل تُولّد. قائمة ثابتة من الأسئلة الحسابية تُحفظ بعد
@@ -76,6 +76,7 @@ export default defineGame({
     'الأرقام العربية والهندية كلاهما مقبول، وأول إجابة صحيحة تأخذ النقطة.',
   players: { min: 2, max: 25 },
   wallet: 'solo',
+  tunables: TYPING_KNOBS,
   play: typing({
     rounds: 10,
     roundMs: 15_000,

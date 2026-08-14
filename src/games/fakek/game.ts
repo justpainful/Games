@@ -1,7 +1,7 @@
 import { matches } from '../../arabic.ts'
 import { dealer, loadData } from '../data.ts'
 import { defineGame } from '../define.ts'
-import { typing } from '../typing.ts'
+import { typing , TYPING_KNOBS } from '../typing.ts'
 
 type Entry = { word: string }
 
@@ -47,6 +47,7 @@ export default defineGame({
     'أول من يفكّها صحيحة يأخذ نقطة الجولة، ومن يجمع أكثر النقاط يفوز.',
   players: { min: 2, max: 25 },
   wallet: 'solo',
+  tunables: TYPING_KNOBS,
   play: typing({
     rounds: 8,
     roundMs: 30_000,

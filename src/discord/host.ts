@@ -11,6 +11,7 @@ import {
   type Surface,
 } from '../games/surface.ts'
 import { isGameEnabled, type GuildConfig } from '../guilds/config.ts'
+import { tunerFor } from '../games/tunables.ts'
 import { openMatch, settleMatch } from '../players/settle.ts'
 import type { LobbyScene, PlayerView } from '../scenes/scene.ts'
 import { settings } from '../settings.ts'
@@ -164,7 +165,14 @@ export async function startGame(args: {
 
     phase = 'playing'
     const host = players[0]!
-    table = fanout([discord, ...sockets], { brief: brief(game), players, host, session, open })
+    table = fanout([discord, ...sockets], {
+      brief: brief(game),
+      players,
+      host,
+      session,
+      open,
+      tune: tunerFor(game, config),
+    })
     announce(table.surfaces(), { type: 'started', players })
 
     const matchId = await openMatch(guildId, game.key, players.length)

@@ -120,6 +120,14 @@ export type Table = {
    */
   readonly attempts: number
 
+  /**
+   * قيمة مقبض أعلنته هذه اللعبة، مضبوطةً لهذا السيرفر ومحصورةً في مداها.
+   *
+   * تعيد صفرًا لمقبض لم تعلنه اللعبة أو لم يضبطه السيرفر، والصفر خارج مدى كل
+   * مقبض حقيقي، فهو إشارة «لا شيء هنا» بلا نوع اختياريّ يُفحص في كل موضع.
+   */
+  tune(key: string): number
+
   /** يخرج لاعبًا (انسحب أو أُقصي). */
   drop(userId: string): void
   /** صار true عند إيقاف اللعبة إداريًا — كل حلقة يجب أن تفحصه. */
@@ -148,6 +156,26 @@ export type GameResult = {
  */
 export type GameMode = 'game' | 'event'
 
+/**
+ * مقبض واحد يعلنه تعريف اللعبة ويقرؤه تشغيلها.
+ *
+ * الإعلان شرط العرض: لوحة التحكّم لا تعرض إلا ما في هذي القائمة، فلا يظهر
+ * لصاحب السيرفر مقبض لا يقرؤه أحد. والحدّان ليسا تجميلًا — القيمة تصل من جهاز
+ * خارج الخادم، وجولة بمليون ثانية تحتجز القناة إلى الأبد.
+ */
+export type Tunable = {
+  key: string
+  /** الاسم كما يُعرض بالعربية */
+  name: string
+  about: string
+  min: number
+  max: number
+  /** كلمة تُلحق بالرقم في العرض: «جولة» أو «ثانية» */
+  unit: string
+  /** ما يُستعمل حين لا يضبط السيرفر شيئًا */
+  fallback: number
+}
+
 export type GameDef = {
   key: string
   /** لعبة مفتوحة بجولة واحدة، أم فعالية بلوبي وأدوار */
@@ -160,6 +188,8 @@ export type GameDef = {
   players: { min: number; max: number }
   /** أي محفظة نقاط تُغذّيها هذه اللعبة */
   wallet: 'solo' | 'team' | 'roulette'
+  /** ما يقبل هذا التعريف ضبطه لكل سيرفر. غيابه يعني لعبة بلا مقابض. */
+  tunables?: readonly Tunable[]
   play(table: Table): Promise<GameResult>
 }
 
@@ -167,6 +197,16 @@ export type GameDef = {
 export function defineGame(def: GameDef): GameDef {
   if (def.players.min < 1) throw new Error(`${def.key}: أقل عدد لاعبين لا يقل عن 1`)
   if (def.players.max < def.players.min) throw new Error(`${def.key}: الحد الأقصى أقل من الأدنى`)
+
+  for (const knob of def.tunables ?? []) {
+    // مقبض بحدّين مقلوبين أو بافتراضيّ خارجهما يُنتج قيمة محصورة إلى قيمة
+    // واحدة مهما ضُبط، وذلك عطل صامت لا يظهر إلا بعد أن يشتكي أحد
+    if (knob.min > knob.max) throw new Error(`${def.key}/${knob.key}: الحد الأدنى أكبر من الأعلى`)
+    if (knob.fallback < knob.min || knob.fallback > knob.max) {
+      throw new Error(`${def.key}/${knob.key}: الافتراضي خارج المدى`)
+    }
+  }
+
   return def
 }
 

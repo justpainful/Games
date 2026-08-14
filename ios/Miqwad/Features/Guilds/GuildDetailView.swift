@@ -16,6 +16,7 @@ struct GuildDetailView: View {
     @State private var page = Page.general
     @State private var prefix = ""
     @State private var nickname = ""
+    @State private var tuning: GameSetting?
 
     enum Page: String, CaseIterable {
         case general = "عام"
@@ -61,6 +62,9 @@ struct GuildDetailView: View {
         }
         .background(Ink.paper)
         .navigationBarTitleDisplayMode(.inline)
+        .sheet(item: $tuning) { game in
+            GameKnobsView(game: game)
+        }
         .task {
             await hub.open(guildId)
             prefix = hub.opened?.prefix ?? ""
@@ -244,9 +248,25 @@ struct GuildDetailView: View {
                         Text(game.tagline)
                             .font(.bodyAr(Type.meta))
                             .foregroundStyle(Ink.ink.opacity(0.65))
-                        Text("\(game.minPlayers) إلى \(game.maxPlayers) لاعب")
-                            .font(.bodyAr(Type.meta))
-                            .foregroundStyle(Ink.ink.opacity(0.5))
+                        HStack(spacing: 8) {
+                            Text("\(game.minPlayers) إلى \(game.maxPlayers) لاعب")
+                                .font(.bodyAr(Type.meta))
+                                .foregroundStyle(Ink.ink.opacity(0.5))
+                            // زرّ الضبط لا يظهر للعبة بلا مقابض: زرّ يفتح شاشة
+                            // فارغة يُفهم أنه عطل لا أنه لا شيء هنا
+                            if !game.tuning.isEmpty {
+                                Button { tuning = game } label: {
+                                    Text("ضبط")
+                                        .font(.bodyArBold(Type.meta))
+                                        .foregroundStyle(Ink.ink)
+                                        .padding(.horizontal, 10)
+                                        .padding(.vertical, 3)
+                                        .background(Capsule().fill(Ink.yellow))
+                                        .overlay(Capsule().strokeBorder(Ink.ink, lineWidth: 2))
+                                }
+                                .buttonStyle(.plain)
+                            }
+                        }
                     }
                     Spacer(minLength: 8)
                     Toggle("", isOn: Binding(

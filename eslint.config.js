@@ -9,7 +9,12 @@ import ts from 'typescript-eslint'
  */
 export default ts.config(
   // ملف الإعداد نفسه خارج مشروع tsconfig فلا يُفحص بالقواعد المعتمدة على الأنواع
-  { ignores: ['node_modules/**', 'out/**', 'dist/**', '.cache/**', 'eslint.config.js'] },
+  // سكربتات `.mjs` خارج المشروع النوعي عمدًا: هي أدوات تُشغَّل بـnode مباشرة
+  // ولا تدخل البناء، وإدخالها في tsconfig لأجل الفحص وحده يوسّع سطح الترجمة
+  // بلا مقابل.
+  {
+    ignores: ['node_modules/**', 'out/**', 'dist/**', '.cache/**', 'eslint.config.js', '**/*.mjs'],
+  },
 
   js.configs.recommended,
   ...ts.configs.recommended,

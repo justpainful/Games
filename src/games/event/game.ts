@@ -1,6 +1,6 @@
 import { dealer, loadData } from '../data.ts'
 import { defineGame } from '../define.ts'
-import { typing, type Question } from '../typing.ts'
+import { typing, type Question , TYPING_KNOBS } from '../typing.ts'
 
 /**
  * ايفنت — مسابقة مطوّلة تخلط أسئلة كل ألعاب المعرفة في جولة واحدة.
@@ -56,6 +56,7 @@ export default defineGame({
     'من يجمع أكثر النقاط في نهاية الإيفنت هو البطل.',
   players: { min: 2, max: 30 },
   wallet: 'team',
+  tunables: TYPING_KNOBS,
   play: typing({
     rounds: 20,
     roundMs: 25_000,

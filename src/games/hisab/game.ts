@@ -1,5 +1,5 @@
 import { defineGame } from '../define.ts'
-import { typing, type Question } from '../typing.ts'
+import { typing, type Question , TYPING_KNOBS } from '../typing.ts'
 
 /**
  * حساب — أكمل المتتابعة.
@@ -86,6 +86,7 @@ export default defineGame({
     'أول إجابة صحيحة تأخذ نقطة الجولة، ومن يجمع أكثر النقاط يفوز.',
   players: { min: 2, max: 25 },
   wallet: 'solo',
+  tunables: TYPING_KNOBS,
   play: typing({
     rounds: 10,
     roundMs: 25_000,

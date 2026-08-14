@@ -1,6 +1,6 @@
 import { dealer, loadData } from '../data.ts'
 import { defineGame } from '../define.ts'
-import { typing } from '../typing.ts'
+import { typing , TYPING_KNOBS } from '../typing.ts'
 
 /** `accept` مفردات أخرى صحيحة للجمع نفسه: «بنات» مفردها بنت وابنة. */
 type Pair = { singular: string; plural: string; accept?: string[] }
@@ -22,6 +22,7 @@ export default defineGame({
     'أول إجابة صحيحة تأخذ نقطة الجولة، ومن يجمع أكثر النقاط يفوز.',
   players: { min: 2, max: 25 },
   wallet: 'solo',
+  tunables: TYPING_KNOBS,
   play: typing({
     rounds: 10,
     roundMs: 20_000,

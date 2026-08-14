@@ -88,6 +88,8 @@ function fakeTable(game: GameDef, log: Report): Table {
       players = players.filter((p) => p.id !== userId)
     },
     aborted: false,
+    // التجربة الجافة بلا سيرفر: كل لعبة تعمل بافتراضيّاتها
+    tune: () => 0,
   }
 }
 

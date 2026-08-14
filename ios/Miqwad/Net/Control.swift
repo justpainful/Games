@@ -89,6 +89,18 @@ struct Choice: Decodable, Sendable, Identifiable, Equatable {
     let color: Int?
 }
 
+struct Knob: Decodable, Sendable, Identifiable, Equatable {
+    let key: String
+    let name: String
+    let about: String
+    let min: Int
+    let max: Int
+    let unit: String
+    let value: Int
+
+    var id: String { key }
+}
+
 struct GameSetting: Decodable, Sendable, Identifiable, Equatable {
     let key: String
     let name: String
@@ -96,6 +108,8 @@ struct GameSetting: Decodable, Sendable, Identifiable, Equatable {
     let enabled: Bool
     let minPlayers: Int
     let maxPlayers: Int
+    /// ما تقبل هذه اللعبة ضبطه. الفارغ يعني لعبة بلا مقابض، فلا يُفتح لها شيء.
+    let tuning: [Knob]
 
     var id: String { key }
 }
@@ -144,12 +158,14 @@ struct Change: Encodable, Sendable {
     var role: String?
     var roleId: String?
     var userId: String?
+    var field: String?
     var gameKey: String?
 
     /// `value` قد يكون نصًّا أو منطقيًّا أو فراغًا، و`Encodable` لا يقبل `Any`.
     enum Value: Encodable, Sendable {
         case text(String)
         case flag(Bool)
+        case number(Int)
         case none
 
         func encode(to encoder: Encoder) throws {
@@ -157,6 +173,7 @@ struct Change: Encodable, Sendable {
             switch self {
             case .text(let text): try out.encode(text)
             case .flag(let flag): try out.encode(flag)
+            case .number(let number): try out.encode(number)
             case .none: try out.encodeNil()
             }
         }
@@ -176,6 +193,9 @@ struct Change: Encodable, Sendable {
     }
     static func game(_ key: String, _ on: Bool) -> Change {
         Change(kind: "game", value: .flag(on), gameKey: key)
+    }
+    static func knob(_ gameKey: String, _ field: String, _ value: Int) -> Change {
+        Change(kind: "knob", value: .number(value), field: field, gameKey: gameKey)
     }
     static func authorized(_ userId: String, _ on: Bool) -> Change {
         Change(kind: "authorized", value: .flag(on), userId: userId)
